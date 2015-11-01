@@ -1,6 +1,7 @@
 package mhz.android.accountbook.list;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,18 @@ public class ListAdapter extends ArrayAdapter<Item> {
 
         Context context = convertView.getContext();
 
+        int genreColor = Color.rgb(item.r, item.g, item.b );
+
         ((TextView)convertView.findViewById(R.id.listView_item_date))
                 .setText(context.getString(R.string.listView_item_date, item.month, item.day));
-        ((TextView)convertView.findViewById(R.id.listView_item_genreName))
-                .setText(context.getString(R.string.listView_item_genreName, item.genreName));
+
+        TextView genreNameView = (TextView)convertView.findViewById(R.id.listView_item_genreName);
+        genreNameView.setText(context.getString(R.string.listView_item_genreName, item.genreName));
+        genreNameView.setTextColor( genreColor );
+
         ((TextView)convertView.findViewById(R.id.listView_item_title))
                 .setText(context.getString(R.string.listView_item_title, item.title));
+
         ((TextView)convertView.findViewById(R.id.listView_item_amount))
                 .setText(context.getString(R.string.listView_item_amount, item.amount));
 
