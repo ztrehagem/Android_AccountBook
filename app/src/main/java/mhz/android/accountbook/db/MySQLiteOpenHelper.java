@@ -22,13 +22,14 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         StringBuilder sql = new StringBuilder("");
         sql.append( "create table Items( " );
-        sql.append( "id integer primary key, " );
-        sql.append( "year integer not null, " );
-        sql.append( "month integer not null, " );
-        sql.append( "day integer not null, " );
-        sql.append( "genre_id integer not null, " );
-        sql.append( "title varchar(50), " );
-        sql.append( "amount integer not null );" );
+            sql.append( "id integer primary key, " );
+            sql.append( "year integer not null, " );
+            sql.append( "month integer not null, " );
+            sql.append( "day integer not null, " );
+            sql.append( "genre_id integer not null, " );
+            sql.append( "title text, " );
+            sql.append( "amount integer not null " );
+        sql.append( ";" );
         db.execSQL(sql.toString());
 
         sql.setLength(0);
@@ -37,11 +38,12 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
         sql.setLength(0);
         sql.append( "create table Genre( " );
-        sql.append( "id integer primary key autoincrement, " );
-        sql.append( "name varchar(50) not null, " );
-        sql.append( "r integer not null, " );
-        sql.append( "g integer not null, " );
-        sql.append( "b integer not null );" );
+            sql.append( "id integer primary key autoincrement, " );
+            sql.append( "name text not null, " );
+            sql.append( "r integer not null, " );
+            sql.append( "g integer not null, " );
+            sql.append( "b integer not null " );
+        sql.append( ";" );
         db.execSQL(sql.toString());
 
         ContentValues v = new ContentValues();
