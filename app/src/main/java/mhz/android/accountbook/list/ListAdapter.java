@@ -26,7 +26,7 @@ public class ListAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         
-        Item item = (Item)getItem(position);
+        Item item = getItem(position);
 
         if( convertView == null ){
             convertView = inflater.inflate(R.layout.list_view_item, null);
@@ -37,7 +37,7 @@ public class ListAdapter extends ArrayAdapter<Item> {
         ((TextView)convertView.findViewById(R.id.listView_item_date))
                 .setText(context.getString(R.string.listView_item_date, item.month, item.day));
         ((TextView)convertView.findViewById(R.id.listView_item_genreName))
-                .setText(context.getString(R.string.listView_item_genreName, item.genreId));
+                .setText(context.getString(R.string.listView_item_genreName, item.genreName));
         ((TextView)convertView.findViewById(R.id.listView_item_title))
                 .setText(context.getString(R.string.listView_item_title, item.title));
         ((TextView)convertView.findViewById(R.id.listView_item_amount))

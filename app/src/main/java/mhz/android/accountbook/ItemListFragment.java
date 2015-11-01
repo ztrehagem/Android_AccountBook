@@ -36,7 +36,7 @@ public class ItemListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         MySQLiteController db = MySQLiteController.getInstance();
-        ArrayList<Item> list = db.getAllItems();
+        ArrayList<Item> list = db.getItemsForListView();
 
         ListAdapter adapter = new ListAdapter(getContext(), 0, list);
         ((ListView)parentView.findViewById(R.id.listView)).setAdapter(adapter);
