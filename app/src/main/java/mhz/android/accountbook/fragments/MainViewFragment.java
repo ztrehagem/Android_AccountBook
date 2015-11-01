@@ -1,4 +1,4 @@
-package mhz.android.accountbook;
+package mhz.android.accountbook.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import mhz.android.accountbook.R;
 
 /**
  * Created by MHz on 2015/11/01.

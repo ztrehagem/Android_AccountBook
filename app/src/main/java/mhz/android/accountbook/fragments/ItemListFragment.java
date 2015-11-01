@@ -1,4 +1,4 @@
-package mhz.android.accountbook;
+package mhz.android.accountbook.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import mhz.android.accountbook.R;
 import mhz.android.accountbook.db.MySQLiteController;
 import mhz.android.accountbook.list.Item;
 import mhz.android.accountbook.list.ItemListAdapter;

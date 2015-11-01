@@ -51,6 +51,15 @@ public class MySQLiteController {
         db.insert("Items", null, v);
     }
 
+    public void addGenre( String name, int r, int g, int b ) {
+        ContentValues v = new ContentValues();
+        v.put("name", name);
+        v.put("r", r);
+        v.put("g", g);
+        v.put("b", b);
+        db.insert("Genre", null, v);
+    }
+
     public ArrayList<Item> getItemsForListView() {
         StringBuilder sql = new StringBuilder("");
         sql.append("select Items.year, Items.month, Items.day, Items.title, Items.amount, Genre.name, Genre.r, Genre.g, Genre.b ");

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         button_addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult( new Intent(getApplicationContext(), AddItemActivity.class ), requestCode_AddItemActivity);
+                startActivityForResult(new Intent(getApplicationContext(), AddItemActivity.class), requestCode_AddItemActivity);
             }
         });
 
@@ -50,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 db.dbInitialize();
                 Toast.makeText(getApplicationContext(), "DB Initialized", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button button_addGenre = (Button)findViewById(R.id.button_addGenre);
+        button_addGenre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.addGenre( "test", 100, 100, 255 );
             }
         });
 

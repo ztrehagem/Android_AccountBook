@@ -4,6 +4,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import mhz.android.accountbook.fragments.ItemListFragment;
+import mhz.android.accountbook.fragments.MainViewFragment;
+
 /**
  * Created by MHz on 2015/11/01.
  */

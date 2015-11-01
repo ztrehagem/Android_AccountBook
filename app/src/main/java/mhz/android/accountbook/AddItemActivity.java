@@ -6,18 +6,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import mhz.android.accountbook.db.MySQLiteController;
-import mhz.android.accountbook.list.Item;
 
 public class AddItemActivity extends AppCompatActivity {
+
+    private MySQLiteController db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //** initialize
+        db = MySQLiteController.getInstance();
+
+        //** view
         setContentView(R.layout.activity_add_item);
 
+        ((Spinner)findViewById(R.id.spinner)).setAdapter( new AddItemSpinnerAdapter(getApplicationContext(), 0, db.getAllGenre()));
+
+
+        //** event listener
         Button button = (Button)findViewById(R.id.button_addItem);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
