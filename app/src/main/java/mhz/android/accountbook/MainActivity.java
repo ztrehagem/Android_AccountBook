@@ -48,15 +48,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button button_checkItems = (Button)findViewById(R.id.button_checkItems);
-        button_checkItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<Item> list = db.getAllItems();
-                Toast.makeText(getApplicationContext(), "count : "+list.size(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
     }
 

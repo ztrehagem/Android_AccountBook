@@ -38,31 +38,6 @@ public class MySQLiteController {
         openHelper.onUpgrade(db, db.getVersion(), db.getVersion());
     }
 
-    public ArrayList<Item> getAllItems() {
-        Cursor c = db.query( "Items", null, null, null, null, null, null );
-        ArrayList<Item> list = new ArrayList<>();
-
-        if( c.moveToFirst() ){
-            do {
-                list.add( new Item(
-                        c.getInt(c.getColumnIndex("year")),
-                        c.getInt(c.getColumnIndex("month")),
-                        c.getInt(c.getColumnIndex("day")),
-                        "dummy",
-                        c.getString(c.getColumnIndex("title")),
-                        c.getInt(c.getColumnIndex("amount")),
-                        (byte)c.getInt(c.getColumnIndex("r")),
-                        (byte)c.getInt(c.getColumnIndex("g")),
-                        (byte)c.getInt(c.getColumnIndex("b"))
-                ) );
-            }while( c.moveToNext() );
-        }
-
-        c.close();
-
-        return list;
-    }
-
     public void addItem( int y, int m, int d, int genreId, String title, int amount) {
         ContentValues v = new ContentValues();
         v.put("year", y);
