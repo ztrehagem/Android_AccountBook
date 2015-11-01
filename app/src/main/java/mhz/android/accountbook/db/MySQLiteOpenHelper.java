@@ -12,7 +12,7 @@ import android.util.Log;
  */
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-    static final int dbVersion = 2;
+    static final int dbVersion = 3;
 
     public MySQLiteOpenHelper(Context context) {
         super(context, "mydb.db", null, dbVersion);
@@ -22,7 +22,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         StringBuilder sql = new StringBuilder("");
         sql.append( "create table Items( " );
-        //sql.append( "id integer primary key autoincrement, " );
+        sql.append( "id integer primary key, " );
         sql.append( "year integer not null, " );
         sql.append( "month integer not null, " );
         sql.append( "day integer not null, " );
