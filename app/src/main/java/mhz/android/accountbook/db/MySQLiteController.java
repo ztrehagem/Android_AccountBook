@@ -22,7 +22,7 @@ public class MySQLiteController {
         db = openHelper.getWritableDatabase();
     }
 
-    public void dbInintialize() {
+    public void dbInitialize() {
         try {
             db.execSQL("drop table Items;");
         }

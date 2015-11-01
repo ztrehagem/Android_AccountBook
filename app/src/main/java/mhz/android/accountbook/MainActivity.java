@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         button_dbinit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.dbInintialize();
+                db.dbInitialize();
                 Toast.makeText(getApplicationContext(), "DB Initialized", Toast.LENGTH_SHORT).show();
             }
         });
