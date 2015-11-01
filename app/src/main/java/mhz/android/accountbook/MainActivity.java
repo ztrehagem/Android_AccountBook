@@ -8,34 +8,39 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import mhz.android.accountbook.db.MySQLiteController;
-import mhz.android.accountbook.list.Item;
+import mhz.android.accountbook.list.ItemListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    static MySQLiteController db;
+    private final int requestCode_AddItemActivity = 1;
+
+    private MySQLiteController db;
+    private ItemListAdapter itemListAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //** initialize global data
         MySQLiteController.createInstance(getApplicationContext());
         db = MySQLiteController.getInstance();
 
-        setContentView(R.layout.activity_main);
+        ItemListAdapter.createInstance(getApplicationContext(), 0, db.getItemsForListView());
+        itemListAdapter = ItemListAdapter.getInstance();
 
+        //** view
+        setContentView(R.layout.activity_main);
         ((ViewPager) findViewById(R.id.pager)).setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
 
+
+        //** event listener
         Button button_addItem = (Button)findViewById(R.id.button_addItem);
         button_addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*db.addItem(2015, 11, 1, 1, "test item", 1000);
-                Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();*/
-                Intent intent = new Intent(getApplicationContext(), AddItemActivity.class);
-                startActivity(intent);
+                startActivityForResult( new Intent(getApplicationContext(), AddItemActivity.class ), requestCode_AddItemActivity);
             }
         });
 
@@ -56,5 +61,15 @@ public class MainActivity extends AppCompatActivity {
         db.close();
 
         super.onDestroy();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch ( requestCode ) {
+            case requestCode_AddItemActivity:
+                itemListAdapter.refreshList(db.getItemsForListView());
+                break;
+        }
     }
 }
