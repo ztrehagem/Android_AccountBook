@@ -11,4 +11,8 @@
     <string name="item_property_genre">分類</string>
     <string name="item_property_title">タイトル</string>
     <string name="item_property_amount">金額</string>
+
+    <string name="successMsg_ItemAdded">追加完了</string>
+
+    <string name="errorMsg_amountIsEmpty">金額を入力してください</string>
 </resources>
