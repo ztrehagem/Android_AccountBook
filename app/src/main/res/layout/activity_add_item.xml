@@ -8,51 +8,57 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="16dp"/>
-
         <DatePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/datePicker"
-            android:layout_below="@+id/textView"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:datePickerMode="spinner"
             android:calendarViewShown="false"
-            android:paddingTop="16dp"/>
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:layout_below="@+id/datePicker"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="16dp"/>
+            android:paddingBottom="16dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout1"
-            android:layout_below="@+id/spinner"
+            android:id="@+id/linearLayout0"
+            android:layout_below="@+id/datePicker"
             android:layout_centerHorizontal="true"
-            android:paddingTop="16dp">
+            android:paddingBottom="16dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="input1"/>
+                android:text="@string/item_property_genre"/>
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:id="@+id/spinner"
+                android:paddingBottom="16dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout1"
+            android:layout_below="@+id/linearLayout0"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/item_property_title"/>
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"/>
+                android:layout_weight="3"
+                android:inputType="text"/>
         </LinearLayout>
 
         <LinearLayout
@@ -61,13 +67,13 @@
             android:id="@+id/linearLayout2"
             android:layout_below="@+id/linearLayout1"
             android:layout_centerHorizontal="true"
-            android:paddingTop="16dp">
+            android:paddingBottom="16dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="inout2"/>
+                android:text="@string/item_property_amount"/>
 
             <EditText
                 android:layout_width="0dp"
@@ -82,7 +88,6 @@
             android:id="@+id/button"
             android:layout_below="@+id/linearLayout2"
             android:layout_centerHorizontal="true"
-            android:text="OK"
-            android:paddingTop="16dp"/>
+            android:text="@string/addItemActivity_title"/>
     </RelativeLayout>
 </ScrollView>

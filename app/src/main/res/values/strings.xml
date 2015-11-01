@@ -6,4 +6,9 @@
     <string name="listView_item_genreName">%1$s</string>
     <string name="listView_item_title">%1$s</string>
     <string name="listView_item_amount">%1$d 円</string>
+    <string name="addItemActivity_title">追加</string>
+
+    <string name="item_property_genre">分類</string>
+    <string name="item_property_title">タイトル</string>
+    <string name="item_property_amount">金額</string>
 </resources>
