@@ -50,7 +50,10 @@ public class MySQLiteController {
                         c.getInt(c.getColumnIndex("day")),
                         "dummy",
                         c.getString(c.getColumnIndex("title")),
-                        c.getInt(c.getColumnIndex("amount"))
+                        c.getInt(c.getColumnIndex("amount")),
+                        (byte)c.getInt(c.getColumnIndex("r")),
+                        (byte)c.getInt(c.getColumnIndex("g")),
+                        (byte)c.getInt(c.getColumnIndex("b"))
                 ) );
             }while( c.moveToNext() );
         }
@@ -86,9 +89,12 @@ public class MySQLiteController {
                         c.getInt(c.getColumnIndex("year")),
                         c.getInt(c.getColumnIndex("month")),
                         c.getInt(c.getColumnIndex("day")),
-                        c.getString(c.getColumnIndex("Genre.name")),
+                        c.getString(c.getColumnIndex("name")),
                         c.getString(c.getColumnIndex("title")),
-                        c.getInt(c.getColumnIndex("amount"))
+                        c.getInt(c.getColumnIndex("amount")),
+                        (byte)c.getInt(c.getColumnIndex("r")),
+                        (byte)c.getInt(c.getColumnIndex("g")),
+                        (byte)c.getInt(c.getColumnIndex("b"))
                 ));
             } while( c.moveToNext() );
         }
