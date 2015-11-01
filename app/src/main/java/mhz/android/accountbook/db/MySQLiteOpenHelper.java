@@ -12,7 +12,7 @@ import android.util.Log;
  */
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-    static final int dbVersion = 3;
+    static final int dbVersion = 5;
 
     public MySQLiteOpenHelper(Context context) {
         super(context, "mydb.db", null, dbVersion);
@@ -29,7 +29,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             sql.append( "genre_id integer not null, " );
             sql.append( "title text, " );
             sql.append( "amount integer not null " );
-        sql.append( ";" );
+        sql.append( ");" );
         db.execSQL(sql.toString());
 
         sql.setLength(0);
@@ -43,7 +43,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             sql.append( "r integer not null, " );
             sql.append( "g integer not null, " );
             sql.append( "b integer not null " );
-        sql.append( ";" );
+        sql.append( ");" );
         db.execSQL(sql.toString());
 
         ContentValues v = new ContentValues();

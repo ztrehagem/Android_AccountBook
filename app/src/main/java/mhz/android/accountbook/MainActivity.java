@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         //** initialize global data
         MySQLiteController.createInstance(getApplicationContext());
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         itemListAdapter = ItemListAdapter.getInstance();
 
         //** view
-        setContentView(R.layout.activity_main);
         ((ViewPager) findViewById(R.id.pager)).setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
 
 

@@ -71,16 +71,18 @@ public class MySQLiteController {
 
         if( c.moveToFirst() ) {
             do {
-                list.add( new Item(
+                list.add(new Item(
                         c.getInt(c.getColumnIndex("year")),
                         c.getInt(c.getColumnIndex("month")),
                         c.getInt(c.getColumnIndex("day")),
                         c.getString(c.getColumnIndex("name")),
                         c.getString(c.getColumnIndex("title")),
                         c.getInt(c.getColumnIndex("amount")),
-                        (byte)c.getInt(c.getColumnIndex("r")),
-                        (byte)c.getInt(c.getColumnIndex("g")),
-                        (byte)c.getInt(c.getColumnIndex("b"))
+                        Color.rgb(
+                                c.getInt(c.getColumnIndex("r")),
+                                c.getInt(c.getColumnIndex("g")),
+                                c.getInt(c.getColumnIndex("b"))
+                        )
                 ));
             } while( c.moveToNext() );
         }

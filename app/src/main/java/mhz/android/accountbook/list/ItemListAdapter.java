@@ -49,14 +49,12 @@ public class ItemListAdapter extends ArrayAdapter<Item> implements Serializable 
 
         Context context = convertView.getContext();
 
-        int genreColor = Color.rgb(item.r, item.g, item.b );
-
         ((TextView)convertView.findViewById(R.id.listView_item_date))
                 .setText(context.getString(R.string.listView_item_date, item.month, item.day));
 
         TextView genreNameView = (TextView)convertView.findViewById(R.id.listView_item_genreName);
         genreNameView.setText(context.getString(R.string.listView_item_genreName, item.genreName));
-        genreNameView.setTextColor( genreColor );
+        genreNameView.setTextColor( item.color );
 
         ((TextView)convertView.findViewById(R.id.listView_item_title))
                 .setText(context.getString(R.string.listView_item_title, item.title));

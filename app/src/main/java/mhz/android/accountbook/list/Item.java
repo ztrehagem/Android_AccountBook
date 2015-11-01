@@ -11,22 +11,20 @@ public class Item {
     public String genreName;
     public String title;
     public int amount;
-    public byte r, g, b;
+    public int color;
 
-    public Item( int y, int m, int d, String genreName, String title, int amount, byte r, byte g, byte b ) {
-        Set( y, m, d, genreName, title, amount, r, g, b );
+    public Item( int y, int m, int d, String genreName, String title, int amount, int color ) {
+        Set( y, m, d, genreName, title, amount, color );
     }
 
-    public void Set( int y, int m, int d, String genreName, String title, int amount, byte r, byte g, byte b ) {
+    public void Set( int y, int m, int d, String genreName, String title, int amount, int color ) {
         this.year = y;
         this.month = m;
         this.day = d;
         this.genreName = genreName;
         this.title = title;
         this.amount = amount;
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this.color = color;
     }
 
 }
