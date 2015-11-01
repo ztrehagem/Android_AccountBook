@@ -3,14 +3,16 @@ package mhz.android.accountbook.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by MHz on 2015/11/01.
  */
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
-    static final int dbVersion = 1;
+    static final int dbVersion = 2;
 
     public MySQLiteOpenHelper(Context context) {
         super(context, "mydb.db", null, dbVersion);
@@ -18,24 +20,29 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "";
-        sql += "create table Items( ";
-        sql += "id integer primary key autoincrement, ";
-        sql += "year integer not null, ";
-        sql += "month integer not null, ";
-        sql += "day integer not null, ";
-        sql += "genre_id integer not null, ";
-        sql += "amount integer not null );";
-        db.execSQL(sql);
+        StringBuilder sql = new StringBuilder("");
+        sql.append( "create table Items( " );
+        //sql.append( "id integer primary key autoincrement, " );
+        sql.append( "year integer not null, " );
+        sql.append( "month integer not null, " );
+        sql.append( "day integer not null, " );
+        sql.append( "genre_id integer not null, " );
+        sql.append( "title varchar(50), " );
+        sql.append( "amount integer not null );" );
+        db.execSQL(sql.toString());
 
-        sql = "";
-        sql += "create table Genre( ";
-        sql += "id integer primary key autoincrement, ";
-        sql += "name varchar(50) not null, ";
-        sql += "r integer not null, ";
-        sql += "g integer not null, ";
-        sql += "b integer not null );";
-        db.execSQL(sql);
+        sql.setLength(0);
+        sql.append( "create index idx_Items on Items( year, month, day );" );
+        db.execSQL(sql.toString());
+
+        sql.setLength(0);
+        sql.append( "create table Genre( " );
+        sql.append( "id integer primary key autoincrement, " );
+        sql.append( "name varchar(50) not null, " );
+        sql.append( "r integer not null, " );
+        sql.append( "g integer not null, " );
+        sql.append( "b integer not null );" );
+        db.execSQL(sql.toString());
 
         ContentValues v = new ContentValues();
         v.put( "id", 1 );
@@ -43,11 +50,23 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         v.put( "r", 240 );
         v.put( "g", 100 );
         v.put( "b", 100 );
-        db.insert( "Genre", null, v );
+        db.insert("Genre", null, v);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        try {
+            db.execSQL("drop table Items;");
+        }
+        catch (SQLiteException exc){
+            Log.e("AccountBook", "SQLException : drop table Items");
+        }
+        try {
+            db.execSQL("drop table Genre;");
+        }
+        catch (SQLiteException exc){
+            Log.e("AccountBook", "SQLException : drop table Genre");
+        }
+        this.onCreate(db);
     }
 }
