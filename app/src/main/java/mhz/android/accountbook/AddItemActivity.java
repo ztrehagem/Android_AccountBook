@@ -25,7 +25,7 @@ public class AddItemActivity extends AppCompatActivity {
         //** view
         setContentView(R.layout.activity_add_item);
 
-        ((Spinner)findViewById(R.id.spinner)).setAdapter( new AddItemSpinnerAdapter(getApplicationContext(), 0, db.getAllGenre()));
+        ((Spinner)findViewById(R.id.spinner)).setAdapter( new AddItemSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, db.getAllGenre()));
 
 
         //** event listener

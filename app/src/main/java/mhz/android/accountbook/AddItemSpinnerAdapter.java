@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
@@ -17,53 +15,48 @@ import java.util.ArrayList;
  */
 public class AddItemSpinnerAdapter extends ArrayAdapter<String> {
 
-    int resource;
-    int resource_drop;
-    ArrayList< Pair< Integer, Pair< String, Integer > > > list;
+    int[] colorList;
 
     public AddItemSpinnerAdapter(Context context, int resource, ArrayList< Pair< Integer, Pair< String, Integer > > > list) {
         super(context, resource);
-        this.resource = android.R.layout.simple_spinner_item;
-        this.resource_drop = android.R.layout.simple_spinner_dropdown_item;
 
-        this.list = list;
-
+        colorList = new int[list.size()];
         String[] strList = new String[list.size()];
+
         for( int i = 0; i < list.size(); i++ ) {
+            colorList[i] = list.get(i).second.second;
             strList[i] = list.get(i).second.first;
         }
-        super.addAll( strList );
+        super.addAll(strList);
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if( convertView == null ) {
-            LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(resource_drop, null);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
         }
 
-        this.setTextView((TextView) convertView.findViewById(android.R.id.text1), position);
+        this.setTextView((TextView) convertView, position);
 
         return convertView;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if( convertView == null ) {
-            LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(resource, null);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
         }
 
-        this.setTextView((TextView) convertView.findViewById(android.R.id.text1), position);
+        this.setTextView((TextView) convertView, position);
 
         return convertView;
     }
 
     private void setTextView( TextView textView, int position ) {
-//        Pair< String, Integer > item = list.get(position).second;
-//        textView.setText(item.first);
-        textView.setText(super.getItem(position));
-//        textView.setTextColor( item.second );
-        textView.setTextColor( list.get(position).second.second );
+        textView.setText( super.getItem(position) );
+        textView.setTextColor( colorList[position] );
     }
 }
