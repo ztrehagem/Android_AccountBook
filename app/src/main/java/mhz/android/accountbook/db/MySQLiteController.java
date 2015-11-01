@@ -12,12 +12,10 @@ import android.widget.Toast;
  */
 public class MySQLiteController {
 
-    private Context context;
     private MySQLiteOpenHelper openHelper;
     private SQLiteDatabase db;
 
     public MySQLiteController(Context context) {
-        this.context = context;
         openHelper = new MySQLiteOpenHelper(context);
         db = openHelper.getWritableDatabase();
     }
