@@ -2,5 +2,8 @@
     <string name="app_name">AccountBook</string>
     <string name="month_previous">&lt;&lt;</string>
     <string name="month_next">&gt;&gt;</string>
-
+    <string name="listView_item_date">%1$d月 %2$d日</string>
+    <string name="listView_item_genreName">%1$s</string>
+    <string name="listView_item_title">%1$s</string>
+    <string name="listView_item_amount">%1$d 円</string>
 </resources>

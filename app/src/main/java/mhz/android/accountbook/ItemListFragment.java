@@ -9,6 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import mhz.android.accountbook.db.MySQLiteController;
+import mhz.android.accountbook.list.Item;
+import mhz.android.accountbook.list.ListAdapter;
+
 /**
  * Created by MHz on 2015/11/01.
  */
@@ -27,10 +35,10 @@ public class ItemListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ListView listView = (ListView)parentView.findViewById(R.id.listView);
+        MySQLiteController db = MySQLiteController.getInstance();
+        ArrayList<Item> list = db.getAllItems();
 
-        String[] members = { "aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "aaa", "bbb", "ccc", "aaa", "bbb", "ccc" };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(parentView.getContext(), android.R.layout.simple_expandable_list_item_1, members);
-        listView.setAdapter(adapter);
+        ListAdapter adapter = new ListAdapter(getContext(), 0, list);
+        ((ListView)parentView.findViewById(R.id.listView)).setAdapter(adapter);
     }
 }

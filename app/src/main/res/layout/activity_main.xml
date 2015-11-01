@@ -39,30 +39,45 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_below="@+id/linearLayoutTop"
-        android:layout_above="@+id/linearLayoutBottom">
+        android:layout_above="@+id/horizontalScrollView">
 
     </android.support.v4.view.ViewPager>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/horizontalScrollView"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:id="@+id/linearLayoutBottom">
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary">
 
-        <Button
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button" />
+            android:background="@color/colorPrimary"
+            android:id="@+id/linearLayoutBottom">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DB Init"
-            android:id="@+id/button_dbinit" />
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DB Init"
+                android:id="@+id/button_dbInit" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Item"
+                android:id="@+id/button_addItem" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check Items"
+                android:id="@+id/button_checkItems" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
 
 </RelativeLayout>
