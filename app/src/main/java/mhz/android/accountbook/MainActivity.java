@@ -1,6 +1,5 @@
 package mhz.android.accountbook;
 
-import android.database.Cursor;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import mhz.android.accountbook.db.MySQLiteController;
 import mhz.android.accountbook.list.Item;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         button_addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.addItem(2015, 11, 1, 1, "test item", (int) (new Date().getTime()));
+                db.addItem(2015, 11, 1, 1, "test item", 1000);
                 Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
             }
         });
