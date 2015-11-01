@@ -1,5 +1,6 @@
 package mhz.android.accountbook;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
         button_addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.addItem(2015, 11, 1, 1, "test item", 1000);
-                Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
+                /*db.addItem(2015, 11, 1, 1, "test item", 1000);
+                Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();*/
+                Intent intent = new Intent(getApplicationContext(), AddItemActivity.class);
+                startActivity(intent);
             }
         });
 
