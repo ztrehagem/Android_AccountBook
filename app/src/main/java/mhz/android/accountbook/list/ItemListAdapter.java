@@ -21,21 +21,8 @@ public class ItemListAdapter extends ArrayAdapter<Item> implements Serializable 
 
     private LayoutInflater inflater;
 
-    private static ItemListAdapter instance = null;
-
-    public static void createInstance(Context context, int resource, List<Item> objects){
-        if( instance == null )
-            instance = new ItemListAdapter(context, resource, objects);
-    }
-
-    public static ItemListAdapter getInstance() {
-        if( instance == null )
-            throw new RuntimeException();
-        return instance;
-    }
-
-    private ItemListAdapter(Context context, int resource, List<Item> objects) {
-        super(context, resource, objects);
+    public ItemListAdapter(Context context, int resource) {
+        super(context, resource);
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -63,10 +50,5 @@ public class ItemListAdapter extends ArrayAdapter<Item> implements Serializable 
                 .setText(context.getString(R.string.listView_item_amount, item.amount));
 
         return convertView;
-    }
-
-    public void refreshList( ArrayList<Item> list ) {
-        super.clear();
-        super.addAll( list );
     }
 }

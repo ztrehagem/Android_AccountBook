@@ -9,16 +9,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import mhz.android.accountbook.db.MySQLiteController;
-import mhz.android.accountbook.list.ItemListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private final int requestCode_AddItemActivity = 1;
     private final int requestCore_EditGenreActivity = 2;
-
-    private MySQLiteController db;
-    private ItemListAdapter itemListAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
         //** initialize global data
         MySQLiteController.createInstance(getApplicationContext());
-        db = MySQLiteController.getInstance();
 
-        ItemListAdapter.createInstance(getApplicationContext(), 0, db.getItemsForListView());
-        itemListAdapter = ItemListAdapter.getInstance();
+        ViewDataController.createInstance(getApplicationContext());
+        ViewDataController.itemList.reloadList();
 
         //** view
         ((ViewPager) findViewById(R.id.pager)).setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
@@ -40,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        db.close();
-
+        ViewDataController.detachInstance();
+        MySQLiteController.getInstance().close();
         super.onDestroy();
     }
 
@@ -57,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch( item.getItemId() ) {
             case R.id.db_init:
-                db.dbInitialize();
+                MySQLiteController.getInstance().dbInitialize();
                 Toast.makeText(getApplicationContext(), "データベースを初期化しました", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -66,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.edit_genre:
-//                db.addGenre( "なにか", 100, 100, 255 );
                 startActivityForResult(new Intent(getApplicationContext(), EditGenreActivity.class), requestCore_EditGenreActivity);
                 break;
         }
@@ -78,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch ( requestCode ) {
             case requestCode_AddItemActivity:
-                itemListAdapter.refreshList(db.getItemsForListView());
+                ViewDataController.itemList.reloadList();
                 break;
 
             case requestCore_EditGenreActivity:
