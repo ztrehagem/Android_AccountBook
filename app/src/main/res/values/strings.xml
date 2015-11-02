@@ -9,7 +9,12 @@
     <string name="listView_item_genreName">%1$s</string>
     <string name="listView_item_title">%1$s</string>
     <string name="listView_item_amount">%1$d 円</string>
-    <string name="addItemActivity_title">追加</string>
+    <string name="addItemActivity_button_complete">追加</string>
+
+    <string name="dialogMsg_deleteItem">アイテムを削除しますか？</string>
+    <string name="dialogPositive_delete">削除する</string>
+    <string name="dialogNegative_cancel">キャンセル</string>
+    <string name="receiptMsg_deleteItem">削除しました</string>
 
     <string name="item_property_genre">分類</string>
     <string name="item_property_title">タイトル</string>

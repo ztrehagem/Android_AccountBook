@@ -60,6 +60,10 @@ public class MySQLiteController {
         db.insert("Genre", null, v);
     }
 
+    public void deleteItem() {
+
+    }
+
     public ArrayList<Item> getItemsForListView() {
         StringBuilder sql = new StringBuilder("");
         sql.append("select Items.year, Items.month, Items.day, Items.title, Items.amount, Genre.name, Genre.r, Genre.g, Genre.b ");

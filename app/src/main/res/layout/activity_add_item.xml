@@ -92,6 +92,6 @@
             android:id="@+id/button_addItem"
             android:layout_below="@+id/linearLayout2"
             android:layout_centerHorizontal="true"
-            android:text="@string/addItemActivity_title"/>
+            android:text="@string/addItemActivity_button_complete"/>
     </RelativeLayout>
 </ScrollView>

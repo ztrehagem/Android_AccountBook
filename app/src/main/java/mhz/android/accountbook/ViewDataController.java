@@ -2,7 +2,10 @@ package mhz.android.accountbook;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+
 import mhz.android.accountbook.db.MySQLiteController;
+import mhz.android.accountbook.list.Item;
 import mhz.android.accountbook.list.ItemListAdapter;
 
 /**
@@ -34,6 +37,8 @@ public class ViewDataController {
     public class ItemList {
         private ItemListAdapter adapter;
 
+        private ArrayList<Item> viewItemList;
+
         private ItemList(Context applicationContext){
             adapter = new ItemListAdapter(applicationContext, R.layout.list_view_item);
         }
@@ -42,7 +47,11 @@ public class ViewDataController {
         }
         public void reloadList() {
             adapter.clear();
-            adapter.addAll( db.getItemsForListView() );
+            viewItemList = db.getItemsForListView();
+            adapter.addAll( viewItemList );
+        }
+        public void deleteItem( int viewItemPosition ) {
+            //** delete
         }
     }
 
