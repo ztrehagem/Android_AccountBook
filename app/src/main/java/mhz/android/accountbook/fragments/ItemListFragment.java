@@ -40,7 +40,7 @@ public class ItemListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Intent intent = new Intent(getContext(), EditItemActivity.class);
                 intent.putExtra("request", R.integer.requestCode_ModifyItem);
-                intent.putExtra("view_item_position", position);
+                intent.putExtra("target_item_position", position);
                 startActivity(intent);
             }
         });

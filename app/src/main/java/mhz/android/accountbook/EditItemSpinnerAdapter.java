@@ -16,16 +16,20 @@ import java.util.ArrayList;
 public class EditItemSpinnerAdapter extends ArrayAdapter<String> {
 
     int[] colorList;
+    int[] idList;
 
     public EditItemSpinnerAdapter(Context context, int resource, ArrayList<Pair<Integer, Pair<String, Integer>>> list) {
         super(context, resource);
 
         colorList = new int[list.size()];
+        idList = new int[list.size()];
         String[] strList = new String[list.size()];
 
         for( int i = 0; i < list.size(); i++ ) {
-            colorList[i] = list.get(i).second.second;
-            strList[i] = list.get(i).second.first;
+            Pair<Integer, Pair<String, Integer>> item = list.get(i);
+            idList[i] = item.first;
+            colorList[i] = item.second.second;
+            strList[i] = item.second.first;
         }
         super.addAll(strList);
     }
@@ -57,6 +61,14 @@ public class EditItemSpinnerAdapter extends ArrayAdapter<String> {
 
     private void setTextView( TextView textView, int position ) {
         textView.setText( super.getItem(position) );
-        textView.setTextColor( colorList[position] );
+        textView.setTextColor(colorList[position]);
+    }
+
+    public int getPositionByGenreId(int genreId) {
+        for( int i = 0; i < idList.length; i++ ) {
+            if( idList[i] == genreId )
+                return i;
+        }
+        return 0;
     }
 }

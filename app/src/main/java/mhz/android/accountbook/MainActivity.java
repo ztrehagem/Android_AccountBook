@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.edit_genre:
+                MySQLiteController.getInstance().addGenre("なにか", 100, 100, 255);
                 startActivity(new Intent(getApplicationContext(), EditGenreActivity.class));
                 break;
         }

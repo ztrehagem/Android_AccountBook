@@ -66,7 +66,7 @@ public class MySQLiteController {
 
     public ArrayList<Item> getItemsForListView() {
         StringBuilder sql = new StringBuilder("");
-        sql.append("select Items.year, Items.month, Items.day, Items.title, Items.amount, Genre.name, Genre.r, Genre.g, Genre.b ");
+        sql.append("select Items.id, Items.year, Items.month, Items.day, Items.genre_id, Genre.name, Items.title, Items.amount, Genre.r, Genre.g, Genre.b ");
         sql.append("from Items ");
         sql.append("left outer join Genre on Items.genre_id = Genre.id;");
         Cursor c = db.rawQuery( sql.toString(), null );
@@ -76,9 +76,11 @@ public class MySQLiteController {
         if( c.moveToFirst() ) {
             do {
                 list.add(new Item(
+                        c.getInt(c.getColumnIndex("id")),
                         c.getInt(c.getColumnIndex("year")),
                         c.getInt(c.getColumnIndex("month")),
                         c.getInt(c.getColumnIndex("day")),
+                        c.getInt(c.getColumnIndex("genre_id")),
                         c.getString(c.getColumnIndex("name")),
                         c.getString(c.getColumnIndex("title")),
                         c.getInt(c.getColumnIndex("amount")),

@@ -50,6 +50,9 @@ public class ViewDataController {
             viewItemList = db.getItemsForListView();
             adapter.addAll( viewItemList );
         }
+        public Item getItemByViewPosition( int viewItemPosition ) {
+            return viewItemList.get( viewItemPosition );
+        }
         public void deleteItem( int viewItemPosition ) {
             //** delete
         }

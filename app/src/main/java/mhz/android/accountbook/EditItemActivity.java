@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import mhz.android.accountbook.db.MySQLiteController;
+import mhz.android.accountbook.list.Item;
 
 public class EditItemActivity extends AppCompatActivity {
 
@@ -35,6 +36,11 @@ public class EditItemActivity extends AppCompatActivity {
         allGenreList = MySQLiteController.getInstance().getAllGenre();
         spinner = (Spinner)findViewById(R.id.spinner);
 
+        final DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+        final EditText editText_title = (EditText) findViewById(R.id.input_title);
+        final EditText editText_amount = (EditText) findViewById(R.id.input_amount);
+
+
         //** view
         spinner.setAdapter(new EditItemSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, allGenreList));
 
@@ -49,14 +55,12 @@ public class EditItemActivity extends AppCompatActivity {
                 button_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+
                         int year = datePicker.getYear();
                         int month = datePicker.getMonth() + 1;
                         int day = datePicker.getDayOfMonth();
 
-//                int genreId = 1; // default
                         int genreId = allGenreList.get(spinner.getSelectedItemPosition()).first;
-
 
                         String title = ((EditText) findViewById(R.id.input_title)).getText().toString();
 
@@ -79,6 +83,18 @@ public class EditItemActivity extends AppCompatActivity {
             case R.integer.requestCode_ModifyItem:
                 setTitle(R.string.activity_title_modifyItem);
                 findViewById(R.id.buttons_add).setVisibility(View.GONE);
+
+                int targetItemPosition = intent.getIntExtra("target_item_position", -1);
+                if( targetItemPosition == -1 )
+                    throw new RuntimeException();
+
+                Item item = ViewDataController.itemList.getItemByViewPosition(targetItemPosition);
+
+                datePicker.updateDate(item.year, item.month - 1, item.day);
+                spinner.setSelection(((EditItemSpinnerAdapter) spinner.getAdapter()).getPositionByGenreId(item.genreId));
+
+                editText_title.setText(item.title);
+                editText_amount.setText(String.valueOf(item.amount));
 
                 Button button_delete = (Button)findViewById(R.id.button_delete);
                 button_delete.setOnClickListener(new View.OnClickListener() {
