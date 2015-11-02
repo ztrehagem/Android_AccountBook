@@ -1,5 +1,7 @@
 package mhz.android.accountbook;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,23 +24,26 @@ public class EditItemActivity extends AppCompatActivity {
 
     private ArrayList< Pair< Integer, Pair< String, Integer > > > allGenreList;
     private Spinner spinner;
+    private DatePicker datePicker;
+    private EditText editText_title;
+    private EditText editText_amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
-        Intent intent = getIntent();
-        int requestCode = intent.getIntExtra("request", 0);
+        final Intent intent = getIntent();
+        final int requestCode = intent.getIntExtra("request", 0);
 
 
         //** initialize
         allGenreList = MySQLiteController.getInstance().getAllGenre();
         spinner = (Spinner)findViewById(R.id.spinner);
 
-        final DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-        final EditText editText_title = (EditText) findViewById(R.id.input_title);
-        final EditText editText_amount = (EditText) findViewById(R.id.input_amount);
+        datePicker = (DatePicker) findViewById(R.id.datePicker);
+        editText_title = (EditText) findViewById(R.id.input_title);
+        editText_amount = (EditText) findViewById(R.id.input_amount);
 
 
         //** view
@@ -51,27 +56,18 @@ public class EditItemActivity extends AppCompatActivity {
                 setTitle(R.string.activity_title_addItem);
                 findViewById(R.id.buttons_modify).setVisibility(View.GONE);
 
-                Button button_add = (Button)findViewById(R.id.button_add);
+                final Button button_add = (Button)findViewById(R.id.button_add);
                 button_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        int year = datePicker.getYear();
-                        int month = datePicker.getMonth() + 1;
-                        int day = datePicker.getDayOfMonth();
-
-                        int genreId = allGenreList.get(spinner.getSelectedItemPosition()).first;
-
-                        String title = ((EditText) findViewById(R.id.input_title)).getText().toString();
-
-                        String amount_str = ((EditText) findViewById(R.id.input_amount)).getText().toString();
-                        if (amount_str.equals("")) {
+                        CoreItemData item = makeCoreItemData();
+                        if( item == null ){
                             Toast.makeText(getApplicationContext(), R.string.errorMsg_amountIsEmpty, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        int amount = Integer.parseInt(amount_str);
 
-                        MySQLiteController.getInstance().addItem(year, month, day, genreId, title, amount);
+                        MySQLiteController.getInstance().addItem(item.year, item.month, item.day, item.genreId, item.title, item.amount);
 
                         Toast.makeText(getApplicationContext(), R.string.successMsg_ItemAdded, Toast.LENGTH_SHORT).show();
                         ViewDataController.itemList.reloadList();
@@ -84,11 +80,11 @@ public class EditItemActivity extends AppCompatActivity {
                 setTitle(R.string.activity_title_modifyItem);
                 findViewById(R.id.buttons_add).setVisibility(View.GONE);
 
-                int targetItemPosition = intent.getIntExtra("target_item_position", -1);
+                final int targetItemPosition = intent.getIntExtra("target_item_position", -1);
                 if( targetItemPosition == -1 )
                     throw new RuntimeException();
 
-                Item item = ViewDataController.itemList.getItemByViewPosition(targetItemPosition);
+                final Item item = ViewDataController.itemList.getItemByViewPosition(targetItemPosition);
 
                 datePicker.updateDate(item.year, item.month - 1, item.day);
                 spinner.setSelection(((EditItemSpinnerAdapter) spinner.getAdapter()).getPositionByGenreId(item.genreId));
@@ -96,23 +92,75 @@ public class EditItemActivity extends AppCompatActivity {
                 editText_title.setText(item.title);
                 editText_amount.setText(String.valueOf(item.amount));
 
-                Button button_delete = (Button)findViewById(R.id.button_delete);
+                final Button button_delete = (Button)findViewById(R.id.button_delete);
                 button_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // 削除
+                        new AlertDialog.Builder(EditItemActivity.this)
+                                .setMessage(R.string.dialogMsg_deleteItem)
+                                .setPositiveButton(R.string.dialogPositive_delete, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ViewDataController.itemList.deleteItemById(item.id);
+                                        ViewDataController.itemList.reloadList();
+                                        Toast.makeText(getApplicationContext(), R.string.receiptMsg_deleteItem, Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton(R.string.dialogNegative_cancel, null)
+                                .show();
                     }
                 });
 
-                Button button_modify = (Button)findViewById(R.id.button_modify);
+                final Button button_modify = (Button)findViewById(R.id.button_modify);
                 button_modify.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // 修正
+
+                        CoreItemData updatedItem = makeCoreItemData();
+                        if( updatedItem == null ) {
+                            Toast.makeText(getApplicationContext(), R.string.errorMsg_amountIsEmpty, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        MySQLiteController.getInstance().updateItem(item.id, updatedItem.year, updatedItem.month, updatedItem.day, updatedItem.genreId, updatedItem.title, updatedItem.amount);
+                        Toast.makeText(getApplicationContext(), R.string.receiptMsg_modifyItem, Toast.LENGTH_SHORT).show();
+                        ViewDataController.itemList.reloadList();
+                        finish();
                     }
                 });
                 break;
         }
 
+    }
+
+    private CoreItemData makeCoreItemData() {
+
+        String amount_str = editText_amount.getText().toString();
+        if (amount_str.equals(""))
+            return null;
+
+        return new CoreItemData(
+                datePicker.getYear(),
+                datePicker.getMonth() + 1,
+                datePicker.getDayOfMonth(),
+                allGenreList.get(spinner.getSelectedItemPosition()).first,
+                editText_title.getText().toString(),
+                Integer.parseInt(amount_str)
+        );
+    }
+
+    private class CoreItemData {
+        int year, month, day, genreId, amount;
+        String title;
+
+        CoreItemData( int year, int month, int day, int genreId, String title, int amount ) {
+            this.year = year;
+            this.month = month;
+            this.day = day;
+            this.genreId = genreId;
+            this.title = title;
+            this.amount = amount;
+        }
     }
 }

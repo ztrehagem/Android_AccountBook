@@ -14,10 +14,11 @@
     <string name="addItemActivity_button_delete">削除</string>
     <string name="addItemActivity_button_modify">修正</string>
 
-    <string name="dialogMsg_deleteItem">アイテムを削除しますか？</string>
+    <string name="dialogMsg_deleteItem">削除しますか？</string>
     <string name="dialogPositive_delete">削除する</string>
     <string name="dialogNegative_cancel">キャンセル</string>
     <string name="receiptMsg_deleteItem">削除しました</string>
+    <string name="receiptMsg_modifyItem">修正しました</string>
 
     <string name="item_property_genre">分類</string>
     <string name="item_property_title">タイトル</string>

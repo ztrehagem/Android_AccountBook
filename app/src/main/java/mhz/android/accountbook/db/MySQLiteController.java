@@ -42,9 +42,9 @@ public class MySQLiteController {
 
     public void addItem( int y, int m, int d, int genreId, String title, int amount) {
         ContentValues v = new ContentValues();
-        v.put("year", y);
-        v.put("month", m);
-        v.put("day", d);
+        v.put( "year", y );
+        v.put( "month", m );
+        v.put( "day", d );
         v.put( "genre_id", genreId );
         v.put( "title", title );
         v.put( "amount", amount );
@@ -60,8 +60,19 @@ public class MySQLiteController {
         db.insert("Genre", null, v);
     }
 
-    public void deleteItem() {
+    public void deleteItem( int itemId ) {
+        db.delete("Items", "id = ?", new String[]{String.valueOf(itemId)});
+    }
 
+    public void updateItem( int itemId, int y, int m, int d, int genreId, String title, int amount ) {
+        ContentValues v = new ContentValues();
+        v.put( "year", y );
+        v.put( "month", m );
+        v.put( "day", d );
+        v.put( "genre_id", genreId );
+        v.put( "title", title );
+        v.put( "amount", amount );
+        db.update("Items", v, "id = ?", new String[] { String.valueOf(itemId) });
     }
 
     public ArrayList<Item> getItemsForListView() {

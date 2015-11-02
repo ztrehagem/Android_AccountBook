@@ -53,8 +53,11 @@ public class ViewDataController {
         public Item getItemByViewPosition( int viewItemPosition ) {
             return viewItemList.get( viewItemPosition );
         }
-        public void deleteItem( int viewItemPosition ) {
-            //** delete
+        public void deleteItemByViewPosition( int viewItemPosition ) {
+            deleteItemById( getItemByViewPosition( viewItemPosition ).id );
+        }
+        public void deleteItemById( int itemId ) {
+            db.deleteItem( itemId );
         }
     }
 
