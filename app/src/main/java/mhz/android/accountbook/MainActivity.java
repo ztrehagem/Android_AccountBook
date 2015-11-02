@@ -14,6 +14,7 @@ import mhz.android.accountbook.list.ItemListAdapter;
 public class MainActivity extends AppCompatActivity {
 
     private final int requestCode_AddItemActivity = 1;
+    private final int requestCore_EditGenreActivity = 2;
 
     private MySQLiteController db;
     private ItemListAdapter itemListAdapter;
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.edit_genre:
-//                db.addGenre( "test", 100, 100, 255 );
+//                db.addGenre( "なにか", 100, 100, 255 );
+                startActivityForResult(new Intent(getApplicationContext(), EditGenreActivity.class), requestCore_EditGenreActivity);
                 break;
         }
 
@@ -77,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         switch ( requestCode ) {
             case requestCode_AddItemActivity:
                 itemListAdapter.refreshList(db.getItemsForListView());
+                break;
+
+            case requestCore_EditGenreActivity:
                 break;
         }
     }

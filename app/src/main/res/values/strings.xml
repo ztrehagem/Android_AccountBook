@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">AccountBook</string>
+    <string name="app_name">家計簿！</string>
+    <string name="activity_title_addItem">アイテム追加</string>
+    <string name="activity_title_editGenre">分類編集</string>
+
     <string name="month_previous">&lt;&lt;</string>
     <string name="month_next">&gt;&gt;</string>
     <string name="listView_item_date">%1$d月 %2$d日</string>

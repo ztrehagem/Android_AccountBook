@@ -8,5 +8,5 @@
         android:title="アイテム追加" />
     <item
         android:id="@+id/edit_genre"
-        android:title="ジャンル編集" />
+        android:title="分類編集" />
 </menu>
