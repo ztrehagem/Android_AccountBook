@@ -1,7 +1,6 @@
 package mhz.android.accountbook.fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,15 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-
+import mhz.android.accountbook.EditItemActivity;
 import mhz.android.accountbook.R;
 import mhz.android.accountbook.ViewDataController;
-import mhz.android.accountbook.db.MySQLiteController;
-import mhz.android.accountbook.list.Item;
-import mhz.android.accountbook.list.ItemListAdapter;
 
 /**
  * Created by MHz on 2015/11/01.
@@ -44,34 +38,10 @@ public class ItemListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                new AlertDialog.Builder(getActivity())
-                        .setItems(R.array.itemList_selectMenu, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                switch( which ){
-                                    case 0:
-                                        //** AddItemActivityを再利用するIntent
-                                        break;
-
-                                    case 1:
-                                        new AlertDialog.Builder(getActivity())
-                                                .setMessage(R.string.dialogMsg_deleteItem)
-                                                .setPositiveButton(R.string.dialogPositive_delete, new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        ViewDataController.itemList.deleteItem( position );
-                                                        Toast.makeText(getContext(), R.string.receiptMsg_deleteItem, Toast.LENGTH_SHORT).show();
-                                                    }
-                                                })
-                                                .setNegativeButton(R.string.dialogNegative_cancel, null)
-                                                .show();
-                                        break;
-                                }
-
-                            }
-                        })
-                        .show();
+                Intent intent = new Intent(getContext(), EditItemActivity.class);
+                intent.putExtra("request", R.integer.requestCode_ModifyItem);
+                intent.putExtra("view_item_position", position);
+                startActivity(intent);
             }
         });
     }

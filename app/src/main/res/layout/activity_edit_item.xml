@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mhz.android.accountbook.AddItemActivity">
+    tools:context="mhz.android.accountbook.EditItemActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -86,12 +86,45 @@
                 android:id="@+id/input_amount"/>
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button_addItem"
+            android:id="@+id/buttons_add"
             android:layout_below="@+id/linearLayout2"
-            android:layout_centerHorizontal="true"
-            android:text="@string/addItemActivity_button_complete"/>
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_add"
+                android:layout_centerHorizontal="true"
+                android:text="@string/addItemActivity_button_add"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttons_modify"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_delete"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="@string/addItemActivity_button_delete"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_modify"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:text="@string/addItemActivity_button_modify"/>
+        </RelativeLayout>
+
+
     </RelativeLayout>
 </ScrollView>

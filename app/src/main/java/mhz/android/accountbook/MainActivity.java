@@ -53,26 +53,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.add_item:
-                startActivityForResult(new Intent(getApplicationContext(), AddItemActivity.class), R.integer.requestCode_AddItem);
+                Intent intent = new Intent(getApplicationContext(), EditItemActivity.class);
+                intent.putExtra("request", R.integer.requestCode_AddItem);
+                startActivity(intent);
                 break;
 
             case R.id.edit_genre:
-                startActivityForResult(new Intent(getApplicationContext(), EditGenreActivity.class), R.integer.requestCode_EditGenre);
+                startActivity(new Intent(getApplicationContext(), EditGenreActivity.class));
                 break;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch ( requestCode ) {
-            case R.integer.requestCode_AddItem:
-                ViewDataController.itemList.reloadList();
-                break;
-
-            case R.integer.requestCode_EditGenre:
-                break;
-        }
     }
 }

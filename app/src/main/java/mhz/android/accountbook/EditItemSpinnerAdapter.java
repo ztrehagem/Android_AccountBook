@@ -13,11 +13,11 @@ import java.util.ArrayList;
 /**
  * Created by MHz on 2015/11/01.
  */
-public class AddItemSpinnerAdapter extends ArrayAdapter<String> {
+public class EditItemSpinnerAdapter extends ArrayAdapter<String> {
 
     int[] colorList;
 
-    public AddItemSpinnerAdapter(Context context, int resource, ArrayList< Pair< Integer, Pair< String, Integer > > > list) {
+    public EditItemSpinnerAdapter(Context context, int resource, ArrayList<Pair<Integer, Pair<String, Integer>>> list) {
         super(context, resource);
 
         colorList = new int[list.size()];

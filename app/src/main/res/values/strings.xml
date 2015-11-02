@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">家計簿！</string>
     <string name="activity_title_addItem">アイテム追加</string>
-    <string name="activity_title_editGenre">分類編集</string>
+    <string name="activity_title_modifyItem">アイテム編集</string>
+    <string name="activity_title_editGenre">ジャンル編集</string>
 
     <string name="month_previous">&lt;&lt;</string>
     <string name="month_next">&gt;&gt;</string>
@@ -9,7 +10,9 @@
     <string name="listView_item_genreName">%1$s</string>
     <string name="listView_item_title">%1$s</string>
     <string name="listView_item_amount">%1$d 円</string>
-    <string name="addItemActivity_button_complete">追加</string>
+    <string name="addItemActivity_button_add">追加</string>
+    <string name="addItemActivity_button_delete">削除</string>
+    <string name="addItemActivity_button_modify">修正</string>
 
     <string name="dialogMsg_deleteItem">アイテムを削除しますか？</string>
     <string name="dialogPositive_delete">削除する</string>
