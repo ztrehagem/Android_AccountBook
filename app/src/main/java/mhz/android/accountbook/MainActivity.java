@@ -12,9 +12,6 @@ import mhz.android.accountbook.db.MySQLiteController;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int requestCode_AddItemActivity = 1;
-    private final int requestCore_EditGenreActivity = 2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.add_item:
-                startActivityForResult(new Intent(getApplicationContext(), AddItemActivity.class), requestCode_AddItemActivity);
+                startActivityForResult(new Intent(getApplicationContext(), AddItemActivity.class), R.integer.requestCode_AddItem);
                 break;
 
             case R.id.edit_genre:
-                startActivityForResult(new Intent(getApplicationContext(), EditGenreActivity.class), requestCore_EditGenreActivity);
+                startActivityForResult(new Intent(getApplicationContext(), EditGenreActivity.class), R.integer.requestCode_EditGenre);
                 break;
         }
 
@@ -70,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch ( requestCode ) {
-            case requestCode_AddItemActivity:
+            case R.integer.requestCode_AddItem:
                 ViewDataController.itemList.reloadList();
                 break;
 
-            case requestCore_EditGenreActivity:
+            case R.integer.requestCode_EditGenre:
                 break;
         }
     }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="requestCode_AddItem">1</integer>
+    <integer name="requestCode_ModifyItem">2</integer>
+    <integer name="requestCode_EditGenre">3</integer>
+</resources>
