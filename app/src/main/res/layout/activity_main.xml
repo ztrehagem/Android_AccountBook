@@ -4,12 +4,22 @@
     android:layout_height="match_parent" tools:context=".MainActivity"
     android:orientation="vertical">
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/linearLayoutTop">
+
+    </android.support.v4.view.ViewPager>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:id="@+id/linearLayoutTop"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentBottom="true">
 
         <Button
             android:layout_width="0dp"
@@ -22,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center_vertical|center_horizontal"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="@android:color/white"
             android:text="month" />
 
@@ -32,52 +42,6 @@
             android:layout_weight="1"
             android:text="@string/month_next" />
     </LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_below="@+id/linearLayoutTop"
-        android:layout_above="@+id/horizontalScrollView">
-
-    </android.support.v4.view.ViewPager>
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/horizontalScrollView"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:id="@+id/linearLayoutBottom">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DB Init"
-                android:id="@+id/button_dbInit" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Item"
-                android:id="@+id/button_addItem" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Genre"
-                android:id="@+id/button_addGenre" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
 
 
 </RelativeLayout>
