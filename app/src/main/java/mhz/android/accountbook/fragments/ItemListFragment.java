@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import mhz.android.accountbook.EditItemActivity;
 import mhz.android.accountbook.R;
-import mhz.android.accountbook.ViewDataController;
+import mhz.android.accountbook.data.ViewDataController;
 
 /**
  * Created by MHz on 2015/11/01.

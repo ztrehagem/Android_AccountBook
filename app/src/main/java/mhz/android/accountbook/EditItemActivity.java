@@ -15,8 +15,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import mhz.android.accountbook.data.ViewDataController;
 import mhz.android.accountbook.db.MySQLiteController;
-import mhz.android.accountbook.list.Item;
+import mhz.android.accountbook.data.Item;
 
 public class EditItemActivity extends AppCompatActivity {
 

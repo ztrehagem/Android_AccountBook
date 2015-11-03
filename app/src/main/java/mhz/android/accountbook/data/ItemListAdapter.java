@@ -1,7 +1,6 @@
-package mhz.android.accountbook.list;
+package mhz.android.accountbook.data;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import mhz.android.accountbook.R;
+import mhz.android.accountbook.data.Item;
 
 /**
  * Created by MHz on 2015/11/01.

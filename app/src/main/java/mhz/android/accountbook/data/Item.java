@@ -1,4 +1,4 @@
-package mhz.android.accountbook.list;
+package mhz.android.accountbook.data;
 
 /**
  * Created by MHz on 2015/11/01.

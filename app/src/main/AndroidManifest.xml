@@ -15,9 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditItemActivity" android:label="@string/activity_title_addItem" >
+        <activity
+            android:name=".EditItemActivity"
+            android:label="@string/activity_title_addItem" >
         </activity>
-        <activity android:name=".EditGenreActivity" android:label="@string/activity_title_editGenre" >
+        <activity android:name=".GenreListActivity">
+        </activity>
+        <activity
+            android:name=".EditGenreActivity"
+            android:label="@string/activity_title_editGenre" >
         </activity>
     </application>
 

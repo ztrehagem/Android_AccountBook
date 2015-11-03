@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import mhz.android.accountbook.data.ViewDataController;
 import mhz.android.accountbook.db.MySQLiteController;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.edit_genre:
-                MySQLiteController.getInstance().addGenre("なにか", 100, 100, 255);
-                startActivity(new Intent(getApplicationContext(), EditGenreActivity.class));
+                startActivity(new Intent(getApplicationContext(), GenreListActivity.class));
                 break;
         }
 

@@ -1,12 +1,11 @@
-package mhz.android.accountbook;
+package mhz.android.accountbook.data;
 
 import android.content.Context;
 
 import java.util.ArrayList;
 
+import mhz.android.accountbook.R;
 import mhz.android.accountbook.db.MySQLiteController;
-import mhz.android.accountbook.list.Item;
-import mhz.android.accountbook.list.ItemListAdapter;
 
 /**
  * Created by MHz on 2015/11/02.
@@ -24,7 +23,7 @@ public class ViewDataController {
 
     //****************//
 
-    private static MySQLiteController db;
+    private MySQLiteController db;
 
     //****************//
 
@@ -58,6 +57,16 @@ public class ViewDataController {
         }
         public void deleteItemById( int itemId ) {
             db.deleteItem( itemId );
+        }
+    }
+
+    public static GenreList genreList = null;
+    public class GenreList {
+        public GenreList() {
+
+        }
+        public void addGenre( String genreName, int r, int g, int b ){
+            db.addGenre(genreName, r, g, b);
         }
     }
 
