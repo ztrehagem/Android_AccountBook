@@ -15,7 +15,7 @@ import mhz.android.accountbook.data.Item;
 /**
  * Created by MHz on 2015/11/01.
  */
-public class ItemListAdapter extends ArrayAdapter<Item> implements Serializable {
+public class ItemListAdapter extends ArrayAdapter<Item> {
 
     private LayoutInflater inflater;
 

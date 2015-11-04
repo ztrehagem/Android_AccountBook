@@ -6,15 +6,20 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.util.zip.Inflater;
+
+import mhz.android.accountbook.data.ViewDataController;
 
 public class GenreListActivity extends AppCompatActivity {
 
@@ -22,6 +27,16 @@ public class GenreListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genre_list);
+
+        ViewDataController.genreList.createListAdapter();
+        ((ListView) findViewById(R.id.listView_genre)).setAdapter(ViewDataController.genreList.getAdapter());
+        ViewDataController.genreList.reloadList();
+    }
+
+    @Override
+    protected void onDestroy() {
+        ViewDataController.genreList.detachListAdapter();
+        super.onDestroy();
     }
 
     @Override
@@ -36,22 +51,18 @@ public class GenreListActivity extends AppCompatActivity {
 
         switch( item.getOrder() ) {
             case 0:
-                LinearLayout v = new LinearLayout(GenreListActivity.this);
-                getLayoutInflater().inflate(R.layout.view_edit_genre, v);
-
-                final EditText editText = (EditText)v.findViewById(R.id.input_genreName);
-                ((SeekBar)v.findViewById(R.id.input_color_r)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.red));
-                ((SeekBar)v.findViewById(R.id.input_color_g)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.green));
-                ((SeekBar)v.findViewById(R.id.input_color_b)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.blue));
+                final Pair<ViewGroup, EditText> vs = getCustomAlertDialogView();
 
                 new AlertDialog.Builder(GenreListActivity.this)
                         .setTitle("ジャンル新規作成")
-                        .setView(v)
+                        .setView(vs.first)
                         .setNegativeButton("キャンセル", null)
                         .setPositiveButton("作成", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // 作成
+                                ViewDataController.genreList.addGenre(vs.second.getText().toString(), vs.second.getCurrentTextColor());
+                                ViewDataController.genreList.reloadList();
                                 Toast.makeText(GenreListActivity.this, "作成しました", Toast.LENGTH_SHORT).show();
                             }
                         })
@@ -60,6 +71,16 @@ public class GenreListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Pair<ViewGroup, EditText> getCustomAlertDialogView() {
+        ViewGroup v = new LinearLayout(GenreListActivity.this);
+        getLayoutInflater().inflate(R.layout.view_edit_genre, v);
+        EditText editText = (EditText)v.findViewById(R.id.input_genreName);
+        ((SeekBar)v.findViewById(R.id.input_color_r)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.red));
+        ((SeekBar)v.findViewById(R.id.input_color_g)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.green));
+        ((SeekBar)v.findViewById(R.id.input_color_b)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.blue));
+        return new Pair<>( v, editText );
     }
 
     private class ColorChangeListener implements SeekBar.OnSeekBarChangeListener {

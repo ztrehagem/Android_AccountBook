@@ -1,6 +1,7 @@
 package mhz.android.accountbook;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import mhz.android.accountbook.data.Genre;
+
 /**
  * Created by MHz on 2015/11/01.
  */
@@ -18,18 +21,18 @@ public class EditItemSpinnerAdapter extends ArrayAdapter<String> {
     int[] colorList;
     int[] idList;
 
-    public EditItemSpinnerAdapter(Context context, int resource, ArrayList<Pair<Integer, Pair<String, Integer>>> list) {
+    public EditItemSpinnerAdapter(Context context, int resource, ArrayList<Genre> list) {
         super(context, resource);
 
         colorList = new int[list.size()];
         idList = new int[list.size()];
         String[] strList = new String[list.size()];
 
-        for( int i = 0; i < list.size(); i++ ) {
-            Pair<Integer, Pair<String, Integer>> item = list.get(i);
-            idList[i] = item.first;
-            colorList[i] = item.second.second;
-            strList[i] = item.second.first;
+        for (int i = 0; i < list.size(); i++) {
+            Genre item = list.get(i);
+            idList[i] = item.id;
+            colorList[i] = Color.rgb(item.r, item.g, item.b);
+            strList[i] = item.name;
         }
         super.addAll(strList);
     }

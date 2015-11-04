@@ -1,6 +1,7 @@
 package mhz.android.accountbook.data;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class ViewDataController {
     private ViewDataController(Context applicationContext){
         db = MySQLiteController.getInstance();
         itemList = new ItemList(applicationContext);
+        genreList = new GenreList(applicationContext);
     }
 
     public static ItemList itemList = null;
@@ -38,35 +40,71 @@ public class ViewDataController {
 
         private ArrayList<Item> viewItemList;
 
-        private ItemList(Context applicationContext){
+        private ItemList(Context applicationContext) {
             adapter = new ItemListAdapter(applicationContext, R.layout.list_view_item);
         }
-        public ItemListAdapter getAdapter(){
+
+        public ItemListAdapter getAdapter() {
             return adapter;
         }
+
         public void reloadList() {
-            adapter.clear();
             viewItemList = db.getItemsForListView();
-            adapter.addAll( viewItemList );
+            adapter.clear();
+            adapter.addAll(viewItemList);
         }
-        public Item getItemByViewPosition( int viewItemPosition ) {
-            return viewItemList.get( viewItemPosition );
+
+        public Item getItemByViewPosition(int viewItemPosition) {
+            return viewItemList.get(viewItemPosition);
         }
-        public void deleteItemByViewPosition( int viewItemPosition ) {
-            deleteItemById( getItemByViewPosition( viewItemPosition ).id );
+
+        public void addItem(int y, int m, int d, int genreId, String title, int amount) {
+            db.addItem(y, m, d, genreId, title, amount);
         }
-        public void deleteItemById( int itemId ) {
-            db.deleteItem( itemId );
+
+        public void updateItem( int itemId, int y, int m, int d, int genreId, String title, int amount ) {
+            db.updateItem( itemId, y, m, d, genreId, title, amount );
+        }
+
+        public void deleteItemByViewPosition(int viewItemPosition) {
+            deleteItemById(getItemByViewPosition(viewItemPosition).id);
+        }
+
+        public void deleteItemById(int itemId) {
+            db.deleteItem(itemId);
         }
     }
 
     public static GenreList genreList = null;
     public class GenreList {
-        public GenreList() {
 
+        private GenreListAdapter adapter = null;
+        private ArrayList<Genre> viewGenreList;
+        private Context context;
+
+        private GenreList(Context context) {
+            this.context = context;
+        }
+        public void createListAdapter() {
+            if( adapter == null )
+                adapter = new GenreListAdapter(context, R.layout.list_view_genre);
+        }
+        public void detachListAdapter() {
+            adapter = null;
+        }
+        public GenreListAdapter getAdapter() {
+            return adapter;
+        }
+        public void reloadList() {
+            viewGenreList = db.getAllGenre();
+            adapter.clear();
+            adapter.addAll(viewGenreList);
         }
         public void addGenre( String genreName, int r, int g, int b ){
             db.addGenre(genreName, r, g, b);
+        }
+        public void addGenre( String genreName, int color ){
+            this.addGenre(genreName, Color.red(color), Color.green(color), Color.blue(color));
         }
     }
 
