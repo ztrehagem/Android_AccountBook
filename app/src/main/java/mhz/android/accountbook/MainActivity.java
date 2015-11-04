@@ -1,5 +1,7 @@
 package mhz.android.accountbook;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -49,8 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
         switch( item.getItemId() ) {
             case R.id.db_init:
-                MySQLiteController.getInstance().dbInitialize();
-                Toast.makeText(getApplicationContext(), "データベースを初期化しました", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("データベースを初期化しますか？")
+                        .setNegativeButton("キャンセル", null)
+                        .setPositiveButton("初期化", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                MySQLiteController.getInstance().dbInitialize();
+                                Toast.makeText(getApplicationContext(), "データベースを初期化しました", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
                 break;
 
             case R.id.add_item:
