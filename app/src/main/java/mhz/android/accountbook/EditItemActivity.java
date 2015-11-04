@@ -61,8 +61,7 @@ public class EditItemActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         CoreItemData item = makeCoreItemData();
-                        if( item == null ){
-                            Toast.makeText(getApplicationContext(), R.string.errorMsg_amountIsEmpty, Toast.LENGTH_SHORT).show();
+                        if (item == null) {
                             return;
                         }
 
@@ -114,7 +113,7 @@ public class EditItemActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         CoreItemData updatedItem = makeCoreItemData();
-                        if( updatedItem == null ) {
+                        if (updatedItem == null) {
                             Toast.makeText(getApplicationContext(), R.string.errorMsg_amountIsEmpty, Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -133,8 +132,18 @@ public class EditItemActivity extends AppCompatActivity {
     private CoreItemData makeCoreItemData() {
 
         String amount_str = editText_amount.getText().toString();
-        if (amount_str.equals(""))
+        if (amount_str.equals("")) {
+            Toast.makeText(getApplicationContext(), R.string.errorMsg_amountIsEmpty, Toast.LENGTH_SHORT).show();
             return null;
+        }
+
+        int amount;
+        try {
+            amount = Integer.parseInt(amount_str);
+        } catch (NumberFormatException exc) {
+            Toast.makeText(EditItemActivity.this, R.string.errorMsg_amountIsTooLarge, Toast.LENGTH_SHORT).show();
+            return null;
+        }
 
         return new CoreItemData(
                 datePicker.getYear(),
@@ -142,7 +151,7 @@ public class EditItemActivity extends AppCompatActivity {
                 datePicker.getDayOfMonth(),
                 allGenreList.get(spinner.getSelectedItemPosition()).id,
                 editText_title.getText().toString(),
-                Integer.parseInt(amount_str)
+                amount
         );
     }
 
