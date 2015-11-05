@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,21 +48,14 @@ public class GenreListActivity extends AppCompatActivity {
 
                                 switch (which) {
                                     case 0:
-                                        final Pair<ViewGroup, EditText> vs = getCustomAlertDialogView();
+                                        final ViewGroup v = getCustomAlertDialogView();
+                                        final EditText e = getEditTextFromViewGroup(v);
 
-                                        vs.second.setText(target.name);
-                                        vs.second.setTextColor(Color.rgb(target.r, target.g, target.b));
-
-                                        SeekBar s = (SeekBar) vs.first.findViewById(R.id.input_color_r);
-                                        s.setProgress(target.r * s.getMax() / 256);
-                                        s = (SeekBar) vs.first.findViewById(R.id.input_color_g);
-                                        s.setProgress(target.g * s.getMax() / 256);
-                                        s = (SeekBar) vs.first.findViewById(R.id.input_color_b);
-                                        s.setProgress(target.b * s.getMax() / 256);
+                                        setValuesToViewsFromGenre(v, target);
 
                                         final AlertDialog dialog_modify = new AlertDialog.Builder(GenreListActivity.this)
                                                 .setTitle(R.string.actionTitle_modifyGenre)
-                                                .setView(vs.first)
+                                                .setView(v)
                                                 .setNegativeButton(R.string.dialogNegative_cancel, new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
@@ -76,11 +68,11 @@ public class GenreListActivity extends AppCompatActivity {
                                         dialog_modify.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                if (vs.second.getText().toString().equals("")) {
+                                                if (e.getText().toString().equals("")) {
                                                     Toast.makeText(GenreListActivity.this, R.string.errorMsg_genreNameIsEmpty, Toast.LENGTH_SHORT).show();
                                                     return;
                                                 }
-                                                ViewDataController.genreList.updateGenre(target.id, vs.second.getText().toString(), vs.second.getCurrentTextColor());
+                                                ViewDataController.genreList.updateGenre(target.id, e.getText().toString(), e.getCurrentTextColor());
                                                 ViewDataController.genreList.reloadList();
                                                 ViewDataController.itemList.reloadList();
                                                 Toast.makeText(GenreListActivity.this, R.string.resultMsg_modify, Toast.LENGTH_SHORT).show();
@@ -131,11 +123,12 @@ public class GenreListActivity extends AppCompatActivity {
 
         switch (item.getOrder()) {
             case 0:
-                final Pair<ViewGroup, EditText> vs = getCustomAlertDialogView();
+                final ViewGroup v = getCustomAlertDialogView();
+                final EditText e = getEditTextFromViewGroup(v);
 
                 final AlertDialog dialog = new AlertDialog.Builder(GenreListActivity.this)
                         .setTitle(R.string.actionTitle_createGenre)
-                        .setView(vs.first)
+                        .setView(v)
                         .setNegativeButton(R.string.dialogNegative_cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -148,11 +141,11 @@ public class GenreListActivity extends AppCompatActivity {
                 dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (vs.second.getText().toString().equals("")) {
+                        if (e.getText().toString().equals("")) {
                             Toast.makeText(GenreListActivity.this, R.string.errorMsg_genreNameIsEmpty, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        ViewDataController.genreList.addGenre(vs.second.getText().toString(), vs.second.getCurrentTextColor());
+                        ViewDataController.genreList.addGenre(e.getText().toString(), e.getCurrentTextColor());
                         ViewDataController.genreList.reloadList();
                         Toast.makeText(GenreListActivity.this, R.string.resultMsg_create, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
@@ -164,14 +157,37 @@ public class GenreListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private Pair<ViewGroup, EditText> getCustomAlertDialogView() {
+    private ViewGroup getCustomAlertDialogView() {
         ViewGroup v = new LinearLayout(GenreListActivity.this);
         getLayoutInflater().inflate(R.layout.view_edit_genre, v);
         EditText editText = (EditText) v.findViewById(R.id.input_genreName);
-        ((SeekBar) v.findViewById(R.id.input_color_r)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.red));
-        ((SeekBar) v.findViewById(R.id.input_color_g)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.green));
-        ((SeekBar) v.findViewById(R.id.input_color_b)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.blue));
-        return new Pair<>(v, editText);
+        SeekBar s = (SeekBar) v.findViewById(R.id.input_color_r);
+        s.setMax(255);
+        s.setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.red));
+        s = (SeekBar) v.findViewById(R.id.input_color_g);
+        s.setMax(255);
+        s.setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.green));
+        s = (SeekBar) v.findViewById(R.id.input_color_b);
+        s.setMax(255);
+        s.setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.blue));
+        return v;
+    }
+
+    private EditText getEditTextFromViewGroup(ViewGroup v) {
+        return (EditText) v.findViewById(R.id.input_genreName);
+    }
+
+    private void setValuesToViewsFromGenre(final ViewGroup v, final Genre target) {
+        final EditText e = getEditTextFromViewGroup(v);
+        e.setText(target.name);
+        e.setTextColor(Color.rgb(target.r, target.g, target.b));
+
+        SeekBar s = (SeekBar) v.findViewById(R.id.input_color_r);
+        s.setProgress(target.r);
+        s = (SeekBar) v.findViewById(R.id.input_color_g);
+        s.setProgress(target.g);
+        s = (SeekBar) v.findViewById(R.id.input_color_b);
+        s.setProgress(target.b);
     }
 
     private class ColorChangeListener implements SeekBar.OnSeekBarChangeListener {
