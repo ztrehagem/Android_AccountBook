@@ -141,7 +141,7 @@ public class EditItemActivity extends AppCompatActivity {
                 datePicker.getYear(),
                 datePicker.getMonth() + 1,
                 datePicker.getDayOfMonth(),
-                DataController.genreList.getGenreByViewPosition(spinner.getSelectedItemPosition()).id,
+                DataController.genreList.getAllGenre().get(spinner.getSelectedItemPosition()).id,
                 editText_title.getText().toString(),
                 amount
         );
