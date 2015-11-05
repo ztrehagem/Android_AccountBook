@@ -2,6 +2,7 @@ package mhz.android.accountbook.data;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,22 +15,25 @@ import mhz.android.accountbook.db.DBController;
  */
 public class DataController {
 
+    public static DisplayMonth displayMonth = null;
     public static ItemList itemList = null;
     public static GenreList genreList = null;
     private static DataController mInstance = null;
 
     //****************//
     private static DBController db;
-    public static void dbInitialize() {
-        db.dbInitialize();
+
+    private DataController(Context applicationContext) {
+        db = new DBController(applicationContext);
+        displayMonth = new DisplayMonth();
+        itemList = new ItemList(applicationContext);
+        genreList = new GenreList(applicationContext);
     }
 
     //****************//
 
-    private DataController(Context applicationContext) {
-        db = new DBController(applicationContext);
-        itemList = new ItemList(applicationContext);
-        genreList = new GenreList(applicationContext);
+    public static void dbInitialize() {
+        db.dbInitialize();
     }
 
     public static void createInstance(Context applicationContext) {
@@ -40,6 +44,57 @@ public class DataController {
     public static void detachInstance() {
         mInstance = null;
         db.close();
+    }
+
+    public class DisplayMonth {
+        // ToDo 月開始日が29日以降でも耐えられる仕組み
+
+        private byte startDay;
+
+        private Calendar start, end;
+
+        private DisplayMonth() {
+            final String TAG = "AccountBook";
+
+            startDay = 28;
+
+            start = Calendar.getInstance();
+
+            Log.d(TAG, "today.m:" + (start.get(Calendar.MONTH) + 1) + " today.d:" + start.get(Calendar.DAY_OF_MONTH));
+
+            if (start.get(Calendar.DAY_OF_MONTH) < startDay)
+                start.add(Calendar.MONTH, -1);
+            start.set(Calendar.DAY_OF_MONTH, startDay);
+            end = Calendar.getInstance();
+            end.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), start.get(Calendar.DAY_OF_MONTH));
+            end.add(Calendar.DAY_OF_MONTH, -1);
+            end.add(Calendar.MONTH, 1);
+
+            Log.d(TAG, "start.m:" + (start.get(Calendar.MONTH) + 1) + " start.d:" + start.get(Calendar.DAY_OF_MONTH));
+            Log.d(TAG, "  end.m:" + (end.get(Calendar.MONTH) + 1) + "   end.d:" + end.get(Calendar.DAY_OF_MONTH));
+        }
+
+        public void moveToNext() {
+            start.add(Calendar.MONTH, 1);
+            end.add(Calendar.MONTH, 1);
+        }
+
+        public void moveToPrev() {
+            start.add(Calendar.MONTH, -1);
+            end.add(Calendar.MONTH, -1);
+        }
+
+        public Calendar getStart() {
+            return start;
+        }
+
+        public Calendar getEnd() {
+            return end;
+        }
+        
+        public boolean isStartAtFirstDayOfMonth() {
+            return startDay == 1;
+        }
     }
 
     public class ItemList {
