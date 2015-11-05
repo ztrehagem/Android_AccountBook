@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import mhz.android.accountbook.EditItemActivity;
 import mhz.android.accountbook.R;
-import mhz.android.accountbook.data.ViewDataController;
+import mhz.android.accountbook.data.DataController;
 
 /**
  * Created by MHz on 2015/11/01.
@@ -34,7 +34,7 @@ public class ItemListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ListView listView = (ListView)parentView.findViewById(R.id.listView);
-        listView.setAdapter(ViewDataController.itemList.getAdapter());
+        listView.setAdapter(DataController.itemList.getAdapter());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {

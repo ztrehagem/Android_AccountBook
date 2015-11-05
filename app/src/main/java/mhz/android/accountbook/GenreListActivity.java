@@ -17,7 +17,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import mhz.android.accountbook.data.Genre;
-import mhz.android.accountbook.data.ViewDataController;
+import mhz.android.accountbook.data.DataController;
 
 public class GenreListActivity extends AppCompatActivity {
 
@@ -26,10 +26,10 @@ public class GenreListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genre_list);
 
-        ViewDataController.genreList.createListAdapter();
+        DataController.genreList.createListAdapter();
         ListView listView = (ListView) findViewById(R.id.listView_genre);
-        listView.setAdapter(ViewDataController.genreList.getAdapter());
-        ViewDataController.genreList.reloadList();
+        listView.setAdapter(DataController.genreList.getAdapter());
+        DataController.genreList.reloadList();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -44,7 +44,7 @@ public class GenreListActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                final Genre target = ViewDataController.genreList.getGenreByViewPosition(position);
+                                final Genre target = DataController.genreList.getGenreByViewPosition(position);
 
                                 switch (which) {
                                     case 0:
@@ -72,9 +72,9 @@ public class GenreListActivity extends AppCompatActivity {
                                                     Toast.makeText(GenreListActivity.this, R.string.errorMsg_genreNameIsEmpty, Toast.LENGTH_SHORT).show();
                                                     return;
                                                 }
-                                                ViewDataController.genreList.updateGenre(target.id, e.getText().toString(), e.getCurrentTextColor());
-                                                ViewDataController.genreList.reloadList();
-                                                ViewDataController.itemList.reloadList();
+                                                DataController.genreList.updateGenre(target.id, e.getText().toString(), e.getCurrentTextColor());
+                                                DataController.genreList.reloadList();
+                                                DataController.itemList.reloadList();
                                                 Toast.makeText(GenreListActivity.this, R.string.resultMsg_modify, Toast.LENGTH_SHORT).show();
                                                 dialog_modify.dismiss();
                                             }
@@ -88,9 +88,9 @@ public class GenreListActivity extends AppCompatActivity {
                                                 .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        ViewDataController.genreList.deleteGenreById(target.id);
-                                                        ViewDataController.genreList.reloadList();
-                                                        ViewDataController.itemList.reloadList();
+                                                        DataController.genreList.deleteGenreById(target.id);
+                                                        DataController.genreList.reloadList();
+                                                        DataController.itemList.reloadList();
                                                         Toast.makeText(GenreListActivity.this, R.string.resultMsg_delete, Toast.LENGTH_SHORT).show();
                                                     }
                                                 })
@@ -106,7 +106,7 @@ public class GenreListActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        ViewDataController.genreList.detachListAdapter();
+        DataController.genreList.detachListAdapter();
         super.onDestroy();
     }
 
@@ -144,8 +144,8 @@ public class GenreListActivity extends AppCompatActivity {
                             Toast.makeText(GenreListActivity.this, R.string.errorMsg_genreNameIsEmpty, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        ViewDataController.genreList.addGenre(e.getText().toString(), e.getCurrentTextColor());
-                        ViewDataController.genreList.reloadList();
+                        DataController.genreList.addGenre(e.getText().toString(), e.getCurrentTextColor());
+                        DataController.genreList.reloadList();
                         Toast.makeText(GenreListActivity.this, R.string.resultMsg_create, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }

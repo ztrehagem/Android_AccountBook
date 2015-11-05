@@ -10,11 +10,11 @@ import android.util.Log;
 /**
  * Created by MHz on 2015/11/01.
  */
-public class MySQLiteOpenHelper extends SQLiteOpenHelper {
+public class DBOpenHelper extends SQLiteOpenHelper {
 
     static final int dbVersion = 5;
 
-    public MySQLiteOpenHelper(Context context) {
+    public DBOpenHelper(Context context) {
         super(context, "mydb.db", null, dbVersion);
     }
 

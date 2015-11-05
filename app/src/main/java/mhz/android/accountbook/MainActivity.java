@@ -10,8 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import mhz.android.accountbook.data.ViewDataController;
-import mhz.android.accountbook.db.MySQLiteController;
+import mhz.android.accountbook.data.DataController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +20,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //** initialize global data
-        MySQLiteController.createInstance(getApplicationContext());
-
-        ViewDataController.createInstance(getApplicationContext());
-        ViewDataController.itemList.reloadList();
+        DataController.createInstance(getApplicationContext());
+        DataController.itemList.reloadList();
 
         //** view
         ((ViewPager) findViewById(R.id.pager)).setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
@@ -34,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        ViewDataController.detachInstance();
-        MySQLiteController.getInstance().close();
+        DataController.detachInstance();
         super.onDestroy();
     }
 
@@ -57,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("初期化", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                MySQLiteController.getInstance().dbInitialize();
+                                DataController.dbInitialize();
                                 Toast.makeText(getApplicationContext(), "データベースを初期化しました", Toast.LENGTH_SHORT).show();
                             }
                         })

@@ -14,25 +14,14 @@ import mhz.android.accountbook.data.Item;
 /**
  * Created by MHz on 2015/11/01.
  */
-public class MySQLiteController {
+public class DBController {
 
-    static MySQLiteController instance = null;
-    private MySQLiteOpenHelper openHelper;
+    private DBOpenHelper openHelper;
     private SQLiteDatabase db;
 
-    private MySQLiteController(Context context) {
-        openHelper = new MySQLiteOpenHelper(context);
+    public DBController(Context context) {
+        openHelper = new DBOpenHelper(context);
         db = openHelper.getWritableDatabase();
-    }
-
-    static public MySQLiteController getInstance() {
-        if (instance == null)
-            throw new RuntimeException();
-        return instance;
-    }
-
-    static public void createInstance(Context context) {
-        instance = new MySQLiteController(context);
     }
 
     public void dbInitialize() {

@@ -4,37 +4,42 @@ import android.content.Context;
 import android.graphics.Color;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import mhz.android.accountbook.R;
-import mhz.android.accountbook.db.MySQLiteController;
+import mhz.android.accountbook.db.DBController;
 
 /**
  * Created by MHz on 2015/11/02.
  */
-public class ViewDataController {
+public class DataController {
 
     public static ItemList itemList = null;
     public static GenreList genreList = null;
-    private static ViewDataController mInstance = null;
+    private static DataController mInstance = null;
 
     //****************//
-    private MySQLiteController db;
+    private static DBController db;
+    public static void dbInitialize() {
+        db.dbInitialize();
+    }
 
     //****************//
 
-    private ViewDataController(Context applicationContext) {
-        db = MySQLiteController.getInstance();
+    private DataController(Context applicationContext) {
+        db = new DBController(applicationContext);
         itemList = new ItemList(applicationContext);
         genreList = new GenreList(applicationContext);
     }
 
     public static void createInstance(Context applicationContext) {
         if (mInstance == null)
-            mInstance = new ViewDataController(applicationContext);
+            mInstance = new DataController(applicationContext);
     }
 
     public static void detachInstance() {
         mInstance = null;
+        db.close();
     }
 
     public class ItemList {
@@ -106,6 +111,10 @@ public class ViewDataController {
             viewGenreList.add(new Genre());
             adapter.clear();
             adapter.addAll(viewGenreList);
+        }
+
+        public ArrayList<Genre> getAllGenre() {
+            return db.getAllGenre();
         }
 
         public Genre getGenreByViewPosition(int viewPosition) {

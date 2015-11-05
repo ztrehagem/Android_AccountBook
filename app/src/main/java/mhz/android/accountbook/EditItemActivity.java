@@ -11,18 +11,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import mhz.android.accountbook.data.Genre;
 import mhz.android.accountbook.data.Item;
-import mhz.android.accountbook.data.ViewDataController;
-import mhz.android.accountbook.db.MySQLiteController;
+import mhz.android.accountbook.data.DataController;
 
 public class EditItemActivity extends AppCompatActivity {
 
-    private MySQLiteController db;
-
-    private ArrayList<Genre> allGenreList;
     private Spinner spinner;
     private DatePicker datePicker;
     private EditText editText_title;
@@ -38,7 +31,6 @@ public class EditItemActivity extends AppCompatActivity {
 
 
         //** initialize
-        allGenreList = MySQLiteController.getInstance().getAllGenre();
         spinner = (Spinner) findViewById(R.id.spinner);
 
         datePicker = (DatePicker) findViewById(R.id.datePicker);
@@ -47,7 +39,7 @@ public class EditItemActivity extends AppCompatActivity {
 
 
         //** view
-        spinner.setAdapter(new EditItemSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, allGenreList));
+        spinner.setAdapter(new EditItemSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, DataController.genreList.getAllGenre()));
 
 
         //** event listener
@@ -65,8 +57,8 @@ public class EditItemActivity extends AppCompatActivity {
                             return;
                         }
 
-                        ViewDataController.itemList.addItem(item.year, item.month, item.day, item.genreId, item.title, item.amount);
-                        ViewDataController.itemList.reloadList();
+                        DataController.itemList.addItem(item.year, item.month, item.day, item.genreId, item.title, item.amount);
+                        DataController.itemList.reloadList();
                         Toast.makeText(getApplicationContext(), R.string.resultMsg_add, Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -81,7 +73,7 @@ public class EditItemActivity extends AppCompatActivity {
                 if (targetItemPosition == -1)
                     throw new RuntimeException();
 
-                final Item item = ViewDataController.itemList.getItemByViewPosition(targetItemPosition);
+                final Item item = DataController.itemList.getItemByViewPosition(targetItemPosition);
 
                 datePicker.updateDate(item.year, item.month - 1, item.day);
                 spinner.setSelection(((EditItemSpinnerAdapter) spinner.getAdapter()).getPositionByGenreId(item.genreId));
@@ -97,8 +89,8 @@ public class EditItemActivity extends AppCompatActivity {
                                 .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        ViewDataController.itemList.deleteItemById(item.id);
-                                        ViewDataController.itemList.reloadList();
+                                        DataController.itemList.deleteItemById(item.id);
+                                        DataController.itemList.reloadList();
                                         Toast.makeText(getApplicationContext(), R.string.resultMsg_delete, Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
@@ -118,8 +110,8 @@ public class EditItemActivity extends AppCompatActivity {
                             return;
                         }
 
-                        ViewDataController.itemList.updateItem(item.id, updatedItem.year, updatedItem.month, updatedItem.day, updatedItem.genreId, updatedItem.title, updatedItem.amount);
-                        ViewDataController.itemList.reloadList();
+                        DataController.itemList.updateItem(item.id, updatedItem.year, updatedItem.month, updatedItem.day, updatedItem.genreId, updatedItem.title, updatedItem.amount);
+                        DataController.itemList.reloadList();
                         Toast.makeText(getApplicationContext(), R.string.resultMsg_modify, Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -149,7 +141,7 @@ public class EditItemActivity extends AppCompatActivity {
                 datePicker.getYear(),
                 datePicker.getMonth() + 1,
                 datePicker.getDayOfMonth(),
-                allGenreList.get(spinner.getSelectedItemPosition()).id,
+                DataController.genreList.getGenreByViewPosition(spinner.getSelectedItemPosition()).id,
                 editText_title.getText().toString(),
                 amount
         );
