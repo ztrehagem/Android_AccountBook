@@ -9,11 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -95,13 +95,37 @@ public class MainActivity extends AppCompatActivity {
             case R.id.edit_genre:
                 startActivity(new Intent(getApplicationContext(), GenreListActivity.class));
                 break;
+
+            case R.id.set_start_day:
+                ViewGroup v = new LinearLayout(MainActivity.this);
+                getLayoutInflater().inflate(R.layout.view_set_start_day, v);
+
+                final NumberPicker numberPicker = (NumberPicker) v.findViewById(R.id.numberPicker);
+                numberPicker.setMinValue(1);
+                numberPicker.setMaxValue(28);
+                numberPicker.setValue(DataController.displayMonth.getStartDay());
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(R.string.actionTitle_changeStartDay)
+                        .setView(v)
+                        .setNegativeButton(R.string.dialogNegative_cancel, null)
+                        .setPositiveButton(R.string.actionName_decision, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DataController.displayMonth.setStartDay((byte) numberPicker.getValue());
+                                DataController.itemList.reloadList();
+                                updateDisplayMonthText();
+                                Toast.makeText(MainActivity.this, R.string.resultMsg_change, Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     private void updateDisplayMonthText() {
-        final TextView text = (TextView)findViewById(R.id.monthText);
+        final TextView text = (TextView) findViewById(R.id.monthText);
         final Calendar start = DataController.displayMonth.getStart();
         text.setText(getString(R.string.monthText_single, start.get(Calendar.YEAR), start.get(Calendar.MONTH) + 1, start.get(Calendar.DAY_OF_MONTH)));
     }

@@ -21,10 +21,13 @@
 
     <string name="actionTitle_createGenre">ジャンル新規作成</string>
     <string name="actionTitle_modifyGenre">ジャンル修正</string>
+    <string name="actionTitle_editGenre">ジャンル編集</string>
+    <string name="actionTitle_changeStartDay">月開始日の変更</string>
     <string name="actionName_add">追加</string>
     <string name="actionName_delete">削除</string>
     <string name="actionName_modify">修正</string>
     <string name="actionName_create">作成</string>
+    <string name="actionName_decision">決定</string>
 
     <string name="dialogMsg_deleteItem">アイテムを削除しますか？</string>
     <string name="dialogMsg_deleteGenre">ジャンルを削除しますか？</string>
@@ -34,6 +37,7 @@
     <string name="resultMsg_delete">削除しました</string>
     <string name="resultMsg_modify">修正しました</string>
     <string name="resultMsg_add">追加しました</string>
+    <string name="resultMsg_change">変更しました</string>
 
     <string name="errorMsg_amountIsEmpty">金額を入力してください</string>
     <string name="errorMsg_amountIsTooLarge">金額が大きすぎます</string>

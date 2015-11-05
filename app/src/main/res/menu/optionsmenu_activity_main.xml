@@ -5,8 +5,11 @@
         android:title="DB初期化" />
     <item
         android:id="@+id/add_item"
-        android:title="アイテム追加" />
+        android:title="@string/activity_title_addItem" />
     <item
         android:id="@+id/edit_genre"
-        android:title="ジャンル編集" />
+        android:title="@string/actionTitle_editGenre" />
+    <item
+        android:id="@+id/set_start_day"
+        android:title="@string/actionTitle_changeStartDay" />
 </menu>

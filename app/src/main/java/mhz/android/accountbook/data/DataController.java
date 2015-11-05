@@ -55,19 +55,10 @@ public class DataController {
         private DisplayMonth() {
             final String TAG = "AccountBook";
 
+            // TODO 設定ファイル化
             startDay = 28;
 
-            start = Calendar.getInstance();
-
-            Log.d(TAG, "today.m:" + (start.get(Calendar.MONTH) + 1) + " today.d:" + start.get(Calendar.DAY_OF_MONTH));
-
-            if (start.get(Calendar.DAY_OF_MONTH) < startDay)
-                start.add(Calendar.MONTH, -1);
-            start.set(Calendar.DAY_OF_MONTH, startDay);
-            end = Calendar.getInstance();
-            end.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), start.get(Calendar.DAY_OF_MONTH));
-            end.add(Calendar.DAY_OF_MONTH, -1);
-            end.add(Calendar.MONTH, 1);
+            applyStartDay();
 
             Log.d(TAG, "start.m:" + (start.get(Calendar.MONTH) + 1) + " start.d:" + start.get(Calendar.DAY_OF_MONTH));
             Log.d(TAG, "  end.m:" + (end.get(Calendar.MONTH) + 1) + "   end.d:" + end.get(Calendar.DAY_OF_MONTH));
@@ -91,8 +82,24 @@ public class DataController {
             return end;
         }
 
-        public boolean isStartAtFirstDayOfMonth() {
-            return startDay == 1;
+        public int getStartDay() {
+            return startDay;
+        }
+
+        public void setStartDay( byte startDay ) {
+            this.startDay = startDay;
+            applyStartDay();
+        }
+
+        private void applyStartDay() {
+            start = Calendar.getInstance();
+            if (start.get(Calendar.DAY_OF_MONTH) < startDay)
+                start.add(Calendar.MONTH, -1);
+            start.set(Calendar.DAY_OF_MONTH, startDay);
+            end = Calendar.getInstance();
+            end.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), start.get(Calendar.DAY_OF_MONTH));
+            end.add(Calendar.DAY_OF_MONTH, -1);
+            end.add(Calendar.MONTH, 1);
         }
     }
 
