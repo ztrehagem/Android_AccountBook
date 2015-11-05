@@ -66,8 +66,10 @@ public class MySQLiteController {
     }
 
     public void deleteGenre( int genreId ){
+        ContentValues v = new ContentValues();
+        v.put("genre_id", 1);
+        db.update("Items", v, "genre_id = ?", new String[] {String.valueOf(genreId)});
         db.delete("Genre", "id = ?", new String[]{String.valueOf(genreId)});
-        // ToDo 対象ジャンルに設定されていたアイテムのデフォルトジャンル化
     }
 
     public void updateItem( int itemId, int y, int m, int d, int genreId, String title, int amount ) {

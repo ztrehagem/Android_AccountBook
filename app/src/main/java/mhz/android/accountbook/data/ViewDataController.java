@@ -111,11 +111,11 @@ public class ViewDataController {
         public void addGenre( String genreName, int color ){
             this.addGenre(genreName, Color.red(color), Color.green(color), Color.blue(color));
         }
-        public void updateGenre( int genreId, String name, int color ){
-            this.updateGenre( genreId, name, Color.red(color), Color.green(color), Color.blue(color) );
-        }
         public void updateGenre( int genreId, String name, int r, int g, int b ){
-            db.updateGenre( genreId, name, r, g, b );
+            db.updateGenre(genreId, name, r, g, b);
+        }
+        public void updateGenre( int genreId, String name, int color ){
+            this.updateGenre(genreId, name, Color.red(color), Color.green(color), Color.blue(color));
         }
         public void deleteGenreById( int genreId ) {
             db.deleteGenre(genreId);

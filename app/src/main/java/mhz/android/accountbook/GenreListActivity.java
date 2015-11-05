@@ -80,6 +80,7 @@ public class GenreListActivity extends AppCompatActivity {
                                                 }
                                                 ViewDataController.genreList.updateGenre(target.id, vs.second.getText().toString(), vs.second.getCurrentTextColor());
                                                 ViewDataController.genreList.reloadList();
+                                                ViewDataController.itemList.reloadList();
                                                 Toast.makeText(GenreListActivity.this, "修正しました", Toast.LENGTH_SHORT).show();
                                                 dialog_modify.dismiss();
                                             }
@@ -96,6 +97,7 @@ public class GenreListActivity extends AppCompatActivity {
                                                         // 削除
                                                         ViewDataController.genreList.deleteGenreById(target.id);
                                                         ViewDataController.genreList.reloadList();
+                                                        ViewDataController.itemList.reloadList();
                                                         Toast.makeText(GenreListActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
                                                     }
                                                 })
