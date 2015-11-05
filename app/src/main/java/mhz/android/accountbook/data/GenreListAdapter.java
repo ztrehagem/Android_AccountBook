@@ -17,27 +17,57 @@ import mhz.android.accountbook.R;
  */
 public class GenreListAdapter extends ArrayAdapter<Genre> {
 
+    private final int viewTypeNormal = 0;
+    private final int viewTypeFinal = 1;
+
     private LayoutInflater inflater;
-    private int resource;
 
     public GenreListAdapter(Context context, int resource) {
         super(context, resource);
-        this.resource = resource;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Genre genre = getItem(position);
 
         if (convertView == null)
             convertView = inflater.inflate(R.layout.list_view_genre, parent, false);
-        Context context = convertView.getContext();
 
-        TextView v = (TextView)convertView.findViewById(R.id.listView_genre_name);
-        v.setText(context.getString(R.string.listView_genre_name, genre.name));
-        v.setTextColor(Color.rgb(genre.r, genre.g, genre.b));
+        switch ( getItemViewType(position) ) {
+            case viewTypeNormal:
+                Genre genre = getItem(position);
+                Context context = convertView.getContext();
+
+                TextView v = (TextView)convertView.findViewById(R.id.listView_genre_name);
+                v.setText(context.getString(R.string.listView_genre_name, genre.name));
+                v.setTextColor(Color.rgb(genre.r, genre.g, genre.b));
+                break;
+
+            case viewTypeFinal:
+                convertView.setVisibility(View.INVISIBLE);
+                break;
+        }
 
         return convertView;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position != getCount() - 1) ? viewTypeNormal : viewTypeFinal;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public boolean areAllItemsEnabled() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return position != 0 && position != getCount() - 1;
     }
 }

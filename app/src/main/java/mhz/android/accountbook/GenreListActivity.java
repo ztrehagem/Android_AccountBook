@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,8 +30,16 @@ public class GenreListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_genre_list);
 
         ViewDataController.genreList.createListAdapter();
-        ((ListView) findViewById(R.id.listView_genre)).setAdapter(ViewDataController.genreList.getAdapter());
+        ListView listView = (ListView) findViewById(R.id.listView_genre);
+        listView.setAdapter(ViewDataController.genreList.getAdapter());
         ViewDataController.genreList.reloadList();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 
     @Override

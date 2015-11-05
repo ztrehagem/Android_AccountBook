@@ -50,6 +50,7 @@ public class ViewDataController {
 
         public void reloadList() {
             viewItemList = db.getItemsForListView();
+            viewItemList.add( new Item() );
             adapter.clear();
             adapter.addAll(viewItemList);
         }
@@ -97,6 +98,7 @@ public class ViewDataController {
         }
         public void reloadList() {
             viewGenreList = db.getAllGenre();
+            viewGenreList.add(new Genre());
             adapter.clear();
             adapter.addAll(viewGenreList);
         }
