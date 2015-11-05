@@ -68,6 +68,6 @@ public class GenreListAdapter extends ArrayAdapter<Genre> {
 
     @Override
     public boolean isEnabled(int position) {
-        return position != 0 && position != getCount() - 1;
+        return position != getCount() - 1;
     }
 }

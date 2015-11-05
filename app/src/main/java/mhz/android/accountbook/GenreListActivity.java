@@ -35,8 +35,13 @@ public class GenreListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                String[] alertItems;
+                if( position != 0 )
+                    alertItems = new String[] {getString(R.string.actionName_modify), getString(R.string.actionName_delete)};
+                else
+                    alertItems = new String[] {getString(R.string.actionName_modify)};
                 new AlertDialog.Builder(GenreListActivity.this)
-                        .setItems(new String[] {getString(R.string.actionName_modify), getString(R.string.actionName_delete)}, new DialogInterface.OnClickListener() {
+                        .setItems(alertItems, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
