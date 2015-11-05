@@ -50,7 +50,6 @@ public class DataController {
         // ToDo 月開始日が29日以降でも耐えられる仕組み
 
         private byte startDay;
-
         private Calendar start, end;
 
         private DisplayMonth() {
@@ -91,7 +90,7 @@ public class DataController {
         public Calendar getEnd() {
             return end;
         }
-        
+
         public boolean isStartAtFirstDayOfMonth() {
             return startDay == 1;
         }

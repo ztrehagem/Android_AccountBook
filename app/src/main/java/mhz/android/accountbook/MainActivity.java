@@ -8,7 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.Calendar;
 
 import mhz.android.accountbook.data.DataController;
 
@@ -25,6 +32,25 @@ public class MainActivity extends AppCompatActivity {
 
         //** view
         ((ViewPager) findViewById(R.id.pager)).setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
+
+        updateDisplayMonthText();
+
+        findViewById(R.id.button_prev).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataController.displayMonth.moveToPrev();
+                DataController.itemList.reloadList();
+                updateDisplayMonthText();
+            }
+        });
+        findViewById(R.id.button_next).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataController.displayMonth.moveToNext();
+                DataController.itemList.reloadList();
+                updateDisplayMonthText();
+            }
+        });
 
 
     }
@@ -72,5 +98,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateDisplayMonthText() {
+        final TextView text = (TextView)findViewById(R.id.monthText);
+        final Calendar start = DataController.displayMonth.getStart();
+        text.setText(getString(R.string.monthText_single, start.get(Calendar.YEAR), start.get(Calendar.MONTH) + 1, start.get(Calendar.DAY_OF_MONTH)));
     }
 }

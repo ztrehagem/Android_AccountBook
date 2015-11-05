@@ -22,12 +22,14 @@
         android:background="@color/colorPrimary">
 
         <Button
+            android:id="@+id/button_prev"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/month_previous" />
 
         <TextView
+            android:id="@+id/monthText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -37,6 +39,7 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/button_next"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
