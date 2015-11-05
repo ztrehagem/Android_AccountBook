@@ -88,7 +88,6 @@ public class GenreListActivity extends AppCompatActivity {
                                                 .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        // 削除
                                                         ViewDataController.genreList.deleteGenreById(target.id);
                                                         ViewDataController.genreList.reloadList();
                                                         ViewDataController.itemList.reloadList();
@@ -161,7 +160,8 @@ public class GenreListActivity extends AppCompatActivity {
         ViewGroup v = new LinearLayout(GenreListActivity.this);
         getLayoutInflater().inflate(R.layout.view_edit_genre, v);
         EditText editText = (EditText) v.findViewById(R.id.input_genreName);
-        SeekBar s = (SeekBar) v.findViewById(R.id.input_color_r);
+        SeekBar s;
+        s = (SeekBar) v.findViewById(R.id.input_color_r);
         s.setMax(255);
         s.setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.red));
         s = (SeekBar) v.findViewById(R.id.input_color_g);
@@ -216,7 +216,7 @@ public class GenreListActivity extends AppCompatActivity {
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
             int currentColor = target.getCurrentTextColor();
-            int targetValue = 255 * seekBar.getProgress() / seekBar.getMax();
+            int targetValue = seekBar.getProgress();
             int newColor = Color.BLACK;
             switch (colorId) {
                 case red:
