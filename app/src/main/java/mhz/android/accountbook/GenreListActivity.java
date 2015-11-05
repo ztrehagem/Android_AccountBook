@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.zip.Inflater;
 
+import mhz.android.accountbook.data.Genre;
 import mhz.android.accountbook.data.ViewDataController;
 
 public class GenreListActivity extends AppCompatActivity {
@@ -36,8 +37,74 @@ public class GenreListActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                new AlertDialog.Builder(GenreListActivity.this)
+                        .setItems(new String[]{"修正", "削除"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
+                                final Genre target = ViewDataController.genreList.getGenreByViewPosition(position);
+
+                                switch (which) {
+                                    case 0:
+                                        final Pair<ViewGroup, EditText> vs = getCustomAlertDialogView();
+
+                                        vs.second.setText(target.name);
+                                        vs.second.setTextColor(Color.rgb(target.r, target.g, target.b));
+
+                                        SeekBar s = (SeekBar) vs.first.findViewById(R.id.input_color_r);
+                                        s.setProgress(target.r * s.getMax() / 256);
+                                        s = (SeekBar) vs.first.findViewById(R.id.input_color_g);
+                                        s.setProgress(target.g * s.getMax() / 256);
+                                        s = (SeekBar) vs.first.findViewById(R.id.input_color_b);
+                                        s.setProgress(target.b * s.getMax() / 256);
+
+                                        final AlertDialog dialog_modify = new AlertDialog.Builder(GenreListActivity.this)
+                                                .setTitle("ジャンル修正")
+                                                .setView(vs.first)
+                                                .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.cancel();
+                                                    }
+                                                })
+                                                .setPositiveButton("修正", null)
+                                                .show();
+
+                                        dialog_modify.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                if (vs.second.getText().toString().equals("")) {
+                                                    Toast.makeText(GenreListActivity.this, "ジャンル名を入力してください", Toast.LENGTH_SHORT).show();
+                                                    return;
+                                                }
+                                                ViewDataController.genreList.updateGenre(target.id, vs.second.getText().toString(), vs.second.getCurrentTextColor());
+                                                ViewDataController.genreList.reloadList();
+                                                Toast.makeText(GenreListActivity.this, "修正しました", Toast.LENGTH_SHORT).show();
+                                                dialog_modify.dismiss();
+                                            }
+                                        });
+                                        break;
+
+                                    case 1:
+                                        new AlertDialog.Builder(GenreListActivity.this)
+                                                .setMessage("ジャンルを削除しますか？")
+                                                .setNegativeButton("キャンセル", null)
+                                                .setPositiveButton("削除", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        // 削除
+                                                        ViewDataController.genreList.deleteGenreById(target.id);
+                                                        ViewDataController.genreList.reloadList();
+                                                        Toast.makeText(GenreListActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .show();
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
             }
         });
     }
@@ -58,7 +125,7 @@ public class GenreListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch( item.getOrder() ) {
+        switch (item.getOrder()) {
             case 0:
                 final Pair<ViewGroup, EditText> vs = getCustomAlertDialogView();
 
@@ -96,11 +163,11 @@ public class GenreListActivity extends AppCompatActivity {
     private Pair<ViewGroup, EditText> getCustomAlertDialogView() {
         ViewGroup v = new LinearLayout(GenreListActivity.this);
         getLayoutInflater().inflate(R.layout.view_edit_genre, v);
-        EditText editText = (EditText)v.findViewById(R.id.input_genreName);
-        ((SeekBar)v.findViewById(R.id.input_color_r)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.red));
-        ((SeekBar)v.findViewById(R.id.input_color_g)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.green));
-        ((SeekBar)v.findViewById(R.id.input_color_b)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.blue));
-        return new Pair<>( v, editText );
+        EditText editText = (EditText) v.findViewById(R.id.input_genreName);
+        ((SeekBar) v.findViewById(R.id.input_color_r)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.red));
+        ((SeekBar) v.findViewById(R.id.input_color_g)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.green));
+        ((SeekBar) v.findViewById(R.id.input_color_b)).setOnSeekBarChangeListener(new ColorChangeListener(editText, ColorChangeListener.blue));
+        return new Pair<>(v, editText);
     }
 
     private class ColorChangeListener implements SeekBar.OnSeekBarChangeListener {
@@ -111,7 +178,7 @@ public class GenreListActivity extends AppCompatActivity {
         private EditText target;
         private byte colorId;
 
-        ColorChangeListener( EditText editText, byte colorId ) {
+        ColorChangeListener(EditText editText, byte colorId) {
             target = editText;
             this.colorId = colorId;
         }
@@ -131,15 +198,15 @@ public class GenreListActivity extends AppCompatActivity {
             int currentColor = target.getCurrentTextColor();
             int targetValue = 255 * seekBar.getProgress() / seekBar.getMax();
             int newColor = Color.BLACK;
-            switch( colorId ) {
+            switch (colorId) {
                 case red:
-                    newColor = Color.rgb( targetValue, Color.green(currentColor), Color.blue(currentColor) );
+                    newColor = Color.rgb(targetValue, Color.green(currentColor), Color.blue(currentColor));
                     break;
                 case green:
-                    newColor = Color.rgb( Color.red(currentColor), targetValue, Color.blue(currentColor) );
+                    newColor = Color.rgb(Color.red(currentColor), targetValue, Color.blue(currentColor));
                     break;
                 case blue:
-                    newColor = Color.rgb( Color.red(currentColor), Color.green(currentColor), targetValue );
+                    newColor = Color.rgb(Color.red(currentColor), Color.green(currentColor), targetValue);
                     break;
             }
             target.setTextColor(newColor);

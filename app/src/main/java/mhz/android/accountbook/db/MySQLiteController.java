@@ -65,6 +65,11 @@ public class MySQLiteController {
         db.delete("Items", "id = ?", new String[]{String.valueOf(itemId)});
     }
 
+    public void deleteGenre( int genreId ){
+        db.delete("Genre", "id = ?", new String[]{String.valueOf(genreId)});
+        // ToDo 対象ジャンルに設定されていたアイテムのデフォルトジャンル化
+    }
+
     public void updateItem( int itemId, int y, int m, int d, int genreId, String title, int amount ) {
         ContentValues v = new ContentValues();
         v.put("year", y);
@@ -74,6 +79,15 @@ public class MySQLiteController {
         v.put( "title", title );
         v.put( "amount", amount );
         db.update("Items", v, "id = ?", new String[]{String.valueOf(itemId)});
+    }
+
+    public void updateGenre( int genreId, String name, int r, int g, int b ){
+        ContentValues v = new ContentValues();
+        v.put("name", name);
+        v.put("r", r);
+        v.put("g", g);
+        v.put("b", b);
+        db.update("Genre", v, "id = ?", new String[] {String.valueOf(genreId)});
     }
 
     public ArrayList<Item> getItemsForListView() {
