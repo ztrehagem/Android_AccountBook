@@ -53,20 +53,31 @@ public class GenreListActivity extends AppCompatActivity {
             case 0:
                 final Pair<ViewGroup, EditText> vs = getCustomAlertDialogView();
 
-                new AlertDialog.Builder(GenreListActivity.this)
+                final AlertDialog dialog = new AlertDialog.Builder(GenreListActivity.this)
                         .setTitle("ジャンル新規作成")
                         .setView(vs.first)
-                        .setNegativeButton("キャンセル", null)
-                        .setPositiveButton("作成", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // 作成
-                                ViewDataController.genreList.addGenre(vs.second.getText().toString(), vs.second.getCurrentTextColor());
-                                ViewDataController.genreList.reloadList();
-                                Toast.makeText(GenreListActivity.this, "作成しました", Toast.LENGTH_SHORT).show();
+                                dialog.cancel();
                             }
                         })
+                        .setPositiveButton("作成", null)
                         .show();
+
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (vs.second.getText().toString().equals("")) {
+                            Toast.makeText(GenreListActivity.this, "ジャンル名を入力してください", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ViewDataController.genreList.addGenre(vs.second.getText().toString(), vs.second.getCurrentTextColor());
+                        ViewDataController.genreList.reloadList();
+                        Toast.makeText(GenreListActivity.this, "作成しました", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
                 break;
         }
 
