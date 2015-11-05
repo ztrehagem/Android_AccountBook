@@ -67,7 +67,7 @@ public class EditItemActivity extends AppCompatActivity {
 
                         ViewDataController.itemList.addItem(item.year, item.month, item.day, item.genreId, item.title, item.amount);
                         ViewDataController.itemList.reloadList();
-                        Toast.makeText(getApplicationContext(), R.string.successMsg_ItemAdded, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.resultMsg_add, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -94,12 +94,12 @@ public class EditItemActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         new AlertDialog.Builder(EditItemActivity.this)
                                 .setMessage(R.string.dialogMsg_deleteItem)
-                                .setPositiveButton(R.string.dialogPositive_delete, new DialogInterface.OnClickListener() {
+                                .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         ViewDataController.itemList.deleteItemById(item.id);
                                         ViewDataController.itemList.reloadList();
-                                        Toast.makeText(getApplicationContext(), R.string.receiptMsg_deleteItem, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), R.string.resultMsg_delete, Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
                                 })
@@ -120,7 +120,7 @@ public class EditItemActivity extends AppCompatActivity {
 
                         ViewDataController.itemList.updateItem(item.id, updatedItem.year, updatedItem.month, updatedItem.day, updatedItem.genreId, updatedItem.title, updatedItem.amount);
                         ViewDataController.itemList.reloadList();
-                        Toast.makeText(getApplicationContext(), R.string.receiptMsg_modifyItem, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.resultMsg_modify, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });

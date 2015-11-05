@@ -11,25 +11,29 @@
     <string name="listView_item_genreName">%1$s</string>
     <string name="listView_item_title">%1$s</string>
     <string name="listView_item_amount">%1$d 円</string>
-
     <string name="listView_genre_name">%1$s</string>
-
-    <string name="addItemActivity_button_add">追加</string>
-    <string name="addItemActivity_button_delete">削除</string>
-    <string name="addItemActivity_button_modify">修正</string>
-
-    <string name="dialogMsg_deleteItem">削除しますか？</string>
-    <string name="dialogPositive_delete">削除する</string>
-    <string name="dialogNegative_cancel">キャンセル</string>
-    <string name="receiptMsg_deleteItem">削除しました</string>
-    <string name="receiptMsg_modifyItem">修正しました</string>
 
     <string name="item_property_genre">分類</string>
     <string name="item_property_title">タイトル</string>
     <string name="item_property_amount">金額</string>
 
-    <string name="successMsg_ItemAdded">追加完了</string>
+    <string name="actionTitle_createGenre">ジャンル新規作成</string>
+    <string name="actionTitle_modifyGenre">ジャンル修正</string>
+    <string name="actionName_add">追加</string>
+    <string name="actionName_delete">削除</string>
+    <string name="actionName_modify">修正</string>
+    <string name="actionName_create">作成</string>
+
+    <string name="dialogMsg_deleteItem">アイテムを削除しますか？</string>
+    <string name="dialogMsg_deleteGenre">ジャンルを削除しますか？</string>
+    <string name="dialogNegative_cancel">キャンセル</string>
+
+    <string name="resultMsg_create">作成しました</string>
+    <string name="resultMsg_delete">削除しました</string>
+    <string name="resultMsg_modify">修正しました</string>
+    <string name="resultMsg_add">追加しました</string>
 
     <string name="errorMsg_amountIsEmpty">金額を入力してください</string>
     <string name="errorMsg_amountIsTooLarge">金額が大きすぎます</string>
+    <string name="errorMsg_genreNameIsEmpty">ジャンル名を入力してください</string>
 </resources>
