@@ -11,19 +11,19 @@
         android:padding="16dp">
 
         <DatePicker
+            android:id="@+id/datePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/datePicker"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:datePickerMode="spinner"
             android:calendarViewShown="false"
-            android:paddingBottom="16dp"/>
+            android:datePickerMode="spinner"
+            android:paddingBottom="16dp" />
 
         <LinearLayout
+            android:id="@+id/linearLayout0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout0"
             android:layout_below="@+id/datePicker"
             android:layout_centerHorizontal="true"
             android:paddingBottom="16dp">
@@ -32,20 +32,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/item_property_genre"/>
+                android:text="@string/item_property_genre" />
 
             <Spinner
+                android:id="@+id/spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:id="@+id/spinner"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout1"
             android:layout_below="@+id/linearLayout0"
             android:layout_centerHorizontal="true"
             android:paddingBottom="16dp">
@@ -54,20 +54,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/item_property_title"/>
+                android:text="@string/item_property_title" />
 
             <EditText
+                android:id="@+id/input_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:inputType="text"
-                android:id="@+id/input_title"/>
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout2"
             android:layout_below="@+id/linearLayout1"
             android:layout_centerHorizontal="true"
             android:paddingBottom="16dp">
@@ -76,53 +76,53 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/item_property_amount"/>
+                android:text="@string/item_property_amount" />
 
             <EditText
+                android:id="@+id/input_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:inputType="number"
-                android:id="@+id/input_amount"/>
+                android:inputType="number" />
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/buttons_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/buttons_add"
             android:layout_below="@+id/linearLayout2"
             android:layout_centerHorizontal="true">
 
             <Button
+                android:id="@+id/button_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_add"
                 android:layout_centerHorizontal="true"
-                android:text="@string/actionName_add"/>
+                android:text="@string/actionName_add" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/buttons_modify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/buttons_modify"
             android:layout_below="@+id/linearLayout2"
             android:layout_centerHorizontal="true">
 
             <Button
+                android:id="@+id/button_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_delete"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="@string/actionName_delete"/>
+                android:text="@string/actionName_delete" />
 
             <Button
+                android:id="@+id/button_modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_modify"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:text="@string/actionName_modify"/>
+                android:layout_alignParentRight="true"
+                android:text="@string/actionName_modify" />
         </RelativeLayout>
 
 

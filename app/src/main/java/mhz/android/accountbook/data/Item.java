@@ -18,14 +18,14 @@ public class Item {
     public int color;
 
     public Item() {
-        Set( -1, 1900, 0, 0, -1, null, null, -1, Color.rgb( 0, 0, 0 ) );
+        Set(-1, 1900, 0, 0, -1, null, null, -1, Color.rgb(0, 0, 0));
     }
 
-    public Item( int id, int y, int m, int d, int genreId, String genreName, String title, int amount, int color ) {
-        Set( id, y, m, d, genreId, genreName, title, amount, color );
+    public Item(int id, int y, int m, int d, int genreId, String genreName, String title, int amount, int color) {
+        Set(id, y, m, d, genreId, genreName, title, amount, color);
     }
 
-    public void Set( int id, int y, int m, int d, int genreId, String genreName, String title, int amount, int color ) {
+    public void Set(int id, int y, int m, int d, int genreId, String genreName, String title, int amount, int color) {
         this.id = id;
         this.year = y;
         this.month = m;

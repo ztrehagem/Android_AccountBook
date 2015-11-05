@@ -7,10 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.io.Serializable;
-
 import mhz.android.accountbook.R;
-import mhz.android.accountbook.data.Item;
 
 /**
  * Created by MHz on 2015/11/01.
@@ -34,8 +31,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
             convertView = inflater.inflate(R.layout.list_view_item, parent, false);
 
 
-
-        switch (getItemViewType(position)){
+        switch (getItemViewType(position)) {
             case viewTypeNormal:
                 Item item = getItem(position);
                 Context context = convertView.getContext();

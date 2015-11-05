@@ -3,8 +3,8 @@ package mhz.android.accountbook;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,10 +36,10 @@ public class GenreListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 String[] alertItems;
-                if( position != 0 )
-                    alertItems = new String[] {getString(R.string.actionName_modify), getString(R.string.actionName_delete)};
+                if (position != 0)
+                    alertItems = new String[]{getString(R.string.actionName_modify), getString(R.string.actionName_delete)};
                 else
-                    alertItems = new String[] {getString(R.string.actionName_modify)};
+                    alertItems = new String[]{getString(R.string.actionName_modify)};
                 new AlertDialog.Builder(GenreListActivity.this)
                         .setItems(alertItems, new DialogInterface.OnClickListener() {
                             @Override

@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import mhz.android.accountbook.R;
 
 /**
@@ -24,7 +22,7 @@ public class GenreListAdapter extends ArrayAdapter<Genre> {
 
     public GenreListAdapter(Context context, int resource) {
         super(context, resource);
-        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -33,12 +31,12 @@ public class GenreListAdapter extends ArrayAdapter<Genre> {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.list_view_genre, parent, false);
 
-        switch ( getItemViewType(position) ) {
+        switch (getItemViewType(position)) {
             case viewTypeNormal:
                 Genre genre = getItem(position);
                 Context context = convertView.getContext();
 
-                TextView v = (TextView)convertView.findViewById(R.id.listView_genre_name);
+                TextView v = (TextView) convertView.findViewById(R.id.listView_genre_name);
                 v.setText(context.getString(R.string.listView_genre_name, genre.name));
                 v.setTextColor(Color.rgb(genre.r, genre.g, genre.b));
                 break;

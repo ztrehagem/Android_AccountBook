@@ -2,7 +2,6 @@ package mhz.android.accountbook;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class EditItemSpinnerAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        if( convertView == null ) {
+        if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
         }
@@ -52,7 +51,7 @@ public class EditItemSpinnerAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if( convertView == null ) {
+        if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
         }
@@ -62,14 +61,14 @@ public class EditItemSpinnerAdapter extends ArrayAdapter<String> {
         return convertView;
     }
 
-    private void setTextView( TextView textView, int position ) {
-        textView.setText( super.getItem(position) );
+    private void setTextView(TextView textView, int position) {
+        textView.setText(super.getItem(position));
         textView.setTextColor(colorList[position]);
     }
 
     public int getPositionByGenreId(int genreId) {
-        for( int i = 0; i < idList.length; i++ ) {
-            if( idList[i] == genreId )
+        for (int i = 0; i < idList.length; i++) {
+            if (idList[i] == genreId)
                 return i;
         }
         return 0;

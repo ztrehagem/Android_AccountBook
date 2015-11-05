@@ -1,7 +1,7 @@
 package mhz.android.accountbook;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import mhz.android.accountbook.fragments.ItemListFragment;
@@ -12,14 +12,14 @@ import mhz.android.accountbook.fragments.MainViewFragment;
  */
 public class MainFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
-    public MainFragmentStatePagerAdapter( FragmentManager fm ) {
-        super( fm );
+    public MainFragmentStatePagerAdapter(FragmentManager fm) {
+        super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        switch (position){
+        switch (position) {
             case 0:
                 return new MainViewFragment();
             default:

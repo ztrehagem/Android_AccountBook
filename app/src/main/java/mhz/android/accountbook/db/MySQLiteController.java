@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.util.Pair;
 
 import java.util.ArrayList;
 
@@ -17,13 +16,17 @@ import mhz.android.accountbook.data.Item;
  */
 public class MySQLiteController {
 
+    static MySQLiteController instance = null;
     private MySQLiteOpenHelper openHelper;
     private SQLiteDatabase db;
 
-    static MySQLiteController instance = null;
+    private MySQLiteController(Context context) {
+        openHelper = new MySQLiteOpenHelper(context);
+        db = openHelper.getWritableDatabase();
+    }
 
-    static public MySQLiteController getInstance(){
-        if( instance == null )
+    static public MySQLiteController getInstance() {
+        if (instance == null)
             throw new RuntimeException();
         return instance;
     }
@@ -32,27 +35,22 @@ public class MySQLiteController {
         instance = new MySQLiteController(context);
     }
 
-    private MySQLiteController(Context context) {
-        openHelper = new MySQLiteOpenHelper(context);
-        db = openHelper.getWritableDatabase();
-    }
-
     public void dbInitialize() {
         openHelper.onUpgrade(db, db.getVersion(), db.getVersion());
     }
 
-    public void addItem( int y, int m, int d, int genreId, String title, int amount) {
+    public void addItem(int y, int m, int d, int genreId, String title, int amount) {
         ContentValues v = new ContentValues();
-        v.put( "year", y );
-        v.put( "month", m );
-        v.put( "day", d );
-        v.put( "genre_id", genreId );
-        v.put( "title", title );
-        v.put( "amount", amount );
+        v.put("year", y);
+        v.put("month", m);
+        v.put("day", d);
+        v.put("genre_id", genreId);
+        v.put("title", title);
+        v.put("amount", amount);
         db.insert("Items", null, v);
     }
 
-    public void addGenre( String name, int r, int g, int b ) {
+    public void addGenre(String name, int r, int g, int b) {
         ContentValues v = new ContentValues();
         v.put("name", name);
         v.put("r", r);
@@ -61,35 +59,35 @@ public class MySQLiteController {
         db.insert("Genre", null, v);
     }
 
-    public void deleteItem( int itemId ) {
+    public void deleteItem(int itemId) {
         db.delete("Items", "id = ?", new String[]{String.valueOf(itemId)});
     }
 
-    public void deleteGenre( int genreId ){
+    public void deleteGenre(int genreId) {
         ContentValues v = new ContentValues();
         v.put("genre_id", 1);
-        db.update("Items", v, "genre_id = ?", new String[] {String.valueOf(genreId)});
+        db.update("Items", v, "genre_id = ?", new String[]{String.valueOf(genreId)});
         db.delete("Genre", "id = ?", new String[]{String.valueOf(genreId)});
     }
 
-    public void updateItem( int itemId, int y, int m, int d, int genreId, String title, int amount ) {
+    public void updateItem(int itemId, int y, int m, int d, int genreId, String title, int amount) {
         ContentValues v = new ContentValues();
         v.put("year", y);
         v.put("month", m);
         v.put("day", d);
-        v.put( "genre_id", genreId );
-        v.put( "title", title );
-        v.put( "amount", amount );
+        v.put("genre_id", genreId);
+        v.put("title", title);
+        v.put("amount", amount);
         db.update("Items", v, "id = ?", new String[]{String.valueOf(itemId)});
     }
 
-    public void updateGenre( int genreId, String name, int r, int g, int b ){
+    public void updateGenre(int genreId, String name, int r, int g, int b) {
         ContentValues v = new ContentValues();
         v.put("name", name);
         v.put("r", r);
         v.put("g", g);
         v.put("b", b);
-        db.update("Genre", v, "id = ?", new String[] {String.valueOf(genreId)});
+        db.update("Genre", v, "id = ?", new String[]{String.valueOf(genreId)});
     }
 
     public ArrayList<Item> getItemsForListView() {
@@ -101,7 +99,7 @@ public class MySQLiteController {
 
         ArrayList<Item> list = new ArrayList<>();
 
-        if( c.moveToFirst() ) {
+        if (c.moveToFirst()) {
             do {
                 list.add(new Item(
                         c.getInt(c.getColumnIndex("id")),
@@ -118,7 +116,7 @@ public class MySQLiteController {
                                 c.getInt(c.getColumnIndex("b"))
                         )
                 ));
-            } while( c.moveToNext() );
+            } while (c.moveToNext());
         }
 
         c.close();
@@ -131,16 +129,16 @@ public class MySQLiteController {
 
         ArrayList<Genre> list = new ArrayList<>();
 
-        if( c.moveToFirst() ) {
+        if (c.moveToFirst()) {
             do {
-                list.add( new Genre(
+                list.add(new Genre(
                         c.getInt(c.getColumnIndex("id")),
                         c.getString(c.getColumnIndex("name")),
                         c.getInt(c.getColumnIndex("r")),
                         c.getInt(c.getColumnIndex("g")),
                         c.getInt(c.getColumnIndex("b"))
                 ));
-            } while( c.moveToNext() );
+            } while (c.moveToNext());
         }
 
         c.close();

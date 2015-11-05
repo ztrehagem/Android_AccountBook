@@ -16,6 +16,7 @@
     <string name="item_property_genre">分類</string>
     <string name="item_property_title">タイトル</string>
     <string name="item_property_amount">金額</string>
+    <string name="genre_property_name">ジャンル名</string>
 
     <string name="actionTitle_createGenre">ジャンル新規作成</string>
     <string name="actionTitle_modifyGenre">ジャンル修正</string>

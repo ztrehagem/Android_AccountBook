@@ -8,36 +8,37 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ジャンル名"/>
+            android:text="@string/genre_property_name" />
 
         <EditText
+            android:id="@+id/input_genreName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/input_genreName"/>
+            android:layout_height="wrap_content" />
 
         <SeekBar
+            android:id="@+id/input_color_r"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_red_light"
             android:layout_marginTop="12dp"
-            android:id="@+id/input_color_r"/>
+            android:background="@android:color/holo_red_light" />
 
         <SeekBar
+            android:id="@+id/input_color_g"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_light"
             android:layout_marginTop="12dp"
-            android:id="@+id/input_color_g"/>
+            android:background="@android:color/holo_green_light" />
 
         <SeekBar
+            android:id="@+id/input_color_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_light"
             android:layout_marginTop="12dp"
-            android:id="@+id/input_color_b"/>
+            android:background="@android:color/holo_blue_light" />
 
     </LinearLayout>
 

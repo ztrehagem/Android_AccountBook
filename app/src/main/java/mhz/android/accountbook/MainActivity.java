@@ -3,9 +3,9 @@ package mhz.android.accountbook;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch( item.getItemId() ) {
+        switch (item.getItemId()) {
             case R.id.db_init:
                 new AlertDialog.Builder(MainActivity.this)
                         .setMessage("データベースを初期化しますか？")

@@ -3,8 +3,8 @@ package mhz.android.accountbook;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -14,9 +14,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import mhz.android.accountbook.data.Genre;
+import mhz.android.accountbook.data.Item;
 import mhz.android.accountbook.data.ViewDataController;
 import mhz.android.accountbook.db.MySQLiteController;
-import mhz.android.accountbook.data.Item;
 
 public class EditItemActivity extends AppCompatActivity {
 
@@ -39,7 +39,7 @@ public class EditItemActivity extends AppCompatActivity {
 
         //** initialize
         allGenreList = MySQLiteController.getInstance().getAllGenre();
-        spinner = (Spinner)findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
         datePicker = (DatePicker) findViewById(R.id.datePicker);
         editText_title = (EditText) findViewById(R.id.input_title);
@@ -51,7 +51,7 @@ public class EditItemActivity extends AppCompatActivity {
 
 
         //** event listener
-        switch( requestCode ) {
+        switch (requestCode) {
             case R.integer.requestCode_AddItem:
                 setTitle(R.string.activity_title_addItem);
                 findViewById(R.id.buttons_modify).setVisibility(View.GONE);
@@ -78,7 +78,7 @@ public class EditItemActivity extends AppCompatActivity {
                 findViewById(R.id.buttons_add).setVisibility(View.GONE);
 
                 final int targetItemPosition = intent.getIntExtra("target_item_position", -1);
-                if( targetItemPosition == -1 )
+                if (targetItemPosition == -1)
                     throw new RuntimeException();
 
                 final Item item = ViewDataController.itemList.getItemByViewPosition(targetItemPosition);
@@ -159,7 +159,7 @@ public class EditItemActivity extends AppCompatActivity {
         int year, month, day, genreId, amount;
         String title;
 
-        CoreItemData( int year, int month, int day, int genreId, String title, int amount ) {
+        CoreItemData(int year, int month, int day, int genreId, String title, int amount) {
             this.year = year;
             this.month = month;
             this.day = day;
