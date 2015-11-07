@@ -1,7 +1,9 @@
 package mhz.android.accountbook.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class DataController {
 
     private DataController(Context applicationContext) {
         db = new DBController(applicationContext);
-        displayMonth = new DisplayMonth();
+        displayMonth = new DisplayMonth(applicationContext);
         itemList = new ItemList(applicationContext);
         genreList = new GenreList(applicationContext);
     }
@@ -51,14 +53,14 @@ public class DataController {
 
         private byte startDay;
         private Calendar start, end;
+        private Context applicationContext;
 
-        private DisplayMonth() {
+        private DisplayMonth(Context applicationContext) {
             final String TAG = "AccountBook";
 
-            // TODO 設定ファイル化
-            startDay = 28;
+            this.applicationContext = applicationContext;
 
-            applyStartDay();
+            setStartDay((byte) PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt("start_day", 1));
 
             Log.d(TAG, "start.m:" + (start.get(Calendar.MONTH) + 1) + " start.d:" + start.get(Calendar.DAY_OF_MONTH));
             Log.d(TAG, "  end.m:" + (end.get(Calendar.MONTH) + 1) + "   end.d:" + end.get(Calendar.DAY_OF_MONTH));
@@ -88,10 +90,10 @@ public class DataController {
 
         public void setStartDay( byte startDay ) {
             this.startDay = startDay;
-            applyStartDay();
-        }
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(applicationContext).edit();
+            editor.putInt("start_day", startDay);
+            editor.apply();
 
-        private void applyStartDay() {
             start = Calendar.getInstance();
             if (start.get(Calendar.DAY_OF_MONTH) < startDay)
                 start.add(Calendar.MONTH, -1);
