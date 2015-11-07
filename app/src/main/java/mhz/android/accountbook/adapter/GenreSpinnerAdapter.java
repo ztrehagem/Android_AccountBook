@@ -1,4 +1,4 @@
-package mhz.android.accountbook;
+package mhz.android.accountbook.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,12 +15,12 @@ import mhz.android.accountbook.data.Genre;
 /**
  * Created by MHz on 2015/11/01.
  */
-public class EditItemSpinnerAdapter extends ArrayAdapter<String> {
+public class GenreSpinnerAdapter extends ArrayAdapter<String> {
 
     int[] colorList;
     int[] idList;
 
-    public EditItemSpinnerAdapter(Context context, int resource, ArrayList<Genre> list) {
+    public GenreSpinnerAdapter(Context context, int resource, ArrayList<Genre> list) {
         super(context, resource);
 
         colorList = new int[list.size()];

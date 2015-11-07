@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import mhz.android.accountbook.adapter.GenreSpinnerAdapter;
 import mhz.android.accountbook.data.Item;
 import mhz.android.accountbook.data.DataController;
 
@@ -39,7 +40,7 @@ public class EditItemActivity extends AppCompatActivity {
 
 
         //** view
-        spinner.setAdapter(new EditItemSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, DataController.genreList.getAllGenre()));
+        spinner.setAdapter(new GenreSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, DataController.genreList.getAllGenre()));
 
 
         //** event listener
@@ -76,7 +77,7 @@ public class EditItemActivity extends AppCompatActivity {
                 final Item item = DataController.itemList.getItemByViewPosition(targetItemPosition);
 
                 datePicker.updateDate(item.year, item.month - 1, item.day);
-                spinner.setSelection(((EditItemSpinnerAdapter) spinner.getAdapter()).getPositionByGenreId(item.genreId));
+                spinner.setSelection(((GenreSpinnerAdapter) spinner.getAdapter()).getPositionByGenreId(item.genreId));
 
                 editText_title.setText(item.title);
                 editText_amount.setText(String.valueOf(item.amount));

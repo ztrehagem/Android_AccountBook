@@ -1,4 +1,4 @@
-package mhz.android.accountbook.data;
+package mhz.android.accountbook.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import mhz.android.accountbook.R;
+import mhz.android.accountbook.data.Genre;
 
 /**
  * Created by MHz on 2015/11/04.

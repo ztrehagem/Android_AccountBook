@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import mhz.android.accountbook.adapter.MainFragmentStatePagerAdapter;
 import mhz.android.accountbook.data.DataController;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("初期化", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                DataController.dbInitialize();
+                                DataController.db.dbInitialize();
                                 Toast.makeText(getApplicationContext(), "データベースを初期化しました", Toast.LENGTH_SHORT).show();
                             }
                         })

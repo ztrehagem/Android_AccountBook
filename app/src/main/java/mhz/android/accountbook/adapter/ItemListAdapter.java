@@ -1,4 +1,4 @@
-package mhz.android.accountbook.data;
+package mhz.android.accountbook.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import mhz.android.accountbook.R;
+import mhz.android.accountbook.data.Item;
 
 /**
  * Created by MHz on 2015/11/01.
