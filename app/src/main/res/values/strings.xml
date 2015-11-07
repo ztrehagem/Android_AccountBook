@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">家計簿！</string>
+    <string name="activity_title_mainView">統計</string>
+    <string name="activity_title_itemList">アイテム一覧</string>
     <string name="activity_title_addItem">アイテム追加</string>
     <string name="activity_title_modifyItem">アイテム編集</string>
     <string name="activity_title_genreList">ジャンル一覧</string>

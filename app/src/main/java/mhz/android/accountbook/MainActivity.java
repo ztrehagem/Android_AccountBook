@@ -26,13 +26,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(R.string.activity_title_mainView);
 
         //** initialize global data
         DataController.createInstance(getApplicationContext());
         DataController.itemList.reloadList();
 
         //** view
-        ((ViewPager) findViewById(R.id.pager)).setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch( position ) {
+                    case 0:
+                        MainActivity.this.setTitle(R.string.activity_title_mainView);
+                        break;
+                    case 1:
+                        MainActivity.this.setTitle(R.string.activity_title_itemList);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         updateDisplayMonthText();
 
