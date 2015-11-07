@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 import mhz.android.accountbook.R;
 import mhz.android.accountbook.db.DBController;
+import mhz.android.accountbook.Const;
 
 /**
  * Created by MHz on 2015/11/02.
@@ -56,14 +57,12 @@ public class DataController {
         private Context applicationContext;
 
         private DisplayMonth(Context applicationContext) {
-            final String TAG = "AccountBook";
-
             this.applicationContext = applicationContext;
 
-            setStartDay((byte) PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt("start_day", 1));
+            setStartDay((byte) PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt(Const.SharedPreferenceKey_StartDay, 1));
 
-            Log.d(TAG, "start.m:" + (start.get(Calendar.MONTH) + 1) + " start.d:" + start.get(Calendar.DAY_OF_MONTH));
-            Log.d(TAG, "  end.m:" + (end.get(Calendar.MONTH) + 1) + "   end.d:" + end.get(Calendar.DAY_OF_MONTH));
+            Log.d(Const.Tag, "start.m:" + (start.get(Calendar.MONTH) + 1) + " start.d:" + start.get(Calendar.DAY_OF_MONTH));
+            Log.d(Const.Tag, "  end.m:" + (end.get(Calendar.MONTH) + 1) + "   end.d:" + end.get(Calendar.DAY_OF_MONTH));
         }
 
         public void moveToNext() {
@@ -88,10 +87,10 @@ public class DataController {
             return startDay;
         }
 
-        public void setStartDay( byte startDay ) {
+        public void setStartDay(byte startDay) {
             this.startDay = startDay;
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(applicationContext).edit();
-            editor.putInt("start_day", startDay);
+            editor.putInt(Const.SharedPreferenceKey_StartDay, startDay);
             editor.apply();
 
             start = Calendar.getInstance();
