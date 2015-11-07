@@ -119,9 +119,9 @@ public class DataController {
 
         public void reloadList() {
             viewItemList = db.getItemsForListView();
-            viewItemList.add(new Item());
             adapter.clear();
             adapter.addAll(viewItemList);
+            adapter.add(new Item());
         }
 
         public Item getItemByViewPosition(int viewItemPosition) {
@@ -170,9 +170,9 @@ public class DataController {
 
         public void reloadList() {
             viewGenreList = db.getAllGenre();
-            viewGenreList.add(new Genre());
             adapter.clear();
             adapter.addAll(viewGenreList);
+            adapter.add(new Genre());
         }
 
         public ArrayList<Genre> getAllGenre() {
