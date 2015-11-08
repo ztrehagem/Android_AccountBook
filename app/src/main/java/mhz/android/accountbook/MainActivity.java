@@ -1,161 +1,161 @@
 package mhz.android.accountbook;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.TabLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
+
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Calendar;
-
-import mhz.android.accountbook.adapter.MainFragmentStatePagerAdapter;
-import mhz.android.accountbook.data.DataController;
 
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle(R.string.activity_title_mainView);
 
-        //** initialize global data
-        DataController.createInstance(getApplicationContext());
-        DataController.itemList.reloadList();
-        DataController.sumList.reloadList();
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        //** view
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch( position ) {
-                    case 0:
-                        MainActivity.this.setTitle(R.string.activity_title_mainView);
-                        break;
-                    case 1:
-                        MainActivity.this.setTitle(R.string.activity_title_itemList);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
-
-        updateDisplayMonthText();
-
-        findViewById(R.id.button_prev).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DataController.displayMonth.moveToPrev();
-                DataController.itemList.reloadList();
-                DataController.sumList.reloadList();
-                updateDisplayMonthText();
-            }
-        });
-        findViewById(R.id.button_next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DataController.displayMonth.moveToNext();
-                DataController.itemList.reloadList();
-                DataController.sumList.reloadList();
-                updateDisplayMonthText();
-            }
-        });
-
 
     }
 
-    @Override
-    protected void onDestroy() {
-        DataController.detachInstance();
-        super.onDestroy();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        (this.getMenuInflater()).inflate(R.menu.optionsmenu_activity_main, menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-        switch (item.getItemId()) {
-            case R.id.db_init:
-                new AlertDialog.Builder(MainActivity.this)
-                        .setMessage("データベースを初期化しますか？")
-                        .setNegativeButton("キャンセル", null)
-                        .setPositiveButton("初期化", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                DataController.db.dbInitialize();
-                                Toast.makeText(getApplicationContext(), "データベースを初期化しました", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .show();
-                break;
-
-            case R.id.add_item:
-                Intent intent = new Intent(getApplicationContext(), EditItemActivity.class);
-                intent.putExtra("request", R.integer.requestCode_AddItem);
-                startActivity(intent);
-                break;
-
-            case R.id.edit_genre:
-                startActivity(new Intent(getApplicationContext(), GenreListActivity.class));
-                break;
-
-            case R.id.set_start_day:
-                ViewGroup v = new LinearLayout(MainActivity.this);
-                getLayoutInflater().inflate(R.layout.view_set_start_day, v);
-
-                final NumberPicker numberPicker = (NumberPicker) v.findViewById(R.id.numberPicker);
-                numberPicker.setMinValue(1);
-                numberPicker.setMaxValue(28);
-                numberPicker.setValue(DataController.displayMonth.getStartDay());
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(R.string.actionTitle_changeStartDay)
-                        .setView(v)
-                        .setNegativeButton(R.string.dialogNegative_cancel, null)
-                        .setPositiveButton(R.string.actionName_decision, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                DataController.displayMonth.setStartDay((byte) numberPicker.getValue());
-                                DataController.itemList.reloadList();
-                                updateDisplayMonthText();
-                                Toast.makeText(MainActivity.this, R.string.resultMsg_change, Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .show();
-                break;
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateDisplayMonthText() {
-        final TextView text = (TextView) findViewById(R.id.monthText);
-        final Calendar start = DataController.displayMonth.getStart();
-        text.setText(getString(R.string.monthText_single, start.get(Calendar.YEAR), start.get(Calendar.MONTH) + 1, start.get(Calendar.DAY_OF_MONTH)));
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            return PlaceholderFragment.newInstance(position + 1);
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "SECTION 1";
+                case 1:
+                    return "SECTION 2";
+                case 2:
+                    return "SECTION 3";
+            }
+            return null;
+        }
+    }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
+        }
     }
 }
