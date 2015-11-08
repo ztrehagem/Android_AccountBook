@@ -31,10 +31,10 @@
     <string name="actionName_modify">修正</string>
     <string name="actionName_create">作成</string>
     <string name="actionName_decision">決定</string>
+    <string name="actionName_cancel">キャンセル</string>
 
     <string name="dialogMsg_deleteItem">アイテムを削除しますか？</string>
     <string name="dialogMsg_deleteGenre">ジャンルを削除しますか？</string>
-    <string name="dialogNegative_cancel">キャンセル</string>
 
     <string name="resultMsg_create">作成しました</string>
     <string name="resultMsg_delete">削除しました</string>

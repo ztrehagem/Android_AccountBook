@@ -87,42 +87,25 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/buttons_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout2"
             android:layout_centerHorizontal="true">
 
             <Button
-                android:id="@+id/button_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/actionName_add" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/buttons_modify"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout2"
-            android:layout_centerHorizontal="true">
-
-            <Button
-                android:id="@+id/button_delete"
+                android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="@string/actionName_delete" />
+                android:text="@string/actionName_cancel" />
 
             <Button
-                android:id="@+id/button_modify"
+                android:id="@+id/button_do"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/actionName_modify" />
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
 
 

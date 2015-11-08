@@ -59,7 +59,7 @@ public class ItemListFragment extends Fragment {
                                     case 1:
                                         new AlertDialog.Builder(getContext())
                                                 .setMessage("この項目を削除しますか？")
-                                                .setNegativeButton(R.string.dialogNegative_cancel, null)
+                                                .setNegativeButton(R.string.actionName_cancel, null)
                                                 .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {

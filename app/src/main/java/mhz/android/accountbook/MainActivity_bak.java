@@ -136,7 +136,7 @@ public class MainActivity_bak extends AppCompatActivity {
                 new AlertDialog.Builder(MainActivity_bak.this)
                         .setTitle(R.string.actionTitle_changeStartDay)
                         .setView(v)
-                        .setNegativeButton(R.string.dialogNegative_cancel, null)
+                        .setNegativeButton(R.string.actionName_cancel, null)
                         .setPositiveButton(R.string.actionName_decision, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

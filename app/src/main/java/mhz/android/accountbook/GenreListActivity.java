@@ -56,7 +56,7 @@ public class GenreListActivity extends AppCompatActivity {
                                         final AlertDialog dialog_modify = new AlertDialog.Builder(GenreListActivity.this)
                                                 .setTitle(R.string.actionTitle_modifyGenre)
                                                 .setView(v)
-                                                .setNegativeButton(R.string.dialogNegative_cancel, new DialogInterface.OnClickListener() {
+                                                .setNegativeButton(R.string.actionName_cancel, new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         dialog.cancel();
@@ -85,7 +85,7 @@ public class GenreListActivity extends AppCompatActivity {
                                     case 1:
                                         new AlertDialog.Builder(GenreListActivity.this)
                                                 .setMessage(R.string.dialogMsg_deleteGenre)
-                                                .setNegativeButton(R.string.dialogNegative_cancel, null)
+                                                .setNegativeButton(R.string.actionName_cancel, null)
                                                 .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
@@ -130,7 +130,7 @@ public class GenreListActivity extends AppCompatActivity {
                 final AlertDialog dialog = new AlertDialog.Builder(GenreListActivity.this)
                         .setTitle(R.string.actionTitle_createGenre)
                         .setView(v)
-                        .setNegativeButton(R.string.dialogNegative_cancel, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.actionName_cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
