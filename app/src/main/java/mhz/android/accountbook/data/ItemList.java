@@ -23,6 +23,10 @@ public class ItemList {
         return adapter;
     }
 
+    public ArrayList<Item> getViewItemList() {
+        return viewItemList;
+    }
+
     public void reloadList() {
         viewItemList = DataController.db.getItemsForListView();
         adapter.clear();
