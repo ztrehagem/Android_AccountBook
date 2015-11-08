@@ -18,6 +18,7 @@ import java.util.Calendar;
 
 import mhz.android.accountbook.data.DataController;
 import mhz.android.accountbook.fragments.ItemListFragment;
+import mhz.android.accountbook.fragments.SettingFragment;
 import mhz.android.accountbook.fragments.SumListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //-- initialize global data
-        DataController.createInstance(getApplicationContext());
+        DataController.createInstance(getApplicationContext(), this);
         DataController.itemList.reloadList();
         DataController.sumList.reloadList();
 
@@ -45,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         updateDisplayMonthText();
 
-        // TODO fab
-        // AlertDialog -> addNewItem / addNewGenre
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void updateDisplayMonthText() {
+    public void updateDisplayMonthText() {
         final TextView text = (TextView) findViewById(R.id.monthText);
         final Calendar start = DataController.displayMonth.getStart();
         final Calendar end = DataController.displayMonth.getEnd();
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -100,18 +99,23 @@ public class MainActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     return new SumListFragment();
-                default:
+                case 1:
                     return new ItemListFragment();
+                case 2:
+                    return new SettingFragment();
             }
+            return null;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "合計";
+                    return getString(R.string.fragment_title_sumList);
                 case 1:
-                    return "一覧";
+                    return getString(R.string.fragment_title_itemList);
+                case 2:
+                    return getString(R.string.fragment_title_setting);
             }
             return null;
         }

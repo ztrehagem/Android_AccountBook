@@ -29,7 +29,7 @@ public class MainActivity_bak extends AppCompatActivity {
         setTitle(R.string.activity_title_mainView);
 
         //** initialize global data
-        DataController.createInstance(getApplicationContext());
+//        DataController.createInstance(getApplicationContext());
         DataController.itemList.reloadList();
         DataController.sumList.reloadList();
 

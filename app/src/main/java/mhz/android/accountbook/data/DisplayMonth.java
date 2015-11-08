@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.Calendar;
 
 import mhz.android.accountbook.C;
+import mhz.android.accountbook.MainActivity;
 
 /**
  * Created by MHz on 2015/11/07.
@@ -18,14 +19,20 @@ public class DisplayMonth {
     private byte startDay;
     private Calendar start, end;
     private Context applicationContext;
+    private MainActivity mainActivity;
 
-    DisplayMonth(Context applicationContext) {
+    DisplayMonth(Context applicationContext, MainActivity mainActivity) {
         this.applicationContext = applicationContext;
+        this.mainActivity = mainActivity;
 
         setStartDay((byte) PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt(C.SharedPreferenceKey_StartDay, 1));
 
         Log.d(C.Tag, "start.m:" + (start.get(Calendar.MONTH) + 1) + " start.d:" + start.get(Calendar.DAY_OF_MONTH));
         Log.d(C.Tag, "  end.m:" + (end.get(Calendar.MONTH) + 1) + "   end.d:" + end.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public void updateDisplayMonthText() {
+        mainActivity.updateDisplayMonthText();
     }
 
     public void moveToNext() {

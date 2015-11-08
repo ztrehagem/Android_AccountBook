@@ -7,6 +7,11 @@
     <string name="activity_title_mainView">統計</string>
     <string name="activity_title_itemList">アイテム一覧</string>
     <string name="activity_title_genreList">ジャンル一覧</string>
+
+    <string name="fragment_title_sumList">合計</string>
+    <string name="fragment_title_itemList">一覧</string>
+    <string name="fragment_title_setting">設定</string>
+
     <string name="actionTitle_editGenre">ジャンル編集</string>
     <string name="actionTitle_deleteGenre">分類の削除</string>
     <string name="actionTitle_changeStartDay">月開始日の変更</string>
@@ -48,4 +53,6 @@
     <string name="errorMsg_amountIsEmpty">金額を入力してください</string>
     <string name="errorMsg_amountIsTooLarge">金額が大きすぎます</string>
     <string name="errorMsg_genreNameIsEmpty">ジャンル名を入力してください</string>
+
+    <string name="setting_startDay">月開始日</string>
 </resources>
