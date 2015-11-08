@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">家計簿！</string>
-    <string name="activity_title_mainView">統計</string>
-    <string name="activity_title_itemList">アイテム一覧</string>
     <string name="activity_title_addItem">出費項目の追加</string>
     <string name="activity_title_modifyItem">出費項目の編集</string>
+    <string name="activity_title_addGenre">分類の新規作成</string>
+    <string name="activity_title_modifyGenre">分類の修正</string>
+    <string name="activity_title_mainView">統計</string>
+    <string name="activity_title_itemList">アイテム一覧</string>
     <string name="activity_title_genreList">ジャンル一覧</string>
+    <string name="actionTitle_editGenre">ジャンル編集</string>
+    <string name="actionTitle_deleteGenre">分類の削除</string>
+    <string name="actionTitle_changeStartDay">月開始日の変更</string>
 
     <string name="month_previous">&lt;&lt;</string>
     <string name="month_next">&gt;&gt;</string>
@@ -20,18 +25,16 @@
     <string name="item_property_genre">分類</string>
     <string name="item_property_title">タイトル</string>
     <string name="item_property_amount">金額</string>
-    <string name="genre_property_name">ジャンル名</string>
+    <string name="genre_property_name">分類名</string>
 
-    <string name="actionTitle_createGenre">ジャンル新規作成</string>
-    <string name="actionTitle_modifyGenre">ジャンル修正</string>
-    <string name="actionTitle_editGenre">ジャンル編集</string>
-    <string name="actionTitle_changeStartDay">月開始日の変更</string>
     <string name="actionName_add">追加</string>
     <string name="actionName_delete">削除</string>
     <string name="actionName_modify">修正</string>
     <string name="actionName_create">作成</string>
     <string name="actionName_decision">決定</string>
     <string name="actionName_cancel">キャンセル</string>
+    <string name="actionName_moveToAbove">上へ</string>
+    <string name="actionName_moveToBelow">下へ</string>
 
     <string name="dialogMsg_deleteItem">この項目を削除しますか？</string>
     <string name="dialogMsg_deleteGenre">この分類を削除しますか？\n\n（この分類に登録されていた項目はすべて削除されます！）</string>
@@ -45,10 +48,4 @@
     <string name="errorMsg_amountIsEmpty">金額を入力してください</string>
     <string name="errorMsg_amountIsTooLarge">金額が大きすぎます</string>
     <string name="errorMsg_genreNameIsEmpty">ジャンル名を入力してください</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

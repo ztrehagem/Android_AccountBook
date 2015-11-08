@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] items = new String[]{"出費項目の追加", "分類の追加"};
+                String[] items = new String[]{getString(R.string.activity_title_addItem), getString(R.string.activity_title_addGenre)};
                 new AlertDialog.Builder(MainActivity.this)
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override

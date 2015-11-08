@@ -54,7 +54,7 @@ public class GenreListActivity extends AppCompatActivity {
                                         setValuesToViewsFromGenre(v, target);
 
                                         final AlertDialog dialog_modify = new AlertDialog.Builder(GenreListActivity.this)
-                                                .setTitle(R.string.actionTitle_modifyGenre)
+                                                .setTitle(R.string.activity_title_modifyGenre)
                                                 .setView(v)
                                                 .setNegativeButton(R.string.actionName_cancel, new DialogInterface.OnClickListener() {
                                                     @Override
@@ -128,7 +128,7 @@ public class GenreListActivity extends AppCompatActivity {
                 final EditText e = getEditTextFromViewGroup(v);
 
                 final AlertDialog dialog = new AlertDialog.Builder(GenreListActivity.this)
-                        .setTitle(R.string.actionTitle_createGenre)
+                        .setTitle(R.string.activity_title_addGenre)
                         .setView(v)
                         .setNegativeButton(R.string.actionName_cancel, new DialogInterface.OnClickListener() {
                             @Override

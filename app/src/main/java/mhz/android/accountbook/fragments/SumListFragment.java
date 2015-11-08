@@ -30,12 +30,16 @@ public class SumListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 String[] items;
+                boolean _isDeletable;
                 if (DataController.db.getGenreNum() == 1) {
-                    items = new String[]{"分類の修正", "上へ", "下へ"};
+                    items = new String[]{getString(R.string.activity_title_modifyGenre), getString(R.string.actionName_moveToAbove), getString(R.string.actionName_moveToBelow)};
+                    _isDeletable = false;
                 } else {
-                    items = new String[]{"分類の修正", "分類を削除", "上へ", "下へ"};
+                    items = new String[]{getString(R.string.activity_title_modifyGenre), getString(R.string.actionTitle_deleteGenre), getString(R.string.actionName_moveToAbove), getString(R.string.actionName_moveToBelow)};
+                    _isDeletable = true;
                 }
-                final boolean isDeletable = items.length == 4;
+                final boolean isDeletable = _isDeletable;
+
                 new AlertDialog.Builder(getContext())
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override

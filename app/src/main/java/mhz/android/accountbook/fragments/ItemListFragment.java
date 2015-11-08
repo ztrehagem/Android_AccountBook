@@ -42,7 +42,7 @@ public class ItemListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                String[] items = new String[]{"修正", "削除"};
+                String[] items = new String[]{getString(R.string.actionName_modify), getString(R.string.actionName_delete)};
                 new AlertDialog.Builder(getContext())
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override
@@ -58,7 +58,7 @@ public class ItemListFragment extends Fragment {
 
                                     case 1:
                                         new AlertDialog.Builder(getContext())
-                                                .setMessage("この項目を削除しますか？")
+                                                .setMessage(R.string.dialogMsg_deleteItem)
                                                 .setNegativeButton(R.string.actionName_cancel, null)
                                                 .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
                                                     @Override

@@ -48,6 +48,8 @@ public class EditGenreActivity extends AppCompatActivity {
 
         switch (request) {
             case C.RequestCode_AddGenre:
+                setTitle(R.string.activity_title_addGenre);
+
                 button_do.setText(R.string.actionName_add);
                 button_do.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -63,6 +65,8 @@ public class EditGenreActivity extends AppCompatActivity {
                 break;
 
             case C.RequestCode_ModifyGenre:
+                setTitle(R.string.activity_title_modifyGenre);
+
                 final Sum target = DataController.sumList.getSumByViewPosition(intent.getIntExtra(C.IntentExtraName_TargetItemPosition, -1));
                 applyToInput(target);
 
