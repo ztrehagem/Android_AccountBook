@@ -1,5 +1,7 @@
 package mhz.android.accountbook.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import mhz.android.accountbook.C;
 import mhz.android.accountbook.EditItemActivity;
@@ -39,10 +42,39 @@ public class ItemListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Intent intent = new Intent(getContext(), EditItemActivity.class);
-                intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_ModifyItem);
-                intent.putExtra(C.IntentExtraName_TargetItemPosition, position);
-                startActivity(intent);
+                String[] items = new String[] {"修正", "削除"};
+                new AlertDialog.Builder(getContext())
+                        .setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                switch (which) {
+                                    case 0:
+                                        Intent intent = new Intent(getContext(), EditItemActivity.class);
+                                        intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_ModifyItem);
+                                        intent.putExtra(C.IntentExtraName_TargetItemPosition, position);
+                                        startActivity(intent);
+                                        break;
+
+                                    case 1:
+                                        new AlertDialog.Builder(getContext())
+                                                .setMessage("この項目を削除しますか？")
+                                                .setNegativeButton(R.string.dialogNegative_cancel, null)
+                                                .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        DataController.itemList.deleteItemByViewPosition(position);
+                                                        DataController.itemList.reloadList();
+                                                        DataController.sumList.reloadList();
+                                                        Toast.makeText(getContext(), R.string.resultMsg_delete, Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .show();
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
             }
         });
     }
