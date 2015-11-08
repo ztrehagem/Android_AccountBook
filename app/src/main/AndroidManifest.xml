@@ -19,6 +19,7 @@
         </activity>
         <activity
             android:name=".EditItemActivity"
+            android:theme="@style/AppTheme.ActionBar"
             android:label="@string/activity_title_addItem" />
         <activity
             android:name=".GenreListActivity"

@@ -28,7 +28,7 @@ public class EditItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_item);
 
         final Intent intent = getIntent();
-        final int requestCode = intent.getIntExtra("request", 0);
+        final int requestCode = intent.getIntExtra(Const.IntentExtraName_RequestCode, 0);
 
 
         //** initialize
@@ -45,7 +45,7 @@ public class EditItemActivity extends AppCompatActivity {
 
         //** event listener
         switch (requestCode) {
-            case R.integer.requestCode_AddItem:
+            case Const.RequestCode_AddItem:
                 setTitle(R.string.activity_title_addItem);
                 findViewById(R.id.buttons_modify).setVisibility(View.GONE);
 
@@ -67,7 +67,7 @@ public class EditItemActivity extends AppCompatActivity {
                 });
                 break;
 
-            case R.integer.requestCode_ModifyItem:
+            case Const.RequestCode_ModifyItem:
                 setTitle(R.string.activity_title_modifyItem);
                 findViewById(R.id.buttons_add).setVisibility(View.GONE);
 

@@ -2,13 +2,13 @@
     <string name="app_name">家計簿！</string>
     <string name="activity_title_mainView">統計</string>
     <string name="activity_title_itemList">アイテム一覧</string>
-    <string name="activity_title_addItem">アイテム追加</string>
-    <string name="activity_title_modifyItem">アイテム編集</string>
+    <string name="activity_title_addItem">出費項目の追加</string>
+    <string name="activity_title_modifyItem">出費項目の編集</string>
     <string name="activity_title_genreList">ジャンル一覧</string>
 
     <string name="month_previous">&lt;&lt;</string>
     <string name="month_next">&gt;&gt;</string>
-    <string name="monthText_single">%1$d/%2$02d/%3$02d -</string>
+    <string name="monthText_single">%1$d/%2$02d/%3$02d - %4$d/%5$02d/%6$02d</string>
 
     <string name="listView_item_date">%1$d月 %2$d日</string>
     <string name="listView_item_genreName">%1$s</string>
