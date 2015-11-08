@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import mhz.android.accountbook.Const;
+import mhz.android.accountbook.C;
 import mhz.android.accountbook.EditItemActivity;
 import mhz.android.accountbook.R;
 import mhz.android.accountbook.data.DataController;
@@ -40,8 +40,8 @@ public class ItemListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Intent intent = new Intent(getContext(), EditItemActivity.class);
-                intent.putExtra(Const.IntentExtraName_RequestCode, Const.RequestCode_ModifyItem);
-                intent.putExtra("target_item_position", position);
+                intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_ModifyItem);
+                intent.putExtra(C.IntentExtraName_TargetItemPosition, position);
                 startActivity(intent);
             }
         });

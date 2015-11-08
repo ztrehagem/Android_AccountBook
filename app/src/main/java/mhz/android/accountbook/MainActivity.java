@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                                 switch (which){
                                     case 0:
                                         intent = new Intent(MainActivity.this, EditItemActivity.class);
-                                        intent.putExtra(Const.IntentExtraName_RequestCode, Const.RequestCode_AddItem);
+                                        intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_AddItem);
                                         startActivity(intent);
                                         break;
                                     case 1:
