@@ -1,12 +1,16 @@
 package mhz.android.accountbook.adapter;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import mhz.android.accountbook.Const;
 import mhz.android.accountbook.R;
 import mhz.android.accountbook.data.Sum;
 
@@ -38,10 +42,11 @@ public class SumListAdapter extends ArrayAdapter<Sum> {
         final TextView textView_sum = (TextView) convertView.findViewById(R.id.listView_sum);
         textView_sum.setText(context.getString(R.string.listView_sum, sum.sum));
 
-        final int maxWidth = convertView.findViewById(R.id.wrapper).getWidth();
+        final View rateView = convertView.findViewById(R.id.rate);
+        rateView.setBackgroundColor(sum.color);
+        // TODO setWidth
 
-        final View progressView = convertView.findViewById(R.id.rate);
-        progressView.setMinimumWidth((int) (maxWidth * sum.rate));
+        convertView.findViewById(R.id.wrapper).setVisibility(View.GONE);
 
         return convertView;
     }
