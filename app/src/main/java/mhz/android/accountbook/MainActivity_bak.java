@@ -44,7 +44,7 @@ public class MainActivity_bak extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switch( position ) {
+                switch (position) {
                     case 0:
                         MainActivity_bak.this.setTitle(R.string.activity_title_mainView);
                         break;

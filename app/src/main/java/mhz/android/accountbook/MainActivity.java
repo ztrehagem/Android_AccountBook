@@ -51,20 +51,22 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] items = new String[] {"出費項目の追加", "分類の追加"};
+                String[] items = new String[]{"出費項目の追加", "分類の追加"};
                 new AlertDialog.Builder(MainActivity.this)
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent;
-                                switch (which){
+                                switch (which) {
                                     case 0:
                                         intent = new Intent(MainActivity.this, EditItemActivity.class);
                                         intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_AddItem);
                                         startActivity(intent);
                                         break;
                                     case 1:
-//                                        startActivity(new Intent(MainActivity.this, EditGenreActivity.class));
+                                        intent = new Intent(MainActivity.this, EditGenreActivity.class);
+                                        intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_AddGenre);
+                                        startActivity(intent);
                                         break;
                                 }
                             }

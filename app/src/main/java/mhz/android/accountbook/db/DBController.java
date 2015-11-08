@@ -24,6 +24,7 @@ public class DBController {
     public DBController(Context context) {
         openHelper = new DBOpenHelper(context);
         db = openHelper.getWritableDatabase();
+//        dbInitialize();
     }
 
     public void dbInitialize() {
@@ -55,9 +56,7 @@ public class DBController {
     }
 
     public void deleteGenre(int genreId) {
-        ContentValues v = new ContentValues();
-        v.put("genre_id", 1);
-        db.update("Items", v, "genre_id = ?", new String[]{String.valueOf(genreId)});
+        db.delete("Items", "genre_id = ?", new String[]{String.valueOf(genreId)});
         db.delete("Genre", "id = ?", new String[]{String.valueOf(genreId)});
     }
 
@@ -143,6 +142,12 @@ public class DBController {
         c.close();
 
         return list;
+    }
+
+    public int getGenreNum() {
+        Cursor c = db.rawQuery("select count( * ) from Genre;", null);
+        c.moveToFirst();
+        return c.getInt(0);
     }
 
     public void close() {

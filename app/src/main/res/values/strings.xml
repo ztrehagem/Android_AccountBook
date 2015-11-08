@@ -33,8 +33,8 @@
     <string name="actionName_decision">決定</string>
     <string name="actionName_cancel">キャンセル</string>
 
-    <string name="dialogMsg_deleteItem">アイテムを削除しますか？</string>
-    <string name="dialogMsg_deleteGenre">ジャンルを削除しますか？</string>
+    <string name="dialogMsg_deleteItem">この項目を削除しますか？</string>
+    <string name="dialogMsg_deleteGenre">この分類を削除しますか？\n\n（この分類に登録されていた項目はすべて削除されます！）</string>
 
     <string name="resultMsg_create">作成しました</string>
     <string name="resultMsg_delete">削除しました</string>

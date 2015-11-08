@@ -15,6 +15,9 @@ import mhz.android.accountbook.data.Sum;
  */
 public class SumListAdapter extends ArrayAdapter<Sum> {
 
+    private final int viewTypeNormal = 0;
+    private final int viewTypeFinal = 1;
+
     private LayoutInflater inflater;
 
     public SumListAdapter(Context context, int resource) {
@@ -27,6 +30,9 @@ public class SumListAdapter extends ArrayAdapter<Sum> {
 
         if (convertView == null)
             convertView = inflater.inflate(R.layout.list_view_sum, parent, false);
+
+        if (getItemViewType(position) == viewTypeFinal)
+            return convertView;
 
         final Sum sum = getItem(position);
         final Context context = convertView.getContext();
@@ -48,12 +54,22 @@ public class SumListAdapter extends ArrayAdapter<Sum> {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return (position != getCount() - 1) ? viewTypeNormal : viewTypeFinal;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
     public boolean areAllItemsEnabled() {
         return false;
     }
 
     @Override
     public boolean isEnabled(int position) {
-        return false;
+        return position != getCount() - 1;
     }
 }

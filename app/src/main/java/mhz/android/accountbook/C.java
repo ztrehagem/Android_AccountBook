@@ -11,4 +11,6 @@ public class C {
     public static final String IntentExtraName_TargetItemPosition = "target_item_position";
     public static final int RequestCode_AddItem = 1;
     public static final int RequestCode_ModifyItem = 2;
+    public static final int RequestCode_AddGenre = 3;
+    public static final int RequestCode_ModifyGenre = 4;
 }

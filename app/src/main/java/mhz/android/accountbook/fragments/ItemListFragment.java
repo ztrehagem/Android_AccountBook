@@ -42,7 +42,7 @@ public class ItemListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                String[] items = new String[] {"修正", "削除"};
+                String[] items = new String[]{"修正", "削除"};
                 new AlertDialog.Builder(getContext())
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override

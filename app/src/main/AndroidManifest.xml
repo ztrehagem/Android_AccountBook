@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="mhz.android.accountbook" >
+    package="mhz.android.accountbook">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,11 +19,13 @@
         </activity>
         <activity
             android:name=".EditItemActivity"
-            android:theme="@style/AppTheme.ActionBar"
-            android:label="@string/activity_title_addItem" />
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".GenreListActivity"
             android:label="@string/activity_title_genreList" />
+        <activity
+            android:name=".EditGenreActivity"
+            android:theme="@style/AppTheme.ActionBar" />
     </application>
 
 </manifest>

@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import mhz.android.accountbook.data.Genre;
 import mhz.android.accountbook.data.DataController;
+import mhz.android.accountbook.data.Genre;
 
 public class GenreListActivity extends AppCompatActivity {
 
