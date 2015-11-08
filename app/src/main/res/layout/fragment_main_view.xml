@@ -2,14 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
     tools:context="mhz.android.accountbook.fragments.MainViewFragment">
 
-    <TextView
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="MainViewFragment" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

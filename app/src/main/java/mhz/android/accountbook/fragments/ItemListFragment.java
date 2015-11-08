@@ -19,12 +19,12 @@ import mhz.android.accountbook.data.DataController;
  */
 public class ItemListFragment extends Fragment {
 
-    View parentView = null;
+    private View parentView = null;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parentView = inflater.inflate( R.layout.fragment_item_list, null );
+        parentView = inflater.inflate(R.layout.fragment_item_list, container, false);
         return parentView;
     }
 
@@ -33,7 +33,7 @@ public class ItemListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ListView listView = (ListView)parentView.findViewById(R.id.listView);
+        final ListView listView = (ListView) parentView.findViewById(R.id.listView);
         listView.setAdapter(DataController.itemList.getAdapter());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

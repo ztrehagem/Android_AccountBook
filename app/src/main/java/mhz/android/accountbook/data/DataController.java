@@ -13,6 +13,7 @@ public class DataController {
     public static DisplayMonth displayMonth = null;
     public static ItemList itemList = null;
     public static GenreList genreList = null;
+    public static SumList sumList = null;
     private static DataController mInstance = null;
 
     private DataController(Context applicationContext) {
@@ -20,6 +21,7 @@ public class DataController {
         displayMonth = new DisplayMonth(applicationContext);
         itemList = new ItemList(applicationContext);
         genreList = new GenreList(applicationContext);
+        sumList = new SumList(applicationContext);
     }
 
     //****************//
