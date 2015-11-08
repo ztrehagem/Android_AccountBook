@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         //** initialize global data
         DataController.createInstance(getApplicationContext());
         DataController.itemList.reloadList();
+        DataController.sumList.reloadList();
 
         //** view
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DataController.displayMonth.moveToPrev();
                 DataController.itemList.reloadList();
+                DataController.sumList.reloadList();
                 updateDisplayMonthText();
             }
         });
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DataController.displayMonth.moveToNext();
                 DataController.itemList.reloadList();
+                DataController.sumList.reloadList();
                 updateDisplayMonthText();
             }
         });

@@ -75,6 +75,7 @@ public class GenreListActivity extends AppCompatActivity {
                                                 DataController.genreList.updateGenre(target.id, e.getText().toString(), e.getCurrentTextColor());
                                                 DataController.genreList.reloadList();
                                                 DataController.itemList.reloadList();
+                                                DataController.sumList.reloadList();
                                                 Toast.makeText(GenreListActivity.this, R.string.resultMsg_modify, Toast.LENGTH_SHORT).show();
                                                 dialog_modify.dismiss();
                                             }
@@ -91,6 +92,7 @@ public class GenreListActivity extends AppCompatActivity {
                                                         DataController.genreList.deleteGenreById(target.id);
                                                         DataController.genreList.reloadList();
                                                         DataController.itemList.reloadList();
+                                                        DataController.sumList.reloadList();
                                                         Toast.makeText(GenreListActivity.this, R.string.resultMsg_delete, Toast.LENGTH_SHORT).show();
                                                     }
                                                 })

@@ -24,5 +24,8 @@ public class SumList {
     }
 
     public void reloadList(){
+        viewSumList = DataController.db.getSumsForListView();
+        adapter.clear();
+        adapter.addAll(viewSumList);
     }
 }

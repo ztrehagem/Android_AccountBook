@@ -60,6 +60,7 @@ public class EditItemActivity extends AppCompatActivity {
 
                         DataController.itemList.addItem(item.year, item.month, item.day, item.genreId, item.title, item.amount);
                         DataController.itemList.reloadList();
+                        DataController.sumList.reloadList();
                         Toast.makeText(getApplicationContext(), R.string.resultMsg_add, Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -92,6 +93,7 @@ public class EditItemActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         DataController.itemList.deleteItemById(item.id);
                                         DataController.itemList.reloadList();
+                                        DataController.sumList.reloadList();
                                         Toast.makeText(getApplicationContext(), R.string.resultMsg_delete, Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
@@ -113,6 +115,7 @@ public class EditItemActivity extends AppCompatActivity {
 
                         DataController.itemList.updateItem(item.id, updatedItem.year, updatedItem.month, updatedItem.day, updatedItem.genreId, updatedItem.title, updatedItem.amount);
                         DataController.itemList.reloadList();
+                        DataController.sumList.reloadList();
                         Toast.makeText(getApplicationContext(), R.string.resultMsg_modify, Toast.LENGTH_SHORT).show();
                         finish();
                     }

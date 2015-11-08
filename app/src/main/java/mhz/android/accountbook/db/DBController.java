@@ -5,13 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import mhz.android.accountbook.Const;
 import mhz.android.accountbook.data.DataController;
 import mhz.android.accountbook.data.Genre;
 import mhz.android.accountbook.data.Item;
+import mhz.android.accountbook.data.Sum;
 
 /**
  * Created by MHz on 2015/11/01.
@@ -141,6 +145,52 @@ public class DBController {
         }
 
         c.close();
+
+        return list;
+    }
+
+    public ArrayList<Sum> getSumsForListView() {
+
+        Calendar start = DataController.displayMonth.getStart();
+        Calendar end = DataController.displayMonth.getEnd();
+
+        String sql = "";
+        sql += "select Genre.name, sum( Items.amount ), Genre.r, Genre.g, Genre.b ";
+        sql += "from Genre ";
+        sql += "left outer join Items on Items.genre_id = Genre.id ";
+        sql += "where ( Items.year = " + start.get(Calendar.YEAR) + " and Items.month = " + (start.get(Calendar.MONTH) + 1) + " and Items.day >= " + start.get(Calendar.DAY_OF_MONTH) + " ) ";
+        sql += "or ( Items.year = " + end.get(Calendar.YEAR) + " and Items.month = " + (end.get(Calendar.MONTH) + 1) + " and Items.day <= " + end.get(Calendar.DAY_OF_MONTH) + " ) ";
+        sql += "group by Genre.id ";
+        sql += ";";
+        Cursor c = db.rawQuery(sql, null);
+
+        ArrayList<Sum> list = new ArrayList<>();
+
+        int max = 0;
+
+        if( c.moveToFirst() ) {
+            do {
+                final int sum = c.getInt(1);
+                max = Math.max( max, sum );
+                list.add( new Sum(
+                        c.getString(c.getColumnIndex("name")),
+                        sum,
+                        Color.rgb(
+                                c.getInt(c.getColumnIndex("r")),
+                                c.getInt(c.getColumnIndex("g")),
+                                c.getInt(c.getColumnIndex("b"))
+                        ),
+                        0.0f
+                ));
+            } while (c.moveToNext());
+        }
+
+        c.close();
+
+        for( Sum s : list ) {
+            s.rate = (float)((double)s.sum / max);
+            Log.d(Const.Tag, "s.genreName:"+s.genreName+"  s.rate:"+s.rate);
+        }
 
         return list;
     }
