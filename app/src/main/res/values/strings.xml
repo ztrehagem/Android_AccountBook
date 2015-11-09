@@ -52,7 +52,7 @@
 
     <string name="errorMsg_amountIsEmpty">金額を入力してください</string>
     <string name="errorMsg_amountIsTooLarge">金額が大きすぎます</string>
-    <string name="errorMsg_genreNameIsEmpty">ジャンル名を入力してください</string>
+    <string name="errorMsg_genreNameIsEmpty">分類名を入力してください</string>
 
     <string name="setting_startDay">月開始日</string>
 </resources>

@@ -3,6 +3,7 @@ package mhz.android.accountbook;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -54,7 +55,9 @@ public class EditGenreActivity extends AppCompatActivity {
                 button_do.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Genre g = pickInput();
+                        Genre g = pickData();
+                        if (g == null)
+                            return;
                         DataController.sumList.addGenre(g.name, g.r, g.g, g.b);
                         DataController.sumList.reloadList();
                         DataController.itemList.reloadList();
@@ -74,7 +77,9 @@ public class EditGenreActivity extends AppCompatActivity {
                 button_do.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Genre g = pickInput();
+                        Genre g = pickData();
+                        if (g == null)
+                            return;
                         DataController.sumList.updateGenre(target.genreId, g.name, g.r, g.g, g.b);
                         DataController.sumList.reloadList();
                         DataController.itemList.reloadList();
@@ -94,8 +99,14 @@ public class EditGenreActivity extends AppCompatActivity {
         s_b.setProgress(Color.blue(s.color));
     }
 
-    private Genre pickInput() {
-        return new Genre(0, input.getText().toString(), s_r.getProgress(), s_g.getProgress(), s_b.getProgress());
+    @Nullable
+    private Genre pickData() {
+        String name = input.getText().toString();
+        if (name.equals("")) {
+            Toast.makeText(EditGenreActivity.this, R.string.errorMsg_genreNameIsEmpty, Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        return new Genre(0, name, s_r.getProgress(), s_g.getProgress(), s_b.getProgress());
     }
 
     private class ColorChangeListener implements SeekBar.OnSeekBarChangeListener {
