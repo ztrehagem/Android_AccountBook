@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import mhz.android.accountbook.R;
+import mhz.android.accountbook.Util;
 import mhz.android.accountbook.data.Sum;
 
 /**
@@ -51,7 +52,7 @@ public class SumListAdapter extends ArrayAdapter<Sum> {
         textView_genreName.setTextColor(sum.color);
 
         final TextView textView_sum = (TextView) convertView.findViewById(R.id.listView_sum);
-        textView_sum.setText(context.getString(R.string.listView_sum, sum.sum));
+        textView_sum.setText(context.getString(R.string.listView_sum, Util.makeMoneyFormat(sum.sum)));
 
         final View rateView = convertView.findViewById(R.id.rate);
         rateView.setBackgroundColor(sum.color);

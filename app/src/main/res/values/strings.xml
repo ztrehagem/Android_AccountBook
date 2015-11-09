@@ -19,9 +19,9 @@
     <string name="listView_item_date">%1$d月 %2$d日</string>
     <string name="listView_item_genreName">%1$s</string>
     <string name="listView_item_title">%1$s</string>
-    <string name="listView_item_amount">%1$d 円</string>
+    <string name="listView_item_amount">%1$s 円</string>
     <string name="listView_genre_name">%1$s</string>
-    <string name="listView_sum">%1$d 円</string>
+    <string name="listView_sum">%1$s 円</string>
 
     <string name="item_property_genre">分類</string>
     <string name="item_property_title">項目名</string>

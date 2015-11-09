@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import mhz.android.accountbook.R;
+import mhz.android.accountbook.Util;
 import mhz.android.accountbook.data.Item;
 
 /**
@@ -57,7 +58,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
                 .setText(context.getString(R.string.listView_item_title, item.title));
 
         ((TextView) convertView.findViewById(R.id.listView_item_amount))
-                .setText(context.getString(R.string.listView_item_amount, item.amount));
+                .setText(context.getString(R.string.listView_item_amount, Util.makeMoneyFormat(item.amount)));
 
         return convertView;
     }
