@@ -1,9 +1,12 @@
 package mhz.android.accountbook.data;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 
+import mhz.android.accountbook.C;
 import mhz.android.accountbook.R;
 import mhz.android.accountbook.adapter.ItemListAdapter;
 
@@ -16,7 +19,9 @@ public class ItemList {
     private ArrayList<Item> viewItemList;
 
     ItemList(Context applicationContext) {
-        adapter = new ItemListAdapter(applicationContext, R.layout.list_view_item);
+        viewItemList = new ArrayList<>();
+        adapter = new ItemListAdapter(applicationContext, R.layout.list_view_item, viewItemList);
+        reloadList();
     }
 
     public ItemListAdapter getAdapter() {
@@ -28,12 +33,12 @@ public class ItemList {
     }
 
     public void reloadList() {
-        viewItemList = DataController.db.getItemsForListView();
-        adapter.clear();
-        adapter.addAll(viewItemList);
-        adapter.add(new Item());
+        viewItemList.clear();
+        viewItemList.addAll(DataController.db.getItemsForListView());
+        viewItemList.add(null);
     }
 
+    @Nullable
     public Item getItemByViewPosition(int viewItemPosition) {
         return viewItemList.get(viewItemPosition);
     }
@@ -47,7 +52,12 @@ public class ItemList {
     }
 
     public void deleteItemByViewPosition(int viewItemPosition) {
-        deleteItemById(getItemByViewPosition(viewItemPosition).id);
+        Item target = getItemByViewPosition(viewItemPosition);
+        if (target == null) {
+            Log.w(C.Tag, "ItemList#deleteItembyViewPosition : null target position");
+            return;
+        }
+        deleteItemById(target.id);
     }
 
     public void deleteItemById(int itemId) {

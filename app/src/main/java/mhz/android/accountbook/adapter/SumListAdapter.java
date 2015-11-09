@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 import mhz.android.accountbook.R;
 import mhz.android.accountbook.data.Sum;
 
@@ -20,6 +22,11 @@ public class SumListAdapter extends ArrayAdapter<Sum> {
 
     private LayoutInflater inflater;
 
+    public SumListAdapter(Context context, int resource, List<Sum> objects) {
+        super(context, resource, objects);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
     public SumListAdapter(Context context, int resource) {
         super(context, resource);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -31,8 +38,10 @@ public class SumListAdapter extends ArrayAdapter<Sum> {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.list_view_sum, parent, false);
 
-        if (getItemViewType(position) == viewTypeFinal)
+        if (getItemViewType(position) == viewTypeFinal) {
+            convertView.setVisibility(View.INVISIBLE);
             return convertView;
+        }
 
         final Sum sum = getItem(position);
         final Context context = convertView.getContext();

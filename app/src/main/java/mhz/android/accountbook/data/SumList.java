@@ -2,6 +2,7 @@ package mhz.android.accountbook.data;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,9 @@ public class SumList {
     private ArrayList<Sum> viewSumList;
 
     SumList(Context applicationContext) {
-        adapter = new SumListAdapter(applicationContext, R.layout.list_view_sum);
+        viewSumList = new ArrayList<>();
+        adapter = new SumListAdapter(applicationContext, R.layout.list_view_sum, viewSumList);
+        reloadList();
     }
 
     public SumListAdapter getAdapter() {
@@ -38,6 +41,8 @@ public class SumList {
         ArrayList<Item> items = DataController.itemList.getViewItemList();
         int max = 0;
         for (Item i : items) {
+            if (i == null)
+                continue;
             max = Math.max(max, sums.get(map.get(i.genreId)).sum += i.amount);
         }
 
@@ -49,12 +54,12 @@ public class SumList {
     }
 
     public void reloadList() {
-        viewSumList = this.makeSumsForListView();
-        adapter.clear();
-        adapter.addAll(viewSumList);
-        adapter.add(null);
+        viewSumList.clear();
+        viewSumList.addAll(this.makeSumsForListView());
+        viewSumList.add(null);
     }
 
+    @Nullable
     public Sum getSumByViewPosition(int viewPosition) {
         return viewSumList.get(viewPosition);
     }
