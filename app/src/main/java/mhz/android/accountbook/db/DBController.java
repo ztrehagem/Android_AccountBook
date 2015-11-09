@@ -24,7 +24,6 @@ public class DBController {
     public DBController(Context context) {
         openHelper = new DBOpenHelper(context);
         db = openHelper.getWritableDatabase();
-//        dbInitialize();
     }
 
     public void dbInitialize() {

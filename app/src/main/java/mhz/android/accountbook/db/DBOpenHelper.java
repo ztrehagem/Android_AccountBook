@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import mhz.android.accountbook.C;
+
 /**
  * Created by MHz on 2015/11/01.
  */
@@ -57,6 +59,24 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.i(C.Tag, "Database upgrade to v" + newVersion + " from v" + oldVersion);
+
+        switch (oldVersion) {
+            case 5:
+                break;
+        }
+
+        if (++oldVersion < newVersion)
+            onUpgrade(db, oldVersion, newVersion);
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.i(C.Tag, "Database downgrade to v" + newVersion + " from v" + oldVersion);
+        initialize(db);
+    }
+
+    public void initialize(SQLiteDatabase db) {
         try {
             db.execSQL("drop table Items;");
         } catch (SQLiteException exc) {
