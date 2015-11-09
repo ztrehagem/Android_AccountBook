@@ -2,6 +2,7 @@ package mhz.android.accountbook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +11,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import mhz.android.accountbook.adapter.GenreSpinnerAdapter;
 import mhz.android.accountbook.data.DataController;
+import mhz.android.accountbook.data.Genre;
 import mhz.android.accountbook.data.Item;
 
 public class EditItemActivity extends AppCompatActivity {
@@ -20,6 +24,7 @@ public class EditItemActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private EditText editText_title;
     private EditText editText_amount;
+    private ArrayList<Genre> genreList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +42,11 @@ public class EditItemActivity extends AppCompatActivity {
         editText_title = (EditText) findViewById(R.id.input_title);
         editText_amount = (EditText) findViewById(R.id.input_amount);
 
+        genreList = DataController.db.getAllGenre();
+
 
         //** view
-        spinner.setAdapter(new GenreSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, DataController.genreList.getAllGenre()));
+        spinner.setAdapter(new GenreSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, genreList));
         findViewById(R.id.button_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +112,7 @@ public class EditItemActivity extends AppCompatActivity {
 
     }
 
+    @Nullable
     private CoreItemData makeCoreItemData() {
 
         String amount_str = editText_amount.getText().toString();
@@ -125,7 +133,7 @@ public class EditItemActivity extends AppCompatActivity {
                 datePicker.getYear(),
                 datePicker.getMonth() + 1,
                 datePicker.getDayOfMonth(),
-                DataController.genreList.getAllGenre().get(spinner.getSelectedItemPosition()).id,
+                genreList.get(spinner.getSelectedItemPosition()).id,
                 editText_title.getText().toString(),
                 amount
         );

@@ -4,15 +4,11 @@
     <string name="activity_title_modifyItem">出費項目の編集</string>
     <string name="activity_title_addGenre">分類の新規作成</string>
     <string name="activity_title_modifyGenre">分類の修正</string>
-    <string name="activity_title_mainView">統計</string>
-    <string name="activity_title_itemList">アイテム一覧</string>
-    <string name="activity_title_genreList">ジャンル一覧</string>
 
     <string name="fragment_title_sumList">合計</string>
     <string name="fragment_title_itemList">一覧</string>
     <string name="fragment_title_setting">設定</string>
 
-    <string name="actionTitle_editGenre">ジャンル編集</string>
     <string name="actionTitle_deleteGenre">分類の削除</string>
     <string name="actionTitle_changeStartDay">月開始日の変更</string>
 
@@ -28,7 +24,7 @@
     <string name="listView_sum">%1$d 円</string>
 
     <string name="item_property_genre">分類</string>
-    <string name="item_property_title">タイトル</string>
+    <string name="item_property_title">項目名</string>
     <string name="item_property_amount">金額</string>
     <string name="genre_property_name">分類名</string>
 
@@ -53,6 +49,4 @@
     <string name="errorMsg_amountIsEmpty">金額を入力してください</string>
     <string name="errorMsg_amountIsTooLarge">金額が大きすぎます</string>
     <string name="errorMsg_genreNameIsEmpty">分類名を入力してください</string>
-
-    <string name="setting_startDay">月開始日</string>
 </resources>

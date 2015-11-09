@@ -26,7 +26,7 @@ public class SettingFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_setting, container, false);
 
         String[] items = new String[]{
-                getString(R.string.setting_startDay)
+                getString(R.string.actionTitle_changeStartDay)
         };
 
         ListView listView = (ListView) v.findViewById(R.id.listView);

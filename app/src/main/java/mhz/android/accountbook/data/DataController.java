@@ -13,7 +13,6 @@ public class DataController {
     public static DBController db;
     public static DisplayMonth displayMonth = null;
     public static ItemList itemList = null;
-    public static GenreList genreList = null;
     public static SumList sumList = null;
     private static DataController mInstance = null;
 
@@ -21,7 +20,6 @@ public class DataController {
         db = new DBController(applicationContext);
         displayMonth = new DisplayMonth(applicationContext, mainActivity);
         itemList = new ItemList(applicationContext);
-        genreList = new GenreList(applicationContext);
         sumList = new SumList(applicationContext);
     }
 
