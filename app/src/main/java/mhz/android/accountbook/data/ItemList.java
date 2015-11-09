@@ -36,6 +36,7 @@ public class ItemList {
         viewItemList.clear();
         viewItemList.addAll(DataController.db.getItemsForListView());
         viewItemList.add(null);
+        adapter.notifyDataSetChanged();
     }
 
     @Nullable

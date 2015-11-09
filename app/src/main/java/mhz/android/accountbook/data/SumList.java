@@ -57,6 +57,7 @@ public class SumList {
         viewSumList.clear();
         viewSumList.addAll(this.makeSumsForListView());
         viewSumList.add(null);
+        adapter.notifyDataSetChanged();
     }
 
     @Nullable
