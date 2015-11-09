@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import mhz.android.accountbook.C;
 import mhz.android.accountbook.EditGenreActivity;
 import mhz.android.accountbook.R;
@@ -29,23 +31,41 @@ public class SumListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                String[] items;
-                boolean _isDeletable;
-                if (DataController.db.getGenreNum() == 1) {
-                    items = new String[]{getString(R.string.activity_title_modifyGenre), getString(R.string.actionName_moveToAbove), getString(R.string.actionName_moveToBelow)};
-                    _isDeletable = false;
-                } else {
-                    items = new String[]{getString(R.string.activity_title_modifyGenre), getString(R.string.actionTitle_deleteGenre), getString(R.string.actionName_moveToAbove), getString(R.string.actionName_moveToBelow)};
+                boolean _isDeletable = false;
+                boolean _canMoveAbove = false;
+//                boolean _canMoveBelow = false;
+
+                final int genreNum = DataController.db.getGenreNum();
+                ArrayList<String> list = new ArrayList<>();
+
+                list.add(getString(R.string.activity_title_modifyGenre));
+                if (genreNum >= 2) {
                     _isDeletable = true;
+                    list.add(getString(R.string.actionTitle_deleteGenre));
+
+                    if (position != 0) {
+                        _canMoveAbove = true;
+                        list.add(getString(R.string.actionName_moveToAbove));
+                    }
+                    if (position != genreNum - 1) {
+//                        _canMoveBelow = true;
+                        list.add(getString(R.string.actionName_moveToBelow));
+                    }
                 }
+
                 final boolean isDeletable = _isDeletable;
+                final boolean canMoveAbove = _canMoveAbove;
+//                final boolean canMoveBelow = _canMoveBelow;
 
                 new AlertDialog.Builder(getContext())
-                        .setItems(items, new DialogInterface.OnClickListener() {
+                        .setItems(list.toArray(new String[0]), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (which >= 1 && !isDeletable)
-                                    which += 1;
+                                    which++;
+                                if (which >= 2 && !canMoveAbove)
+                                    which++;
+
 
                                 Intent intent;
                                 switch (which) {
@@ -69,6 +89,12 @@ public class SumListFragment extends Fragment {
                                                     }
                                                 })
                                                 .show();
+                                    case 2:
+                                        DataController.sumList.reloadList();
+                                        break;
+                                    case 3:
+                                        DataController.sumList.reloadList();
+                                        break;
                                 }
                             }
                         })
