@@ -1,14 +1,20 @@
 <resources>
     <string name="app_name">家計簿！</string>
-    <string name="activity_title_mainView">統計</string>
-    <string name="activity_title_itemList">アイテム一覧</string>
-    <string name="activity_title_addItem">アイテム追加</string>
-    <string name="activity_title_modifyItem">アイテム編集</string>
-    <string name="activity_title_genreList">ジャンル一覧</string>
+    <string name="activity_title_addItem">出費項目の追加</string>
+    <string name="activity_title_modifyItem">出費項目の編集</string>
+    <string name="activity_title_addGenre">分類の新規作成</string>
+    <string name="activity_title_modifyGenre">分類の修正</string>
+
+    <string name="fragment_title_sumList">合計</string>
+    <string name="fragment_title_itemList">一覧</string>
+    <string name="fragment_title_setting">設定</string>
+
+    <string name="actionTitle_deleteGenre">分類の削除</string>
+    <string name="actionTitle_changeStartDay">月開始日の変更</string>
 
     <string name="month_previous">&lt;&lt;</string>
     <string name="month_next">&gt;&gt;</string>
-    <string name="monthText_single">%1$d/%2$02d/%3$02d -</string>
+    <string name="monthText_single">%1$d/%2$02d/%3$02d - %4$d/%5$02d/%6$02d</string>
 
     <string name="listView_item_date">%1$d月 %2$d日</string>
     <string name="listView_item_genreName">%1$s</string>
@@ -18,23 +24,21 @@
     <string name="listView_sum">%1$d 円</string>
 
     <string name="item_property_genre">分類</string>
-    <string name="item_property_title">タイトル</string>
+    <string name="item_property_title">項目名</string>
     <string name="item_property_amount">金額</string>
-    <string name="genre_property_name">ジャンル名</string>
+    <string name="genre_property_name">分類名</string>
 
-    <string name="actionTitle_createGenre">ジャンル新規作成</string>
-    <string name="actionTitle_modifyGenre">ジャンル修正</string>
-    <string name="actionTitle_editGenre">ジャンル編集</string>
-    <string name="actionTitle_changeStartDay">月開始日の変更</string>
     <string name="actionName_add">追加</string>
     <string name="actionName_delete">削除</string>
     <string name="actionName_modify">修正</string>
     <string name="actionName_create">作成</string>
     <string name="actionName_decision">決定</string>
+    <string name="actionName_cancel">キャンセル</string>
+    <string name="actionName_moveToAbove">上へ</string>
+    <string name="actionName_moveToBelow">下へ</string>
 
-    <string name="dialogMsg_deleteItem">アイテムを削除しますか？</string>
-    <string name="dialogMsg_deleteGenre">ジャンルを削除しますか？</string>
-    <string name="dialogNegative_cancel">キャンセル</string>
+    <string name="dialogMsg_deleteItem">この項目を削除しますか？</string>
+    <string name="dialogMsg_deleteGenre">この分類を削除しますか？\n\n（この分類に登録されていた項目はすべて削除されます！）</string>
 
     <string name="resultMsg_create">作成しました</string>
     <string name="resultMsg_delete">削除しました</string>
@@ -44,5 +48,5 @@
 
     <string name="errorMsg_amountIsEmpty">金額を入力してください</string>
     <string name="errorMsg_amountIsTooLarge">金額が大きすぎます</string>
-    <string name="errorMsg_genreNameIsEmpty">ジャンル名を入力してください</string>
+    <string name="errorMsg_genreNameIsEmpty">分類名を入力してください</string>
 </resources>

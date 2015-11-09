@@ -1,19 +1,22 @@
 package mhz.android.accountbook;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import mhz.android.accountbook.adapter.GenreSpinnerAdapter;
-import mhz.android.accountbook.data.Item;
 import mhz.android.accountbook.data.DataController;
+import mhz.android.accountbook.data.Genre;
+import mhz.android.accountbook.data.Item;
 
 public class EditItemActivity extends AppCompatActivity {
 
@@ -21,6 +24,7 @@ public class EditItemActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private EditText editText_title;
     private EditText editText_amount;
+    private ArrayList<Genre> genreList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class EditItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_item);
 
         final Intent intent = getIntent();
-        final int requestCode = intent.getIntExtra("request", 0);
+        final int requestCode = intent.getIntExtra(C.IntentExtraName_RequestCode, 0);
 
 
         //** initialize
@@ -38,26 +42,32 @@ public class EditItemActivity extends AppCompatActivity {
         editText_title = (EditText) findViewById(R.id.input_title);
         editText_amount = (EditText) findViewById(R.id.input_amount);
 
+        genreList = DataController.db.getAllGenre();
+
 
         //** view
-        spinner.setAdapter(new GenreSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, DataController.genreList.getAllGenre()));
+        spinner.setAdapter(new GenreSpinnerAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, genreList));
+        findViewById(R.id.button_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        final Button button_do = (Button) findViewById(R.id.button_do);
 
 
-        //** event listener
         switch (requestCode) {
-            case R.integer.requestCode_AddItem:
+            case C.RequestCode_AddItem:
                 setTitle(R.string.activity_title_addItem);
-                findViewById(R.id.buttons_modify).setVisibility(View.GONE);
 
-                findViewById(R.id.button_add).setOnClickListener(new View.OnClickListener() {
+                button_do.setText(getString(R.string.actionName_add));
+                button_do.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         CoreItemData item = makeCoreItemData();
                         if (item == null) {
                             return;
                         }
-
                         DataController.itemList.addItem(item.year, item.month, item.day, item.genreId, item.title, item.amount);
                         DataController.itemList.reloadList();
                         DataController.sumList.reloadList();
@@ -67,11 +77,10 @@ public class EditItemActivity extends AppCompatActivity {
                 });
                 break;
 
-            case R.integer.requestCode_ModifyItem:
+            case C.RequestCode_ModifyItem:
                 setTitle(R.string.activity_title_modifyItem);
-                findViewById(R.id.buttons_add).setVisibility(View.GONE);
 
-                final int targetItemPosition = intent.getIntExtra("target_item_position", -1);
+                final int targetItemPosition = intent.getIntExtra(C.IntentExtraName_TargetItemPosition, -1);
                 if (targetItemPosition == -1)
                     throw new RuntimeException();
 
@@ -83,36 +92,14 @@ public class EditItemActivity extends AppCompatActivity {
                 editText_title.setText(item.title);
                 editText_amount.setText(String.valueOf(item.amount));
 
-                findViewById(R.id.button_delete).setOnClickListener(new View.OnClickListener() {
+                button_do.setText(getString(R.string.actionName_modify));
+                button_do.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(EditItemActivity.this)
-                                .setMessage(R.string.dialogMsg_deleteItem)
-                                .setPositiveButton(R.string.actionName_delete, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        DataController.itemList.deleteItemById(item.id);
-                                        DataController.itemList.reloadList();
-                                        DataController.sumList.reloadList();
-                                        Toast.makeText(getApplicationContext(), R.string.resultMsg_delete, Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                })
-                                .setNegativeButton(R.string.dialogNegative_cancel, null)
-                                .show();
-                    }
-                });
-
-                findViewById(R.id.button_modify).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
                         CoreItemData updatedItem = makeCoreItemData();
                         if (updatedItem == null) {
-                            Toast.makeText(getApplicationContext(), R.string.errorMsg_amountIsEmpty, Toast.LENGTH_SHORT).show();
                             return;
                         }
-
                         DataController.itemList.updateItem(item.id, updatedItem.year, updatedItem.month, updatedItem.day, updatedItem.genreId, updatedItem.title, updatedItem.amount);
                         DataController.itemList.reloadList();
                         DataController.sumList.reloadList();
@@ -125,6 +112,7 @@ public class EditItemActivity extends AppCompatActivity {
 
     }
 
+    @Nullable
     private CoreItemData makeCoreItemData() {
 
         String amount_str = editText_amount.getText().toString();
@@ -145,7 +133,7 @@ public class EditItemActivity extends AppCompatActivity {
                 datePicker.getYear(),
                 datePicker.getMonth() + 1,
                 datePicker.getDayOfMonth(),
-                DataController.genreList.getAllGenre().get(spinner.getSelectedItemPosition()).id,
+                genreList.get(spinner.getSelectedItemPosition()).id,
                 editText_title.getText().toString(),
                 amount
         );

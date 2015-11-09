@@ -7,20 +7,22 @@ import android.graphics.Color;
  */
 public class Sum {
 
+    public int genreId;
     public String genreName;
     public int sum;
     public int color;
     public float rate;
 
     public Sum() {
-        Set(null, 0, Color.rgb(0, 0, 0), 0.0f);
+        Set(-1, null, 0, Color.rgb(0, 0, 0), 0.0f);
     }
 
-    public Sum(String genreName, int sum, int color, float rate) {
-        Set(genreName, sum, color, rate);
+    public Sum(int genreId, String genreName, int sum, int color, float rate) {
+        Set(genreId, genreName, sum, color, rate);
     }
 
-    public void Set(String genreName, int sum, int color, float percentage) {
+    public void Set(int genreId, String genreName, int sum, int color, float percentage) {
+        this.genreId = genreId;
         this.genreName = genreName;
         this.sum = sum;
         this.color = color;

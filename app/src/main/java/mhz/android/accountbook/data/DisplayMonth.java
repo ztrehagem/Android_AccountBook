@@ -7,7 +7,8 @@ import android.util.Log;
 
 import java.util.Calendar;
 
-import mhz.android.accountbook.Const;
+import mhz.android.accountbook.C;
+import mhz.android.accountbook.MainActivity;
 
 /**
  * Created by MHz on 2015/11/07.
@@ -18,14 +19,20 @@ public class DisplayMonth {
     private byte startDay;
     private Calendar start, end;
     private Context applicationContext;
+    private MainActivity mainActivity;
 
-    DisplayMonth(Context applicationContext) {
+    DisplayMonth(Context applicationContext, MainActivity mainActivity) {
         this.applicationContext = applicationContext;
+        this.mainActivity = mainActivity;
 
-        setStartDay((byte) PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt(Const.SharedPreferenceKey_StartDay, 1));
+        setStartDay((byte) PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt(C.SharedPreferenceKey_StartDay, 1));
 
-        Log.d(Const.Tag, "start.m:" + (start.get(Calendar.MONTH) + 1) + " start.d:" + start.get(Calendar.DAY_OF_MONTH));
-        Log.d(Const.Tag, "  end.m:" + (end.get(Calendar.MONTH) + 1) + "   end.d:" + end.get(Calendar.DAY_OF_MONTH));
+        Log.d(C.Tag, "start.m:" + (start.get(Calendar.MONTH) + 1) + " start.d:" + start.get(Calendar.DAY_OF_MONTH));
+        Log.d(C.Tag, "  end.m:" + (end.get(Calendar.MONTH) + 1) + "   end.d:" + end.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public void updateDisplayMonthText() {
+        mainActivity.updateDisplayMonthText();
     }
 
     public void moveToNext() {
@@ -53,7 +60,7 @@ public class DisplayMonth {
     public void setStartDay(byte startDay) {
         this.startDay = startDay;
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(applicationContext).edit();
-        editor.putInt(Const.SharedPreferenceKey_StartDay, startDay);
+        editor.putInt(C.SharedPreferenceKey_StartDay, startDay);
         editor.apply();
 
         start = Calendar.getInstance();

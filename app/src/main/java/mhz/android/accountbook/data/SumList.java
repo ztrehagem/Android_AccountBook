@@ -31,7 +31,7 @@ public class SumList {
         ArrayList<Genre> genres = DataController.db.getAllGenre();
         int p = 0;
         for (Genre g : genres) {
-            sums.add(new Sum(g.name, 0, Color.rgb(g.r, g.g, g.b), 0.0f));
+            sums.add(new Sum(g.id, g.name, 0, Color.rgb(g.r, g.g, g.b), 0.0f));
             map.put(g.id, p++);
         }
 
@@ -52,5 +52,30 @@ public class SumList {
         viewSumList = this.makeSumsForListView();
         adapter.clear();
         adapter.addAll(viewSumList);
+        adapter.add(null);
+    }
+
+    public Sum getSumByViewPosition(int viewPosition) {
+        return viewSumList.get(viewPosition);
+    }
+
+    public void addGenre(String genreName, int r, int g, int b) {
+        DataController.db.addGenre(genreName, r, g, b);
+    }
+
+    public void addGenre(String genreName, int color) {
+        this.addGenre(genreName, Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+    public void updateGenre(int genreId, String name, int r, int g, int b) {
+        DataController.db.updateGenre(genreId, name, r, g, b);
+    }
+
+    public void updateGenre(int genreId, String name, int color) {
+        this.updateGenre(genreId, name, Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+    public void deleteGenreByViewPosition(int viewPosition) {
+        DataController.db.deleteGenre(viewSumList.get(viewPosition).genreId);
     }
 }

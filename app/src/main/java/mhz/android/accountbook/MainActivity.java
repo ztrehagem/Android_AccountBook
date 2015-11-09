@@ -4,158 +4,145 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
-import mhz.android.accountbook.adapter.MainFragmentStatePagerAdapter;
 import mhz.android.accountbook.data.DataController;
+import mhz.android.accountbook.fragments.ItemListFragment;
+import mhz.android.accountbook.fragments.SettingFragment;
+import mhz.android.accountbook.fragments.SumListFragment;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle(R.string.activity_title_mainView);
 
-        //** initialize global data
-        DataController.createInstance(getApplicationContext());
+        //-- initialize global data
+        DataController.createInstance(getApplicationContext(), this);
         DataController.itemList.reloadList();
         DataController.sumList.reloadList();
 
-        //** view
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new MainFragmentStatePagerAdapter(getSupportFragmentManager()));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        //-- view setting
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
 
-            }
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
-            @Override
-            public void onPageSelected(int position) {
-                switch( position ) {
-                    case 0:
-                        MainActivity.this.setTitle(R.string.activity_title_mainView);
-                        break;
-                    case 1:
-                        MainActivity.this.setTitle(R.string.activity_title_itemList);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        findViewById(R.id.button_prev).setOnClickListener(new MoveMonthButtonListener(MoveMonthButtonListener.PREV));
+        findViewById(R.id.button_next).setOnClickListener(new MoveMonthButtonListener(MoveMonthButtonListener.NEXT));
 
         updateDisplayMonthText();
 
-        findViewById(R.id.button_prev).setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                DataController.displayMonth.moveToPrev();
-                DataController.itemList.reloadList();
-                DataController.sumList.reloadList();
-                updateDisplayMonthText();
-            }
-        });
-        findViewById(R.id.button_next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DataController.displayMonth.moveToNext();
-                DataController.itemList.reloadList();
-                DataController.sumList.reloadList();
-                updateDisplayMonthText();
-            }
-        });
-
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        DataController.detachInstance();
-        super.onDestroy();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        (this.getMenuInflater()).inflate(R.menu.optionsmenu_activity_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.db_init:
+            public void onClick(View view) {
+                String[] items = new String[]{getString(R.string.activity_title_addItem), getString(R.string.activity_title_addGenre)};
                 new AlertDialog.Builder(MainActivity.this)
-                        .setMessage("データベースを初期化しますか？")
-                        .setNegativeButton("キャンセル", null)
-                        .setPositiveButton("初期化", new DialogInterface.OnClickListener() {
+                        .setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                DataController.db.dbInitialize();
-                                Toast.makeText(getApplicationContext(), "データベースを初期化しました", Toast.LENGTH_SHORT).show();
+                                Intent intent;
+                                switch (which) {
+                                    case 0:
+                                        intent = new Intent(MainActivity.this, EditItemActivity.class);
+                                        intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_AddItem);
+                                        startActivity(intent);
+                                        break;
+                                    case 1:
+                                        intent = new Intent(MainActivity.this, EditGenreActivity.class);
+                                        intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_AddGenre);
+                                        startActivity(intent);
+                                        break;
+                                }
                             }
                         })
                         .show();
-                break;
+            }
+        });
 
-            case R.id.add_item:
-                Intent intent = new Intent(getApplicationContext(), EditItemActivity.class);
-                intent.putExtra("request", R.integer.requestCode_AddItem);
-                startActivity(intent);
-                break;
-
-            case R.id.edit_genre:
-                startActivity(new Intent(getApplicationContext(), GenreListActivity.class));
-                break;
-
-            case R.id.set_start_day:
-                ViewGroup v = new LinearLayout(MainActivity.this);
-                getLayoutInflater().inflate(R.layout.view_set_start_day, v);
-
-                final NumberPicker numberPicker = (NumberPicker) v.findViewById(R.id.numberPicker);
-                numberPicker.setMinValue(1);
-                numberPicker.setMaxValue(28);
-                numberPicker.setValue(DataController.displayMonth.getStartDay());
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(R.string.actionTitle_changeStartDay)
-                        .setView(v)
-                        .setNegativeButton(R.string.dialogNegative_cancel, null)
-                        .setPositiveButton(R.string.actionName_decision, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                DataController.displayMonth.setStartDay((byte) numberPicker.getValue());
-                                DataController.itemList.reloadList();
-                                updateDisplayMonthText();
-                                Toast.makeText(MainActivity.this, R.string.resultMsg_change, Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .show();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
-    private void updateDisplayMonthText() {
+    public void updateDisplayMonthText() {
         final TextView text = (TextView) findViewById(R.id.monthText);
         final Calendar start = DataController.displayMonth.getStart();
-        text.setText(getString(R.string.monthText_single, start.get(Calendar.YEAR), start.get(Calendar.MONTH) + 1, start.get(Calendar.DAY_OF_MONTH)));
+        final Calendar end = DataController.displayMonth.getEnd();
+        text.setText(getString(R.string.monthText_single, start.get(Calendar.YEAR), start.get(Calendar.MONTH) + 1, start.get(Calendar.DAY_OF_MONTH), end.get(Calendar.YEAR), end.get(Calendar.MONTH) + 1, end.get(Calendar.DAY_OF_MONTH)));
+    }
+
+    private class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new SumListFragment();
+                case 1:
+                    return new ItemListFragment();
+                case 2:
+                    return new SettingFragment();
+            }
+            return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return getString(R.string.fragment_title_sumList);
+                case 1:
+                    return getString(R.string.fragment_title_itemList);
+                case 2:
+                    return getString(R.string.fragment_title_setting);
+            }
+            return null;
+        }
+    }
+
+    private class MoveMonthButtonListener implements View.OnClickListener {
+        static final int PREV = 0;
+        static final int NEXT = 1;
+        private int dir;
+
+        MoveMonthButtonListener(int direction) {
+            this.dir = direction;
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (dir) {
+                case PREV:
+                    DataController.displayMonth.moveToPrev();
+                    break;
+                case NEXT:
+                    DataController.displayMonth.moveToNext();
+                    break;
+            }
+            DataController.itemList.reloadList();
+            DataController.sumList.reloadList();
+            updateDisplayMonthText();
+        }
     }
 }

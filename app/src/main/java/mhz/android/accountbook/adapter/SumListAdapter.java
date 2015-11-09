@@ -1,16 +1,12 @@
 package mhz.android.accountbook.adapter;
 
 import android.content.Context;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import mhz.android.accountbook.Const;
 import mhz.android.accountbook.R;
 import mhz.android.accountbook.data.Sum;
 
@@ -18,6 +14,9 @@ import mhz.android.accountbook.data.Sum;
  * Created by MHz on 2015/11/08.
  */
 public class SumListAdapter extends ArrayAdapter<Sum> {
+
+    private final int viewTypeNormal = 0;
+    private final int viewTypeFinal = 1;
 
     private LayoutInflater inflater;
 
@@ -31,6 +30,9 @@ public class SumListAdapter extends ArrayAdapter<Sum> {
 
         if (convertView == null)
             convertView = inflater.inflate(R.layout.list_view_sum, parent, false);
+
+        if (getItemViewType(position) == viewTypeFinal)
+            return convertView;
 
         final Sum sum = getItem(position);
         final Context context = convertView.getContext();
@@ -52,12 +54,22 @@ public class SumListAdapter extends ArrayAdapter<Sum> {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return (position != getCount() - 1) ? viewTypeNormal : viewTypeFinal;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
     public boolean areAllItemsEnabled() {
         return false;
     }
 
     @Override
     public boolean isEnabled(int position) {
-        return false;
+        return position != getCount() - 1;
     }
 }
