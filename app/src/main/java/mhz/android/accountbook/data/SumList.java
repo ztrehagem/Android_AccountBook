@@ -84,4 +84,12 @@ public class SumList {
     public void deleteGenreByViewPosition(int viewPosition) {
         DataController.db.deleteGenre(viewSumList.get(viewPosition).genreId);
     }
+
+    public void moveGenreAbove(int viewPosition) {
+        DataController.db.moveGenreOrder(-1, viewPosition);
+    }
+
+    public void moveGenreBelow(int viewPosition) {
+        DataController.db.moveGenreOrder(1, viewPosition);
+    }
 }
