@@ -136,7 +136,7 @@ public class DBController {
     }
 
     public ArrayList<Genre> getAllGenre() {
-        Cursor c = db.query("Genre", null, null, null, null, null, "id asc");
+        Cursor c = db.query("Genre", null, null, null, null, null, "view_order asc");
 
         ArrayList<Genre> list = new ArrayList<>();
 
