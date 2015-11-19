@@ -86,10 +86,10 @@ public class SumList {
     }
 
     public void moveGenreAbove(int viewPosition) {
-        DataController.db.moveGenreOrder(1, viewPosition);
+        DataController.db.moveGenreOrder(-1, viewPosition);
     }
 
     public void moveGenreBelow(int viewPosition) {
-        DataController.db.moveGenreOrder(-1, viewPosition);
+        DataController.db.moveGenreOrder(1, viewPosition);
     }
 }

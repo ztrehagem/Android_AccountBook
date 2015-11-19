@@ -53,6 +53,7 @@ public class DBController {
         v.put("b", b);
         db.insert("Genre", null, v);
         Log.d(C.Tag, "DBController::addGenre : name=" + name + " r=" + r + " g=" + g + " b=" + b);
+        // TODO: 2015/11/19 view_orderについての追加
     }
 
     public void deleteItem(int itemId) {
@@ -62,6 +63,7 @@ public class DBController {
     public void deleteGenre(int genreId) {
         db.delete("Items", "genre_id = ?", new String[]{String.valueOf(genreId)});
         db.delete("Genre", "id = ?", new String[]{String.valueOf(genreId)});
+        // TODO: 2015/11/19 view_orderについての追加
     }
 
     public void updateItem(int itemId, int y, int m, int d, int genreId, String title, int amount) {
@@ -84,8 +86,19 @@ public class DBController {
         db.update("Genre", v, "id = ?", new String[]{String.valueOf(genreId)});
     }
 
-    public void moveGenreOrder(int direction, int viewPosition) {
-        // TODO: 2015/11/19 表示順変更のメソッド実装 
+    public void moveGenreOrder(final int direction, final int fromOrder) {
+        final int toOrder = fromOrder + direction;
+
+        if (toOrder == -1 || fromOrder == -1) {
+            Log.e(C.Tag, "DBController::moveGenreOrder : ERROR : toOrder or fromOrder is -1");
+            return;
+        }
+
+        db.execSQL("update Genre set view_order = -1 where view_order = " + fromOrder + ";");
+        db.execSQL("update Genre set view_order = " + fromOrder + " where view_order = " + toOrder + ";");
+        db.execSQL("update Genre set view_order = " + toOrder + " where view_order = -1;");
+
+        Log.d(C.Tag, "DBController::moveGenreOrder : swap from[" + fromOrder + "]to[" + toOrder + "]");
     }
 
     public ArrayList<Item> getItemsForListView() {
@@ -151,7 +164,7 @@ public class DBController {
                         c.getInt(c.getColumnIndex("g")),
                         c.getInt(c.getColumnIndex("b"))
                 ));
-                Log.d(C.Tag, "DBController::getAllGenre : id="+c.getInt(c.getColumnIndex("id")));
+                Log.d(C.Tag, "DBController::getAllGenre : id=" + c.getInt(c.getColumnIndex("id")));
             } while (c.moveToNext());
         }
 
