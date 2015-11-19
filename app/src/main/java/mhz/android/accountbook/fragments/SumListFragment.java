@@ -90,9 +90,11 @@ public class SumListFragment extends Fragment {
                                                 })
                                                 .show();
                                     case 2:
+                                        DataController.sumList.moveGenreAbove(position);
                                         DataController.sumList.reloadList();
                                         break;
                                     case 3:
+                                        DataController.sumList.moveGenreBelow(position);
                                         DataController.sumList.reloadList();
                                         break;
                                 }

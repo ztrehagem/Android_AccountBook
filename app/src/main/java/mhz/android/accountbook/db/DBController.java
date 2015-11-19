@@ -79,6 +79,10 @@ public class DBController {
         db.update("Genre", v, "id = ?", new String[]{String.valueOf(genreId)});
     }
 
+    public void moveGenreOrder(int direction, int viewPosition) {
+        // TODO: 2015/11/19 表示順変更のメソッド実装 
+    }
+
     public ArrayList<Item> getItemsForListView() {
 
         Calendar start = DataController.displayMonth.getStart();
