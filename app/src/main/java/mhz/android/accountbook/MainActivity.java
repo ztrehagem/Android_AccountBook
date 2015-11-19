@@ -3,6 +3,7 @@ package mhz.android.accountbook;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -11,8 +12,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -71,6 +74,36 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .show();
+            }
+        });
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setItems(new String[]{"データ初期化", "デバッグログ出力"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0: {
+                                        DataController.db.dbInitialize();
+                                        Toast.makeText(MainActivity.this, "DB Initialized", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    }
+                                    case 1: {
+                                        Cursor c = DataController.db.debugGetDB().query("Genre", new String[]{"id", "view_order", "name"}, null, null, null, null, "view_order asc");
+                                        if (c.moveToFirst()) {
+                                            do {
+                                                Log.d(C.Tag, "DEBUG//Genre : id=" + c.getInt(0) + " order=" + c.getInt(1) + " name=" + c.getString(2)
+                                                );
+                                            } while (c.moveToNext());
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        })
+                        .show();
+                return true;
             }
         });
 
