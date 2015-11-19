@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import mhz.android.accountbook.C;
 import mhz.android.accountbook.data.DataController;
 import mhz.android.accountbook.data.Genre;
 import mhz.android.accountbook.data.Item;
@@ -40,6 +42,7 @@ public class DBController {
         v.put("title", title);
         v.put("amount", amount);
         db.insert("Items", null, v);
+        Log.d(C.Tag, "DBController::addItem : " + y + "/" + m + "/" + d + " id=" + genreId + " title=" + title + " amount=" + amount);
     }
 
     public void addGenre(String name, int r, int g, int b) {
@@ -49,6 +52,7 @@ public class DBController {
         v.put("g", g);
         v.put("b", b);
         db.insert("Genre", null, v);
+        Log.d(C.Tag, "DBController::addGenre : name=" + name + " r=" + r + " g=" + g + " b=" + b);
     }
 
     public void deleteItem(int itemId) {
@@ -101,6 +105,8 @@ public class DBController {
 
         ArrayList<Item> list = new ArrayList<>();
 
+        Log.d(C.Tag, "DBController::getItemsForListView : start");
+
         if (c.moveToFirst()) {
             do {
                 list.add(new Item(
@@ -118,8 +124,11 @@ public class DBController {
                                 c.getInt(c.getColumnIndex("b"))
                         )
                 ));
+                Log.d(C.Tag, "DBController::getItemsForListView : id=" + c.getInt(c.getColumnIndex("id")));
             } while (c.moveToNext());
         }
+
+        Log.d(C.Tag, "DBController::getItemsForListView : end");
 
         c.close();
 
@@ -131,6 +140,8 @@ public class DBController {
 
         ArrayList<Genre> list = new ArrayList<>();
 
+        Log.d(C.Tag, "DBController::getAllGenre : start");
+
         if (c.moveToFirst()) {
             do {
                 list.add(new Genre(
@@ -140,8 +151,11 @@ public class DBController {
                         c.getInt(c.getColumnIndex("g")),
                         c.getInt(c.getColumnIndex("b"))
                 ));
+                Log.d(C.Tag, "DBController::getAllGenre : id="+c.getInt(c.getColumnIndex("id")));
             } while (c.moveToNext());
         }
+
+        Log.d(C.Tag, "DBController::getAllGenre : end");
 
         c.close();
 
