@@ -24,10 +24,11 @@ public class DBController {
     public DBController(Context context) {
         openHelper = new DBOpenHelper(context);
         db = openHelper.getWritableDatabase();
+//        dbInitialize();
     }
 
     public void dbInitialize() {
-        openHelper.onUpgrade(db, db.getVersion(), db.getVersion());
+        openHelper.initialize(db);
     }
 
     public void addItem(int y, int m, int d, int genreId, String title, int amount) {
