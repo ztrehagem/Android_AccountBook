@@ -26,11 +26,14 @@ public class DBController {
     public DBController(Context context) {
         openHelper = new DBOpenHelper(context);
         db = openHelper.getWritableDatabase();
-//        dbInitialize();
     }
 
     public void dbInitialize() {
         openHelper.initialize(db);
+    }
+
+    public SQLiteDatabase debugGetDB() {
+        return db;
     }
 
     public void addItem(int y, int m, int d, int genreId, String title, int amount) {
@@ -46,14 +49,8 @@ public class DBController {
     }
 
     public void addGenre(String name, int r, int g, int b) {
-        ContentValues v = new ContentValues();
-        v.put("name", name);
-        v.put("r", r);
-        v.put("g", g);
-        v.put("b", b);
-        db.insert("Genre", null, v);
+        db.execSQL("insert into Genre( view_order, name, r, g, b ) values( (select max( view_order ) + 1 from Genre), '" + name + "', " + r + ", " + g + ", " + b + " );");
         Log.d(C.Tag, "DBController::addGenre : name=" + name + " r=" + r + " g=" + g + " b=" + b);
-        // TODO: 2015/11/19 view_orderについての追加
     }
 
     public void deleteItem(int itemId) {
@@ -61,9 +58,15 @@ public class DBController {
     }
 
     public void deleteGenre(int genreId) {
+        Cursor c = db.query("Genre", new String[]{"view_order"}, "id = ?", new String[]{String.valueOf(genreId)}, null, null, null);
+        c.moveToFirst();
+        final int targetOrder = c.getInt(0);
+        c.close();
         db.delete("Items", "genre_id = ?", new String[]{String.valueOf(genreId)});
         db.delete("Genre", "id = ?", new String[]{String.valueOf(genreId)});
-        // TODO: 2015/11/19 view_orderについての追加
+        // TODO: 2015/11/19 unique制約でも更新順を考慮せず総デクリメントできる方法
+        db.execSQL("update Genre set view_order = view_order - 1 where view_order > " + targetOrder + ";");
+        Log.d(C.Tag, "DBController::deleteGenre : id=" + genreId);
     }
 
     public void updateItem(int itemId, int y, int m, int d, int genreId, String title, int amount) {
@@ -178,7 +181,9 @@ public class DBController {
     public int getGenreNum() {
         Cursor c = db.rawQuery("select count( * ) from Genre;", null);
         c.moveToFirst();
-        return c.getInt(0);
+        final int result = c.getInt(0);
+        c.close();
+        return result;
     }
 
     public void close() {

@@ -76,7 +76,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
                 db.execSQL("create table Genre( " +
                         "id integer primary key, " +
-                        "view_order integer unique not null, " +
+                        "view_order integer not null, " +
                         "name text not null, " +
                         "r integer not null, " +
                         "g integer not null, " +
@@ -110,7 +110,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                 db.execSQL("drop table Genre;");
                 db.execSQL("create table Genre( " +
                         "id integer primary key, " +
-                        "view_order integer unique not null, " +
+                        "view_order integer not null, " +
                         "name text not null, " +
                         "r integer not null, " +
                         "g integer not null, " +

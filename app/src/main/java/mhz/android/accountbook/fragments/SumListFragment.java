@@ -61,10 +61,14 @@ public class SumListFragment extends Fragment {
                         .setItems(list.toArray(new String[0]), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (which >= 1 && !isDeletable)
-                                    which++;
-                                if (which >= 2 && !canMoveAbove)
-                                    which++;
+                                switch (which) {
+                                    case 2:
+                                        if (!canMoveAbove)
+                                            which++;
+                                    case 1:
+                                        if (!isDeletable)
+                                            which++;
+                                }
 
 
                                 Intent intent;
@@ -89,6 +93,7 @@ public class SumListFragment extends Fragment {
                                                     }
                                                 })
                                                 .show();
+                                        break;
                                     case 2:
                                         DataController.sumList.moveGenreAbove(position);
                                         DataController.sumList.reloadList();
