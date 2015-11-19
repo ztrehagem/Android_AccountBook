@@ -37,12 +37,12 @@ public class DisplayMonth {
 
     public void moveToNext() {
         start.add(Calendar.MONTH, 1);
-        end.add(Calendar.MONTH, 1);
+        applyEnd();
     }
 
     public void moveToPrev() {
         start.add(Calendar.MONTH, -1);
-        end.add(Calendar.MONTH, -1);
+        applyEnd();
     }
 
     public Calendar getStart() {
@@ -68,8 +68,16 @@ public class DisplayMonth {
             start.add(Calendar.MONTH, -1);
         start.set(Calendar.DAY_OF_MONTH, startDay);
         end = Calendar.getInstance();
-        end.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), start.get(Calendar.DAY_OF_MONTH));
-        end.add(Calendar.DAY_OF_MONTH, -1);
-        end.add(Calendar.MONTH, 1);
+        applyEnd();
+    }
+
+    private void applyEnd() {
+        end.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), startDay);
+        if (startDay == 1) {
+            end.set(Calendar.DAY_OF_MONTH, start.getActualMaximum(Calendar.DAY_OF_MONTH));
+        } else {
+            end.add(Calendar.DAY_OF_MONTH, -1);
+            end.add(Calendar.MONTH, 1);
+        }
     }
 }
