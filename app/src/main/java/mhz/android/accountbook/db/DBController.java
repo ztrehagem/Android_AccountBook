@@ -126,18 +126,18 @@ public class DBController {
         if (c.moveToFirst()) {
             do {
                 list.add(new Item(
-                        c.getInt(c.getColumnIndex("id")),
-                        c.getInt(c.getColumnIndex("year")),
-                        c.getInt(c.getColumnIndex("month")),
-                        c.getInt(c.getColumnIndex("day")),
-                        c.getInt(c.getColumnIndex("genre_id")),
-                        c.getString(c.getColumnIndex("name")),
-                        c.getString(c.getColumnIndex("title")),
-                        c.getInt(c.getColumnIndex("amount")),
+                        c.getInt(0),
+                        c.getInt(1),
+                        c.getInt(2),
+                        c.getInt(3),
+                        c.getInt(4),
+                        c.getString(5),
+                        c.getString(6),
+                        c.getInt(7),
                         Color.rgb(
-                                c.getInt(c.getColumnIndex("r")),
-                                c.getInt(c.getColumnIndex("g")),
-                                c.getInt(c.getColumnIndex("b"))
+                                c.getInt(8),
+                                c.getInt(9),
+                                c.getInt(10)
                         )
                 ));
                 Log.d(C.Tag, "DBController::getItemsForListView : id=" + c.getInt(c.getColumnIndex("id")));
@@ -152,7 +152,7 @@ public class DBController {
     }
 
     public ArrayList<Genre> getAllGenre() {
-        Cursor c = db.query("Genre", null, null, null, null, null, "view_order asc");
+        Cursor c = db.rawQuery("select id, name, r, g, b from Genre order by view_order asc;", null);
 
         ArrayList<Genre> list = new ArrayList<>();
 
@@ -161,11 +161,11 @@ public class DBController {
         if (c.moveToFirst()) {
             do {
                 list.add(new Genre(
-                        c.getInt(c.getColumnIndex("id")),
-                        c.getString(c.getColumnIndex("name")),
-                        c.getInt(c.getColumnIndex("r")),
-                        c.getInt(c.getColumnIndex("g")),
-                        c.getInt(c.getColumnIndex("b"))
+                        c.getInt(0),
+                        c.getString(1),
+                        c.getInt(2),
+                        c.getInt(3),
+                        c.getInt(4)
                 ));
                 Log.d(C.Tag, "DBController::getAllGenre : id=" + c.getInt(c.getColumnIndex("id")));
             } while (c.moveToNext());

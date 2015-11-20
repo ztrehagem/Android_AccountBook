@@ -116,19 +116,19 @@ public class DBOpenHelper extends SQLiteOpenHelper {
                         "g integer not null, " +
                         "b integer not null " +
                         ");");
-                Cursor c = db.query("TMP_Genre", null, null, null, null, null, "id asc");
+                Cursor c = db.rawQuery("select id, name, r, g, b from Genre order by id asc", null);
                 if (c.moveToFirst()) {
                     db.execSQL("begin transaction;");
                     ContentValues v = new ContentValues();
                     int vo = 0;
                     do {
                         v.clear();
-                        v.put("id", c.getInt(c.getColumnIndex("id")));
+                        v.put("id", c.getInt(0));
                         v.put("view_order", vo++);
-                        v.put("name", c.getString(c.getColumnIndex("name")));
-                        v.put("r", c.getInt(c.getColumnIndex("r")));
-                        v.put("g", c.getInt(c.getColumnIndex("g")));
-                        v.put("b", c.getInt(c.getColumnIndex("b")));
+                        v.put("name", c.getString(1));
+                        v.put("r", c.getInt(2));
+                        v.put("g", c.getInt(3));
+                        v.put("b", c.getInt(4));
                         db.insert("Genre", null, v);
                     } while (c.moveToNext());
                     db.execSQL("commit;");
