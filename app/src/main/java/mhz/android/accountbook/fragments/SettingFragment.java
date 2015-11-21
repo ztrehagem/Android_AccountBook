@@ -52,6 +52,7 @@ public class SettingFragment extends Fragment {
                                     public void onClick(DialogInterface dialog, int which) {
                                         DataController.displayMonth.setStartDay((byte) numberPicker.getValue());
                                         DataController.itemList.reloadList();
+                                        DataController.sumList.reloadList();
                                         DataController.displayMonth.updateDisplayMonthText();
                                         Toast.makeText(SettingFragment.this.getContext(), R.string.resultMsg_change, Toast.LENGTH_SHORT).show();
                                     }
