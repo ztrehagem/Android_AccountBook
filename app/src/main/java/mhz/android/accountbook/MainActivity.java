@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         //-- initialize global data
         DataController.createInstance(getApplicationContext(), this);
-        DataController.itemList.reloadList();
-        DataController.sumList.reloadList();
 
         //-- view setting
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
