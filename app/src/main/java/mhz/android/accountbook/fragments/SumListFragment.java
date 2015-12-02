@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import mhz.android.accountbook.C;
 import mhz.android.accountbook.EditGenreActivity;
+import mhz.android.accountbook.EditItemActivity;
 import mhz.android.accountbook.R;
 import mhz.android.accountbook.data.DataController;
 
@@ -38,6 +39,7 @@ public class SumListFragment extends Fragment {
                 final int genreNum = DataController.db.getGenreNum();
                 ArrayList<String> list = new ArrayList<>();
 
+                list.add(getString(R.string.actionName_addItemWithGenre));
                 list.add(getString(R.string.activity_title_modifyGenre));
                 if (genreNum >= 2) {
                     _isDeletable = true;
@@ -62,10 +64,10 @@ public class SumListFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
-                                    case 2:
+                                    case 3:
                                         if (!canMoveAbove)
                                             which++;
-                                    case 1:
+                                    case 2:
                                         if (!isDeletable)
                                             which++;
                                 }
@@ -74,12 +76,18 @@ public class SumListFragment extends Fragment {
                                 Intent intent;
                                 switch (which) {
                                     case 0:
+                                        intent = new Intent(getContext(), EditItemActivity.class);
+                                        intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_AddItemWithGenre);
+                                        intent.putExtra(C.IntentExtraName_TargetItemPosition, position);
+                                        startActivity(intent);
+                                        break;
+                                    case 1:
                                         intent = new Intent(getContext(), EditGenreActivity.class);
                                         intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_ModifyGenre);
                                         intent.putExtra(C.IntentExtraName_TargetItemPosition, position);
                                         startActivity(intent);
                                         break;
-                                    case 1:
+                                    case 2:
                                         new AlertDialog.Builder(getContext())
                                                 .setMessage(R.string.dialogMsg_deleteGenre)
                                                 .setNegativeButton(R.string.actionName_cancel, null)
@@ -94,11 +102,11 @@ public class SumListFragment extends Fragment {
                                                 })
                                                 .show();
                                         break;
-                                    case 2:
+                                    case 3:
                                         DataController.sumList.moveGenreAbove(position);
                                         DataController.sumList.reloadList();
                                         break;
-                                    case 3:
+                                    case 4:
                                         DataController.sumList.moveGenreBelow(position);
                                         DataController.sumList.reloadList();
                                         break;

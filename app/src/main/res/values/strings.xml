@@ -7,7 +7,6 @@
 
     <string name="fragment_title_sumList">合計</string>
     <string name="fragment_title_itemList">一覧</string>
-    <string name="fragment_title_setting">設定</string>
 
     <string name="actionTitle_deleteGenre">分類の削除</string>
     <string name="actionTitle_changeStartDay">月開始日の変更</string>
@@ -36,6 +35,7 @@
     <string name="actionName_cancel">キャンセル</string>
     <string name="actionName_moveToAbove">上へ</string>
     <string name="actionName_moveToBelow">下へ</string>
+    <string name="actionName_addItemWithGenre">この分類で出費項目を追加</string>
 
     <string name="dialogMsg_deleteItem">この項目を削除しますか？</string>
     <string name="dialogMsg_deleteGenre">この分類を削除しますか？\n\n（この分類に登録されていた項目はすべて削除されます！）</string>

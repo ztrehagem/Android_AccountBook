@@ -57,6 +57,10 @@ public class EditItemActivity extends AppCompatActivity {
 
 
         switch (requestCode) {
+            case C.RequestCode_AddItemWithGenre:
+                spinner.setSelection(intent.getIntExtra(C.IntentExtraName_TargetItemPosition, 0));
+                // continue process to AddItem
+
             case C.RequestCode_AddItem:
                 setTitle(R.string.activity_title_addItem);
 

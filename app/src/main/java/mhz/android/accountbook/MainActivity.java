@@ -14,6 +14,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +24,6 @@ import java.util.Calendar;
 
 import mhz.android.accountbook.data.DataController;
 import mhz.android.accountbook.fragments.ItemListFragment;
-import mhz.android.accountbook.fragments.SettingFragment;
 import mhz.android.accountbook.fragments.SumListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] items = new String[]{getString(R.string.activity_title_addItem), getString(R.string.activity_title_addGenre)};
+                String[] items = new String[]{getString(R.string.activity_title_addItem), getString(R.string.activity_title_addGenre), getString(R.string.actionTitle_changeStartDay)};
                 new AlertDialog.Builder(MainActivity.this)
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override
@@ -67,6 +69,30 @@ public class MainActivity extends AppCompatActivity {
                                         intent = new Intent(MainActivity.this, EditGenreActivity.class);
                                         intent.putExtra(C.IntentExtraName_RequestCode, C.RequestCode_AddGenre);
                                         startActivity(intent);
+                                        break;
+                                    case 2:
+                                        ViewGroup v = new FrameLayout(MainActivity.this);
+                                        getLayoutInflater().inflate(R.layout.view_set_start_day, v);
+
+                                        final NumberPicker numberPicker = (NumberPicker) v.findViewById(R.id.numberPicker);
+                                        numberPicker.setMinValue(1);
+                                        numberPicker.setMaxValue(28);
+                                        numberPicker.setValue(DataController.displayMonth.getStartDay());
+                                        new AlertDialog.Builder(MainActivity.this)
+                                                .setTitle(R.string.actionTitle_changeStartDay)
+                                                .setView(v)
+                                                .setNegativeButton(R.string.actionName_cancel, null)
+                                                .setPositiveButton(R.string.actionName_decision, new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        DataController.displayMonth.setStartDay((byte) numberPicker.getValue());
+                                                        DataController.itemList.reloadList();
+                                                        DataController.sumList.reloadList();
+                                                        DataController.displayMonth.updateDisplayMonthText();
+                                                        Toast.makeText(MainActivity.this, R.string.resultMsg_change, Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .show();
                                         break;
                                 }
                             }
@@ -122,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
@@ -132,8 +158,6 @@ public class MainActivity extends AppCompatActivity {
                     return new SumListFragment();
                 case 1:
                     return new ItemListFragment();
-                case 2:
-                    return new SettingFragment();
             }
             return null;
         }
@@ -145,8 +169,6 @@ public class MainActivity extends AppCompatActivity {
                     return getString(R.string.fragment_title_sumList);
                 case 1:
                     return getString(R.string.fragment_title_itemList);
-                case 2:
-                    return getString(R.string.fragment_title_setting);
             }
             return null;
         }
