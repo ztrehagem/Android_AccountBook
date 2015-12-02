@@ -13,4 +13,5 @@ public class C {
     public static final int RequestCode_ModifyItem = 2;
     public static final int RequestCode_AddGenre = 3;
     public static final int RequestCode_ModifyGenre = 4;
+    public static final int RequestCode_AddItemWithGenre = 5;
 }
